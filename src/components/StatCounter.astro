@@ -1,0 +1,46 @@
+---
+export interface Props {
+  value: string; // e.g. "15+", "94%", "21d"
+  label: string;
+}
+const { value, label } = Astro.props;
+---
+<div class="stat">
+  <span class="num" data-counter data-target={value}>{value}</span>
+  <span class="label">{label}</span>
+</div>
+
+<script is:inline>
+  (function () {
+    const glyphs = '!@#$%&*+=<>?/\\|01ABCDEFGHJKLMNPQRSTUVWXYZ';
+    const seen = new WeakSet();
+
+    function animate(el) {
+      if (seen.has(el)) return;
+      seen.add(el);
+      const target = el.dataset.target || el.textContent;
+      const chars = target.split('');
+      const duration = 1200;
+      const start = performance.now();
+
+      function frame(now) {
+        const p = Math.min(1, (now - start) / duration);
+        const revealCount = Math.floor(p * chars.length);
+        el.textContent = chars
+          .map((c, i) => (i < revealCount ? c : glyphs[Math.floor(Math.random() * glyphs.length)]))
+          .join('');
+        if (p < 1) requestAnimationFrame(frame);
+        else el.textContent = target;
+      }
+      requestAnimationFrame(frame);
+    }
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) animate(e.target);
+      });
+    }, { threshold: 0.4 });
+
+    document.querySelectorAll('[data-counter]').forEach((el) => io.observe(el));
+  })();
+</script>

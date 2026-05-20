@@ -1,0 +1,157 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import InquiryForm from '../components/InquiryForm.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const promises = [
+  { icon: '🔒', t: 'Confidential by default', d: 'Your details never leave our vault without your written consent. We do not blast resumes to job boards.' },
+  { icon: '🎯', t: 'Curated, not blasted', d: 'We pitch you to 1–2 mandates that fit your trajectory. Never a mass submission. Never a numbers game.' },
+  { icon: '🧭', t: 'Career-first conversations', d: 'We ask where you want to be in 3 years before we mention compensation. Your career is not a transaction.' },
+];
+
+const mandates = [
+  { title: 'Principal AI Red Teamer', co: 'Pre-IPO FinTech', loc: 'Remote · US', comp: '$280k–$340k + equity', tag: 'Open' },
+  { title: 'Director of Cloud Detection', co: 'Series-C SaaS', loc: 'NYC · Hybrid', comp: '$260k base + bonus', tag: 'Open' },
+  { title: 'CISO (First Hire)', co: 'Series-B Health', loc: 'Remote · US', comp: '$300k + meaningful equity', tag: 'Open' },
+];
+
+const journey = [
+  { n: '01', t: 'You submit', d: 'Drop your resume or LinkedIn through our encrypted intake. Five minutes, no account required.' },
+  { n: '02', t: 'We listen', d: 'A 30-minute discovery call. We learn your trajectory, comp expectations, dealbreakers, and dream team profile.' },
+  { n: '03', t: 'We curate', d: "When a mandate fits, we'll pitch you with full context — company, comp, team, why we think it's right. You decide if we proceed." },
+  { n: '04', t: 'We advocate', d: "Through interviews and offer negotiations, we're in your corner. Not the company's. Our reputation is built on your career outcomes." },
+];
+---
+<BaseLayout
+  title="For Candidates — Confidential Cyber & AI Security Recruiting"
+  description="Confidential introductions to elite Cyber and AI Security mandates. Fortium Group represents practitioners — not the company. Curated, never blasted."
+  path="/candidates"
+>
+  <!-- §1 HERO -->
+  <section class="hero" style="min-height:auto; padding-top:6rem; padding-bottom:4rem">
+    <div class="particle-field" aria-hidden="true"></div>
+    <div class="container hero-inner">
+      <p class="eyebrow" data-reveal>For candidates</p>
+      <h1 data-reveal data-delay="1">
+        Your next role should <span class="accent">find you.</span>
+      </h1>
+      <p class="hero-sub" data-reveal data-delay="2">
+        Confidential introductions to Cyber & AI Security mandates that match your trajectory — not your job title. Built for practitioners who are not on the open market.
+      </p>
+      <div class="hero-cta" data-reveal data-delay="3">
+        <a class="btn btn-primary" href="#submit">Submit confidentially <span class="btn-arrow">→</span></a>
+        <a class="btn btn-ghost" href="#mandates">Browse open mandates ↓</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- §2 PROMISE -->
+  <section>
+    <div class="container">
+      <p class="eyebrow" data-reveal>Our promise</p>
+      <h2 data-reveal data-delay="1">Three things you can count on.</h2>
+      <div class="grid grid-3" style="margin-top:2.5rem">
+        {promises.map((p, i) => (
+          <article class="card" data-reveal data-delay={(i % 3) + 1}>
+            <span style="font-size:1.5rem">{p.icon}</span>
+            <h3 style="margin-top:0.75rem">{p.t}</h3>
+            <p>{p.d}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- §3 CURRENT MANDATES -->
+  <section id="mandates">
+    <div class="container">
+      <p class="eyebrow" data-reveal>Currently open</p>
+      <h2 data-reveal data-delay="1">Anonymized active mandates.</h2>
+      <p class="lead" data-reveal data-delay="2" style="max-width:60ch">
+        Snapshots of roles we're filling right now. Company identities revealed under NDA after our first conversation.
+      </p>
+      <div class="grid grid-3" style="margin-top:2rem">
+        {mandates.map((m, i) => (
+          <article class="card" data-reveal data-delay={(i % 3) + 1}>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem">
+              <span class="text-mono text-accent" style="font-size:0.75rem; letter-spacing:0.15em">{m.tag.toUpperCase()}</span>
+              <span class="pill"><span class="dot"></span>Active</span>
+            </div>
+            <h3 style="margin:0 0 0.5rem">{m.title}</h3>
+            <p class="muted text-mono" style="font-size:0.85rem; margin-bottom:0.5rem">{m.co} · {m.loc}</p>
+            <p style="margin:0"><strong class="text-accent">{m.comp}</strong></p>
+          </article>
+        ))}
+      </div>
+      <p class="muted text-mono" style="font-size:0.8rem; margin-top:1.5rem; text-align:center">
+        Mandates above are illustrative placeholders. Replace with real anonymized mandates pre-launch.
+      </p>
+    </div>
+  </section>
+
+  <!-- §4 SUBMIT FORM (terminal-feel) -->
+  <section id="submit">
+    <div class="container">
+      <div class="split">
+        <div data-reveal>
+          <p class="eyebrow">Encrypted intake</p>
+          <h2>Submit your profile.</h2>
+          <p class="lead">
+            Five fields. Five minutes. No account required. We'll read it personally.
+          </p>
+          <ul style="list-style:none; padding:0; margin-top:1.5rem">
+            <li class="text-mono" style="font-size:0.9rem; margin-bottom:0.5rem">
+              <span style="color:var(--accent-2)">▸</span> Confidential by default
+            </li>
+            <li class="text-mono" style="font-size:0.9rem; margin-bottom:0.5rem">
+              <span style="color:var(--accent-2)">▸</span> Never shared without written consent
+            </li>
+            <li class="text-mono" style="font-size:0.9rem">
+              <span style="color:var(--accent-2)">▸</span> First reply within 1 business day
+            </li>
+          </ul>
+        </div>
+        <div class="card" data-reveal data-delay="1" style="border:1px solid var(--accent);">
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:1rem; padding-bottom:0.75rem; border-bottom:1px solid var(--border)">
+            <span style="width:8px; height:8px; border-radius:999px; background:var(--accent-2); box-shadow:0 0 8px var(--accent-2)"></span>
+            <span class="text-mono" style="font-size:0.75rem; letter-spacing:0.15em; color:var(--text-muted)">READY · AES-256 OVER TLS</span>
+          </div>
+          <InquiryForm audience="candidate" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- §5 WHAT HAPPENS NEXT -->
+  <section>
+    <div class="container">
+      <p class="eyebrow" data-reveal>What happens next</p>
+      <h2 data-reveal data-delay="1">From submission to offer letter.</h2>
+      <div class="timeline" style="margin-top:2.5rem">
+        {journey.map((j, i) => (
+          <div class="timeline-step" data-reveal data-delay={(i % 4) + 1}>
+            <span class="step-num text-mono">STEP {j.n}</span>
+            <h4>{j.t}</h4>
+            <p>{j.d}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- §6 CTA -->
+  <section>
+    <div class="container" style="text-align:center">
+      <div data-reveal>
+        <h2>None of the current mandates match?</h2>
+        <p class="lead" style="max-width:55ch; margin-inline:auto">
+          Tell us what does. New mandates open monthly — being on our radar means you hear about them first.
+        </p>
+        <div class="hero-cta" style="justify-content:center; margin-top:1.5rem">
+          <a class="btn btn-primary" href="#submit">Get on our radar <span class="btn-arrow">→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

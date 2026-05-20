@@ -1,0 +1,190 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroOrb from '../components/HeroOrb.astro';
+import InquiryForm from '../components/InquiryForm.astro';
+import StatCounter from '../components/StatCounter.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Fortium Group',
+  url: 'https://punitdhub.github.io/business-portfolio/',
+  logo: 'https://punitdhub.github.io/business-portfolio/favicon.svg',
+  description:
+    'Direct-hire recruiting agency specializing in Cyber Security and AI Security talent placement. Founded by industry veterans with 15+ years of domain experience.',
+  founder: { '@type': 'Person', name: 'Punit Dwivedi' },
+  knowsAbout: [
+    'Cyber Security recruiting',
+    'AI Security recruiting',
+    'CISO placement',
+    'LLM security engineering',
+    'Zero Trust architecture',
+    'Cloud detection engineering',
+    'AppSec engineering',
+  ],
+  sameAs: ['https://www.linkedin.com/company/fortium-group/'],
+};
+
+const bento = [
+  { wide: true, title: '15+ Years In The Trenches', body: 'Built by practitioners who shipped SOCs, ran red teams, and architected Zero Trust — not generalist recruiters.', icon: '◆' },
+  { wide: false, title: 'Expert-Validated Talent', body: 'Every shortlist is screened by an active CISO or principal security engineer before it touches your inbox.', icon: '✓' },
+  { wide: false, title: 'Tactical Speed', body: 'First qualified slate in 7 days. Average time-to-offer: 21 days.', icon: '⚡' },
+  { wide: true, title: 'Built For Modern Threats', body: 'We recruit for LLM Security Engineers, AI Red Teamers, Cloud Detection Engineers, AppSec Architects, and Zero Trust leads.', icon: '⚙' },
+  { wide: false, title: 'Direct-Hire, Not Drip-Feed', body: 'Permanent placement only. We commit to fit, not headcount throughput.', icon: '⌬' },
+];
+
+const roles = [
+  'CISO', 'VP of Security', 'Security Architect', 'Detection & Response Lead',
+  'AppSec Engineer', 'Cloud Security Engineer', 'IAM Architect', 'GRC Director',
+  'Penetration Tester', 'Threat Intel Analyst', 'LLM Security Engineer', 'AI Red Teamer',
+  'ML Threat Researcher', 'AI Governance Lead', 'Adversarial ML Engineer', 'Model Supply-Chain Security',
+];
+
+const process = [
+  { n: '01', t: 'Intake calibration', d: 'We sit with your hiring manager to map technical depth, leadership signal, and team culture before sourcing.' },
+  { n: '02', t: 'Practitioner sourcing', d: 'Our network of active security operators surfaces candidates invisible to generalist recruiters.' },
+  { n: '03', t: 'Expert technical screen', d: 'Active CISOs and principal engineers validate skills against the actual threat surface you operate in.' },
+  { n: '04', t: 'Shortlist delivered', d: '3–5 Most Placeable Candidates land in your inbox, typically within 7 business days.' },
+];
+---
+<BaseLayout
+  title="Fortium Group — Cyber & AI Security Recruiting"
+  description="Direct-hire recruiting agency for Cyber Security and AI Security talent. Founded by industry veterans with 15+ years of domain experience. Gems, not just resumes."
+  path="/"
+  jsonLd={jsonLd}
+>
+  <!-- §1 HERO -->
+  <section class="hero">
+    <div class="particle-field" aria-hidden="true"></div>
+    <HeroOrb />
+    <div class="container hero-inner">
+      <p class="eyebrow" data-reveal>Cyber & AI Security Recruiting</p>
+      <h1 data-reveal data-delay="1">
+        Securing Your Infrastructure Begins With <span class="accent">Securing Your Talent.</span>
+      </h1>
+      <p class="hero-sub" data-reveal data-delay="2">
+        Fortium Group delivers deeply vetted Cyber & AI Security leaders — placed faster, validated by practitioners, ready on day one. <span class="text-mono text-accent">Gems, not just resumes.</span>
+      </p>
+      <div class="hero-cta" data-reveal data-delay="3">
+        <a class="btn btn-primary" href={`${base}/contact`}>
+          Secure Your Next Hire <span class="btn-arrow">→</span>
+        </a>
+        <a class="btn btn-ghost" href="#bento">Browse Our Capabilities</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- §2 LOGO RAIL -->
+  <section class="section-tight">
+    <div class="container">
+      <p class="eyebrow" data-reveal style="justify-content:center; display:flex">Trusted by security teams at</p>
+      <div class="logo-rail" data-reveal data-delay="1" aria-label="Placeholder client roster">
+        <span class="client">CLIENT.01</span>
+        <span class="client">CLIENT.02</span>
+        <span class="client">CLIENT.03</span>
+        <span class="client">CLIENT.04</span>
+        <span class="client">CLIENT.05</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- §3 USP BENTO -->
+  <section id="bento">
+    <div class="container">
+      <p class="eyebrow" data-reveal>Why Fortium</p>
+      <h2 data-reveal data-delay="1">A vetting protocol built by security people, for security people.</h2>
+      <div class="bento" style="margin-top:2.5rem">
+        {bento.map((t, i) => (
+          <article class={`card ${t.wide ? 'tile-wide' : 'tile-square'}`} data-reveal data-delay={(i % 4) + 1}>
+            <span class="text-mono text-accent" style="font-size:1.4rem">{t.icon}</span>
+            <h3 style="margin-top:0.75rem">{t.title}</h3>
+            <p>{t.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- §4 ANSWER BLOCK (AEO) -->
+  <section class="section-tight">
+    <div class="container">
+      <div class="answer-block" data-reveal>
+        <h2>What Is A "Most Placeable Candidate"?</h2>
+        <p>
+          A <strong>Most Placeable Candidate (MPC)</strong> is a pre-vetted Cyber Security or AI Security professional whose technical depth, leadership signal, compensation expectations, and cultural fit have been independently validated by an active industry practitioner. Fortium Group's MPC framework reduces hiring-manager interview load by an average of 60% and produces offer-to-acceptance rates above 90%.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- §5 ROLES WE PLACE -->
+  <section id="roles">
+    <div class="container">
+      <p class="eyebrow" data-reveal>Practice Areas</p>
+      <h2 data-reveal data-delay="1">Roles We Place</h2>
+      <p class="lead" data-reveal data-delay="2" style="max-width:60ch">
+        From first-CISO mandates at Series-B startups to AI Red Team builds at Fortune 500 enterprises — Fortium covers the full Cyber and AI Security stack.
+      </p>
+      <div class="pill-cloud" style="margin-top:2rem" data-reveal data-delay="3">
+        {roles.map((r) => (
+          <span class="pill"><span class="dot"></span>{r}</span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- §6 PROCESS TIMELINE -->
+  <section>
+    <div class="container">
+      <p class="eyebrow" data-reveal>The Vetting Protocol</p>
+      <h2 data-reveal data-delay="1">From brief to shortlist in 7 days.</h2>
+      <div class="timeline" style="margin-top:2.5rem">
+        {process.map((p, i) => (
+          <div class="timeline-step" data-reveal data-delay={(i % 4) + 1}>
+            <span class="step-num text-mono">STEP {p.n}</span>
+            <h4>{p.t}</h4>
+            <p>{p.d}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- §7 STAT BAND -->
+  <section class="section-tight">
+    <div class="container">
+      <div class="stat-band" data-reveal>
+        <StatCounter value="15+" label="Years domain experience" />
+        <StatCounter value="1200+" label="Vetting network practitioners" />
+        <StatCounter value="21d" label="Average time to offer" />
+        <StatCounter value="94%" label="Offer acceptance rate" />
+      </div>
+      <p class="muted text-mono" style="font-size:0.75rem; margin-top:0.75rem; text-align:center">
+        Network size & rate metrics are anonymized aggregates; replace with audited figures pre-launch.
+      </p>
+    </div>
+  </section>
+
+  <!-- §8 FINAL CTA -->
+  <section>
+    <div class="container">
+      <div class="split">
+        <div data-reveal>
+          <p class="eyebrow">Start the conversation</p>
+          <h2>Tell us who you need. We'll bring the gem.</h2>
+          <p class="lead">
+            Brief us on the role, the team, and the urgency. You'll have a qualified shortlist faster than your next sprint review.
+          </p>
+          <p class="muted text-mono" style="font-size:0.85rem">
+            — Punit Dwivedi, <span class="text-accent">Founder</span>
+          </p>
+        </div>
+        <div class="card" data-reveal data-delay="1">
+          <InquiryForm audience="client" compact />
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
