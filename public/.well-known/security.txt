@@ -5,8 +5,8 @@ Contact: mailto:security@fortiumgroup.com
 Contact: https://www.linkedin.com/company/fortium-group/
 Expires: 2027-01-01T00:00:00.000Z
 Preferred-Languages: en
-Canonical: https://www.fortiumgroup.co/.well-known/security.txt
-Policy: https://www.fortiumgroup.co/
+Canonical: https://punitdhub.github.io/business-portfolio/.well-known/security.txt
+Policy: https://punitdhub.github.io/business-portfolio/
 
 # If you discover a vulnerability in any Fortium-operated property, please
 # report it to the contact above. We respond within 48 hours.
