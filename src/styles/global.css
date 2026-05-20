@@ -1237,11 +1237,16 @@ section {
 }
 .shell-collapse summary::-webkit-details-marker { display: none; }
 .shell-collapse summary::after {
-  content: '⌃';
-  color: var(--accent);
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-right: 1.5px solid var(--accent);
+  border-bottom: 1.5px solid var(--accent);
+  transform: rotate(45deg) translate(-2px, -2px);
   transition: transform var(--t-med) var(--ease);
+  flex-shrink: 0;
 }
-.shell-collapse[open] summary::after { transform: rotate(180deg); }
+.shell-collapse[open] summary::after { transform: rotate(-135deg) translate(-2px, -2px); }
 .shell-collapse summary:hover { color: var(--text); }
 .shell-collapse .shell-inner { padding: 0 1.25rem 1.25rem; }
 
@@ -1376,16 +1381,26 @@ section {
   .bento .tile-wide, .bento .tile-square { grid-column: span 2; }
 }
 .bento .panel h3 { margin: 0.5rem 0 0.6rem; }
-.bento .panel .icon {
-  font-family: var(--font-mono);
-  font-size: 1.85rem;
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  display: inline-block;
-  margin-bottom: 0.1rem;
+
+/* Bento-style icon badge — gradient-bordered, currentColor stroke */
+.bento-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--r-md);
+  background:
+    linear-gradient(var(--surface-2), var(--surface-2)) padding-box,
+    var(--gradient-primary) border-box;
+  border: 1px solid transparent;
+  color: var(--accent);
+  margin-bottom: 0.85rem;
+  box-shadow: var(--inset-hi), 0 4px 14px -8px rgba(var(--accent-rgb), 0.5);
 }
+.bento-icon .icon { color: inherit; }
+.bento-tile { display: flex; flex-direction: column; }
+.bento-tile h3 { margin-top: 0; }
 
 /* ---------------------------------------------------------------
    NETWORK GRAPH (signature element)
@@ -1423,6 +1438,79 @@ section {
 }
 
 /* ---------------------------------------------------------------
+   TICKED LIST — refined check-mark bullet for promise lines
+   --------------------------------------------------------------- */
+.ticked-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.65rem;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  color: var(--text);
+}
+.ticked-list li {
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  gap: 0.7rem;
+  align-items: start;
+  line-height: 1.5;
+}
+.ticked-list li::before {
+  content: '';
+  display: block;
+  width: 14px;
+  height: 8px;
+  margin-top: 0.45em;
+  border-left: 1.6px solid var(--accent-2);
+  border-bottom: 1.6px solid var(--accent-2);
+  transform: rotate(-45deg);
+  border-radius: 1px;
+}
+
+/* Inline note — a single pulsing dot at the start of a line */
+.note-dot {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+.note-dot::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: var(--r-pill);
+  background: var(--accent-2);
+  box-shadow: 0 0 8px var(--accent-2);
+  flex-shrink: 0;
+  animation: dot-pulse 2.6s infinite;
+}
+
+/* Form status bar — small "secure connection" indicator above a form */
+.form-status-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--border);
+}
+.form-status-dot {
+  width: 8px; height: 8px;
+  border-radius: var(--r-pill);
+  background: var(--accent-2);
+  box-shadow: 0 0 8px var(--accent-2);
+  animation: dot-pulse 2s infinite;
+  flex-shrink: 0;
+}
+.form-status-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+/* ---------------------------------------------------------------
    UTILITIES
    --------------------------------------------------------------- */
 .divider {
@@ -1443,6 +1531,16 @@ section {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+/* Small caption text — disclosures, footnotes, source attributions */
+.caption {
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+  color: var(--text-dim);
+  line-height: 1.5;
+  max-width: 60ch;
+  margin-inline: auto;
 }
 
 .sr-only, .visually-hidden {

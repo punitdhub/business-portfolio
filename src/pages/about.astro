@@ -5,6 +5,7 @@ import ScheduleButton from '../components/ScheduleButton.astro';
 import GlitchText from '../components/GlitchText.astro';
 import DecryptText from '../components/DecryptText.astro';
 import { stats } from '../data/stats';
+import { site } from '../config';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -103,7 +104,7 @@ const principles = [
           <p>
             Punit founded Fortium Group after 15+ years inside the Cyber Security industry. He has watched the AI Security discipline emerge from research papers into board-level risk, and built Fortium to be the recruiting partner that speaks both languages fluently.
           </p>
-          <p class="text-mono" style="font-size:0.85rem"><a href="#">LinkedIn →</a> <span class="dim">// placeholder</span></p>
+          <p class="text-mono" style="font-size:0.85rem"><a href={site.linkedin} rel="noopener" target="_blank">LinkedIn &rarr;</a></p>
         </div>
       </article>
     </div>

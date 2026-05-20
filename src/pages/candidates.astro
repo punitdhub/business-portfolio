@@ -4,14 +4,15 @@ import InquiryForm from '../components/InquiryForm.astro';
 import GlitchText from '../components/GlitchText.astro';
 import DecryptText from '../components/DecryptText.astro';
 import StatusBadge from '../components/StatusBadge.astro';
+import Icon from '../components/Icon.astro';
 import { mandates } from '../data/mandates';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const promises = [
-  { icon: '◉', t: 'Confidential by default', d: 'Your details never leave our vault without your written consent. We do not blast resumes to job boards.' },
-  { icon: '◎', t: 'Curated, not blasted', d: 'We pitch you to 1–2 mandates that fit your trajectory. Never a mass submission. Never a numbers game.' },
-  { icon: '◈', t: 'Career-first conversations', d: 'We ask where you want to be in 3 years before we mention compensation. Your career is not a transaction.' },
+  { icon: 'lock' as const,    t: 'Confidential by default',  d: 'Your details never leave our vault without your written consent. We do not blast resumes to job boards.' },
+  { icon: 'gem' as const,     t: 'Curated, not blasted',     d: 'We pitch you to 1–2 mandates that fit your trajectory. Never a mass submission. Never a numbers game.' },
+  { icon: 'compass' as const, t: 'Career-first conversations', d: 'We ask where you want to be in 3 years before we mention compensation. Your career is not a transaction.' },
 ];
 
 const journey = [
@@ -53,9 +54,9 @@ const sevTone: Record<string, 'green' | 'amber' | 'accent'> = { OPEN: 'green', I
       <h2 data-reveal data-delay="1"><DecryptText as="span" text="Three things you can count on." /></h2>
       <div class="grid grid-3" style="margin-top:2.5rem">
         {promises.map((p, i) => (
-          <article class="panel" data-reveal data-delay={(i % 3) + 1}>
-            <span class="text-accent" style="font-size:1.5rem">{p.icon}</span>
-            <h3 style="margin-top:0.75rem">{p.t}</h3>
+          <article class="panel bento-tile" data-reveal data-delay={(i % 3) + 1}>
+            <span class="bento-icon"><Icon name={p.icon} size={26} strokeWidth={1.5} /></span>
+            <h3>{p.t}</h3>
             <p>{p.d}</p>
           </article>
         ))}
@@ -84,8 +85,8 @@ const sevTone: Record<string, 'green' | 'amber' | 'accent'> = { OPEN: 'green', I
           </article>
         ))}
       </div>
-      <p class="dim text-mono" style="font-size:0.7rem; margin-top:1.5rem; text-align:center; letter-spacing:0.15em">
-        // MANDATES ABOVE ARE ILLUSTRATIVE PLACEHOLDERS · EDIT src/data/mandates.ts
+      <p class="dim text-mono caption" style="margin-top:1.5rem; text-align:center">
+        Mandates are anonymized. Full company details disclosed under NDA after first conversation.
       </p>
     </div>
   </section>
@@ -99,16 +100,16 @@ const sevTone: Record<string, 'green' | 'amber' | 'accent'> = { OPEN: 'green', I
           <p class="lead">
             Five fields. Five minutes. No account required. We'll read it personally.
           </p>
-          <ul style="list-style:none; padding:0; margin-top:1.5rem">
-            <li class="text-mono" style="font-size:0.88rem; margin-bottom:0.5rem"><span style="color:var(--accent-2)">▸</span> Confidential by default</li>
-            <li class="text-mono" style="font-size:0.88rem; margin-bottom:0.5rem"><span style="color:var(--accent-2)">▸</span> Never shared without written consent</li>
-            <li class="text-mono" style="font-size:0.88rem"><span style="color:var(--accent-2)">▸</span> First reply within 1 business day</li>
+          <ul class="ticked-list" style="margin-top:1.5rem">
+            <li>Confidential by default</li>
+            <li>Never shared without written consent</li>
+            <li>First reply within 1 business day</li>
           </ul>
         </div>
         <div class="panel panel-accent" data-reveal data-delay="1">
-          <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:1rem; padding-bottom:0.75rem; border-bottom:1px solid var(--border)">
-            <span style="width:8px; height:8px; border-radius:999px; background:var(--accent-2); box-shadow:0 0 8px var(--accent-2); animation: dot-pulse 2s infinite"></span>
-            <span class="text-mono" style="font-size:0.72rem; letter-spacing:0.18em; color:var(--text-muted)">READY · TLS 1.3 IN TRANSIT</span>
+          <div class="form-status-bar">
+            <span class="form-status-dot" aria-hidden="true"></span>
+            <span class="text-mono form-status-label">READY · TLS 1.3 IN TRANSIT</span>
           </div>
           <InquiryForm audience="candidate" />
         </div>
