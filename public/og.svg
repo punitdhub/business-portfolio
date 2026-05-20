@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#07090F"/>
+      <stop offset="100%" stop-color="#11172A"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#00E5FF"/>
+      <stop offset="100%" stop-color="#00FF85"/>
+    </linearGradient>
+    <pattern id="grid" x="0" y="0" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M 48 0 L 0 0 0 48" fill="none" stroke="#00E5FF" stroke-opacity="0.08" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <!-- Shield + gem -->
+  <g transform="translate(900 315)">
+    <path d="M0 -160 L130 -100 V40 C130 130 70 200 0 230 C-70 200 -130 130 -130 40 V-100 Z"
+          fill="none" stroke="url(#accent)" stroke-width="3" stroke-linejoin="round" opacity="0.9"/>
+    <g>
+      <path d="M0 -80 L60 0 L0 110 L-60 0 Z" fill="url(#accent)" opacity="0.95"/>
+      <path d="M0 -80 L60 0 L-60 0 Z" fill="#00E5FF" opacity="0.45"/>
+    </g>
+  </g>
+  <!-- Tag -->
+  <text x="80" y="120" font-family="JetBrains Mono, monospace" font-size="20" fill="#00E5FF" letter-spacing="6">
+    [ FORTIUM GROUP · MISSION CONTROL ]
+  </text>
+  <!-- Headline -->
+  <text x="80" y="280" font-family="Chakra Petch, sans-serif" font-size="72" font-weight="700" fill="#E8EDF7">
+    Cyber &amp; AI Security
+  </text>
+  <text x="80" y="365" font-family="Chakra Petch, sans-serif" font-size="72" font-weight="700" fill="url(#accent)">
+    Recruiting — vetted by experts.
+  </text>
+  <!-- Subline -->
+  <text x="80" y="445" font-family="Sora, sans-serif" font-size="26" fill="#8893AB">
+    Direct-hire. 5-stage vetting. 7-day shortlists.
+  </text>
+  <text x="80" y="485" font-family="Sora, sans-serif" font-size="26" fill="#8893AB">
+    Founded by 15+ year industry veterans. Gems, not just resumes.
+  </text>
+  <!-- Foot -->
+  <text x="80" y="560" font-family="JetBrains Mono, monospace" font-size="18" fill="#5B6580" letter-spacing="4">
+    PUNITDHUB.GITHUB.IO/BUSINESS-PORTFOLIO
+  </text>
+</svg>

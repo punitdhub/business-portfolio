@@ -1,0 +1,13 @@
+/* TEAM */
+Founder: Punit Dwivedi
+Site: https://www.linkedin.com/company/fortium-group/
+Location: Worldwide (Remote-first)
+
+/* THANKS */
+Practitioner network · 1,200+ active security operators
+
+/* SITE */
+Last update: 2026
+Standards: HTML5, CSS3, ES2022
+Components: Astro, vanilla JS
+Software: Built with Astro

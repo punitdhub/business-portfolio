@@ -1,0 +1,46 @@
+---
+/**
+ * EasterEgg — Konami code unlocks "rootkit" theme.
+ * Pure UX delight, on-brand for a cyber audience.
+ */
+---
+<script is:inline>
+  (function () {
+    const seq = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+    let i = 0;
+
+    function announce() {
+      const banner = document.createElement('div');
+      banner.style.cssText = `
+        position: fixed; inset: 0 0 auto 0; padding: 0.6rem 1rem;
+        background: var(--bg-deep); color: var(--accent);
+        font-family: var(--font-mono); font-size: 0.85rem;
+        text-align: center; letter-spacing: 0.15em; z-index: 100;
+        border-bottom: 1px solid var(--accent);
+        box-shadow: 0 0 24px rgba(var(--accent-rgb), 0.5);
+      `;
+      banner.textContent = '[root@fortium] ROOTKIT MODE ENGAGED · press ESC to exit';
+      document.body.appendChild(banner);
+      setTimeout(() => banner.remove(), 4500);
+    }
+
+    document.addEventListener('keydown', (e) => {
+      const k = e.key;
+      const expected = seq[i];
+      if (k === expected || (expected.length === 1 && k.toLowerCase() === expected)) {
+        i++;
+        if (i === seq.length) {
+          i = 0;
+          document.documentElement.dataset.theme = 'rootkit';
+          announce();
+        }
+      } else {
+        i = 0;
+      }
+      if (k === 'Escape' && document.documentElement.dataset.theme === 'rootkit') {
+        const stored = localStorage.getItem('fortium-theme') || 'dark';
+        document.documentElement.dataset.theme = stored;
+      }
+    });
+  })();
+</script>

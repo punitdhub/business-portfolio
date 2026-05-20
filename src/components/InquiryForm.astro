@@ -1,15 +1,15 @@
 ---
-// Static form, Formspree-ready.
-// Replace FORMSPREE_ID with a real ID from formspree.io to enable email delivery.
+import { forms } from '../config';
+
 export interface Props {
   audience?: 'client' | 'candidate' | 'general';
   compact?: boolean;
 }
 const { audience = 'general', compact = false } = Astro.props;
-const FORMSPREE_ID = 'PLACEHOLDER_FORMSPREE_ID';
-const action = `https://formspree.io/f/${FORMSPREE_ID}`;
+const isDemo = forms.provider === 'demo' || forms.id === 'PLACEHOLDER_FORMSPREE_ID';
+const action = `https://formspree.io/f/${forms.id}`;
 ---
-<form class="form" action={action} method="POST" data-inquiry-form>
+<form class="form" action={isDemo ? '#' : action} method="POST" data-inquiry-form data-demo={isDemo ? 'true' : 'false'}>
   <input type="hidden" name="_subject" value={`New Fortium inquiry — ${audience}`} />
   <input type="hidden" name="audience" value={audience} />
   <div class="honeypot" aria-hidden="true">
@@ -18,24 +18,24 @@ const action = `https://formspree.io/f/${FORMSPREE_ID}`;
 
   <div class="form-row">
     <div>
-      <label for="if-name">Name</label>
-      <input id="if-name" name="name" type="text" required autocomplete="name" />
+      <label for={`if-name-${audience}`}>Name</label>
+      <input id={`if-name-${audience}`} name="name" type="text" required autocomplete="name" />
     </div>
     <div>
-      <label for="if-email">Work email</label>
-      <input id="if-email" name="email" type="email" required autocomplete="email" />
+      <label for={`if-email-${audience}`}>Work email</label>
+      <input id={`if-email-${audience}`} name="email" type="email" required autocomplete="email" />
     </div>
   </div>
 
   {audience === 'client' && (
     <div class="form-row">
       <div>
-        <label for="if-role">Role to fill</label>
-        <input id="if-role" name="role" type="text" placeholder="e.g. Principal AI Red Teamer" />
+        <label for={`if-role-${audience}`}>Role to fill</label>
+        <input id={`if-role-${audience}`} name="role" type="text" placeholder="e.g. Principal AI Red Teamer" />
       </div>
       <div>
-        <label for="if-urgency">Urgency</label>
-        <select id="if-urgency" name="urgency">
+        <label for={`if-urgency-${audience}`}>Urgency</label>
+        <select id={`if-urgency-${audience}`} name="urgency">
           <option>Immediate (within 30 days)</option>
           <option>Soon (1–2 quarters)</option>
           <option>Strategic (exploring)</option>
@@ -47,20 +47,20 @@ const action = `https://formspree.io/f/${FORMSPREE_ID}`;
   {audience === 'candidate' && (
     <div class="form-row">
       <div>
-        <label for="if-current">Current title</label>
-        <input id="if-current" name="current_title" type="text" placeholder="e.g. Senior Detection Engineer" />
+        <label for={`if-current-${audience}`}>Current title</label>
+        <input id={`if-current-${audience}`} name="current_title" type="text" placeholder="e.g. Senior Detection Engineer" />
       </div>
       <div>
-        <label for="if-link">LinkedIn / portfolio</label>
-        <input id="if-link" name="link" type="url" placeholder="https://" />
+        <label for={`if-link-${audience}`}>LinkedIn / portfolio</label>
+        <input id={`if-link-${audience}`} name="link" type="url" placeholder="https://" />
       </div>
     </div>
   )}
 
   {audience === 'general' && (
     <div>
-      <label for="if-who">I am a</label>
-      <select id="if-who" name="who">
+      <label for={`if-who-${audience}`}>I am a</label>
+      <select id={`if-who-${audience}`} name="who">
         <option>Hiring manager / employer</option>
         <option>Security candidate</option>
         <option>Partner / vendor</option>
@@ -71,8 +71,8 @@ const action = `https://formspree.io/f/${FORMSPREE_ID}`;
 
   {!compact && (
     <div>
-      <label for="if-msg">Message</label>
-      <textarea id="if-msg" name="message" placeholder="Tell us about the role, the team, or your situation." required></textarea>
+      <label for={`if-msg-${audience}`}>Message</label>
+      <textarea id={`if-msg-${audience}`} name="message" placeholder="Tell us about the role, the team, or your situation." required></textarea>
     </div>
   )}
 
@@ -81,23 +81,25 @@ const action = `https://formspree.io/f/${FORMSPREE_ID}`;
     <span class="btn-arrow">→</span>
   </button>
 
-  <p class="muted text-mono" style="font-size:0.75rem; margin:0;">
-    <span style="color: var(--accent-2)">●</span> Encrypted in transit · Initial reply within 1 business day
+  <p class="dim text-mono" style="font-size:0.7rem; margin:0; letter-spacing:0.1em">
+    <span style="color: var(--accent-2)">●</span> ENCRYPTED IN TRANSIT · INITIAL REPLY WITHIN 1 BUSINESS DAY
   </p>
 </form>
 
 <script is:inline>
-  // Graceful fallback: if Formspree ID is still the placeholder, intercept submit
-  // and show a friendly "demo" message instead of posting.
+  // Demo-mode interception: when no Formspree ID is configured, render a friendly
+  // capture panel instead of POSTing to a placeholder URL.
   document.addEventListener('submit', (e) => {
     const form = e.target.closest && e.target.closest('[data-inquiry-form]');
     if (!form) return;
-    if (form.action.includes('PLACEHOLDER_FORMSPREE_ID')) {
+    if (form.dataset.demo === 'true') {
       e.preventDefault();
       const panel = document.createElement('div');
-      panel.className = 'card';
+      panel.className = 'panel';
       panel.style.borderColor = 'var(--accent-2)';
-      panel.innerHTML = '<h3 style="margin-top:0">✓ Captured locally</h3><p>This form is in demo mode. Connect a Formspree ID in <code>InquiryForm.astro</code> to deliver submissions to your inbox.</p>';
+      panel.innerHTML =
+        '<h3 style="margin-top:0; color:var(--accent-2)">[ CAPTURED LOCALLY ]</h3>' +
+        '<p>This form is in demo mode. To deliver inquiries to your inbox, set <code class="text-mono text-accent">forms.provider = \'formspree\'</code> and your <code class="text-mono text-accent">forms.id</code> in <code class="text-mono text-accent">src/config.ts</code>.</p>';
       form.replaceWith(panel);
     }
   });

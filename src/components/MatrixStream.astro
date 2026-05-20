@@ -1,0 +1,26 @@
+---
+/**
+ * MatrixStream — vertical text-stream background. Uses real role-name fragments
+ * instead of generic glyphs so it doubles as on-brand atmosphere.
+ */
+import { allRoles } from '../data/roles';
+
+const columns = 14;
+const cols = Array.from({ length: columns }).map((_, i) => {
+  const rolesShuffled = [...allRoles].sort(() => Math.random() - 0.5).slice(0, 4);
+  const content = rolesShuffled.join(' • ').toUpperCase();
+  return {
+    left: `${(i / columns) * 100 + Math.random() * 4}%`,
+    delay: `${(Math.random() * 18).toFixed(2)}s`,
+    dur: `${(14 + Math.random() * 12).toFixed(2)}s`,
+    content,
+  };
+});
+---
+<div class="matrix-stream" aria-hidden="true">
+  {cols.map((c) => (
+    <span class="matrix-column" style={`left:${c.left}; --delay:${c.delay}; --dur:${c.dur};`}>
+      {c.content}
+    </span>
+  ))}
+</div>

@@ -1,0 +1,17 @@
+---
+import { threats } from '../data/threats';
+// Duplicate for seamless loop
+const items = [...threats, ...threats];
+---
+<div class="threat-ticker" role="region" aria-label="Threat intelligence feed (sample)">
+  <div class="ticker-track" data-ticker>
+    {items.map((t) => (
+      <span class="ticker-item">
+        <span class="tag">[{t.tag}]</span>
+        <span class={`sev-${t.severity}`}>● {t.severity}</span>
+        <span class="muted">{t.code}</span>
+        <span>{t.label}</span>
+      </span>
+    ))}
+  </div>
+</div>
