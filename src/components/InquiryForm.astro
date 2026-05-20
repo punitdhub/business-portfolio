@@ -6,101 +6,214 @@ export interface Props {
   compact?: boolean;
 }
 const { audience = 'general', compact = false } = Astro.props;
-const isDemo = forms.provider === 'demo' || forms.id === 'PLACEHOLDER_FORMSPREE_ID';
+const isDemo = forms.provider === 'demo';
 const action = `https://formspree.io/f/${forms.id}`;
+const subject =
+  audience === 'client' ? 'New employer inquiry'
+  : audience === 'candidate' ? 'New candidate inquiry'
+  : 'New Fortium inquiry';
 ---
-<form class="form" action={isDemo ? '#' : action} method="POST" data-inquiry-form data-demo={isDemo ? 'true' : 'false'}>
-  <input type="hidden" name="_subject" value={`New Fortium inquiry — ${audience}`} />
+<form
+  class="form"
+  action={action}
+  method="POST"
+  data-inquiry-form
+  data-audience={audience}
+  data-demo={isDemo ? 'true' : 'false'}
+  novalidate
+>
+  <input type="hidden" name="_subject" value={`${subject} — Fortium Group`} />
   <input type="hidden" name="audience" value={audience} />
+  <input type="hidden" name="source" value="fortium-website" />
+  <!-- Honeypot — bots fill this, real users don't see it -->
   <div class="honeypot" aria-hidden="true">
     <label>Leave this empty<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" /></label>
   </div>
 
   <div class="form-row">
-    <div>
-      <label for={`if-name-${audience}`}>Name</label>
-      <input id={`if-name-${audience}`} name="name" type="text" required autocomplete="name" />
+    <div class="field">
+      <input id={`if-name-${audience}`} name="name" type="text" required autocomplete="name" placeholder=" " />
+      <label for={`if-name-${audience}`}>Your name</label>
     </div>
-    <div>
+    <div class="field">
+      <input id={`if-email-${audience}`} name="email" type="email" required autocomplete="email" placeholder=" " />
       <label for={`if-email-${audience}`}>Work email</label>
-      <input id={`if-email-${audience}`} name="email" type="email" required autocomplete="email" />
     </div>
   </div>
 
   {audience === 'client' && (
     <div class="form-row">
-      <div>
+      <div class="field">
+        <input id={`if-role-${audience}`} name="role" type="text" placeholder=" " />
         <label for={`if-role-${audience}`}>Role to fill</label>
-        <input id={`if-role-${audience}`} name="role" type="text" placeholder="e.g. Principal AI Red Teamer" />
       </div>
-      <div>
-        <label for={`if-urgency-${audience}`}>Urgency</label>
-        <select id={`if-urgency-${audience}`} name="urgency">
-          <option>Immediate (within 30 days)</option>
-          <option>Soon (1–2 quarters)</option>
-          <option>Strategic (exploring)</option>
+      <div class="field">
+        <select id={`if-urgency-${audience}`} name="urgency" required>
+          <option value="" disabled selected hidden></option>
+          <option>Immediate — within 30 days</option>
+          <option>Soon — 1–2 quarters</option>
+          <option>Strategic — exploring</option>
         </select>
+        <label for={`if-urgency-${audience}`}>Urgency</label>
+        <span class="field-select-arrow" aria-hidden="true">▾</span>
       </div>
     </div>
   )}
 
   {audience === 'candidate' && (
     <div class="form-row">
-      <div>
+      <div class="field">
+        <input id={`if-current-${audience}`} name="current_title" type="text" placeholder=" " />
         <label for={`if-current-${audience}`}>Current title</label>
-        <input id={`if-current-${audience}`} name="current_title" type="text" placeholder="e.g. Senior Detection Engineer" />
       </div>
-      <div>
+      <div class="field">
+        <input id={`if-link-${audience}`} name="link" type="url" placeholder=" " />
         <label for={`if-link-${audience}`}>LinkedIn / portfolio</label>
-        <input id={`if-link-${audience}`} name="link" type="url" placeholder="https://" />
       </div>
     </div>
   )}
 
   {audience === 'general' && (
-    <div>
-      <label for={`if-who-${audience}`}>I am a</label>
-      <select id={`if-who-${audience}`} name="who">
-        <option>Hiring manager / employer</option>
+    <div class="field">
+      <select id={`if-who-${audience}`} name="who" required>
+        <option value="" disabled selected hidden></option>
+        <option>Hiring manager or employer</option>
         <option>Security candidate</option>
-        <option>Partner / vendor</option>
-        <option>Press / other</option>
+        <option>Partner or vendor</option>
+        <option>Press or other</option>
       </select>
+      <label for={`if-who-${audience}`}>I am a…</label>
+      <span class="field-select-arrow" aria-hidden="true">▾</span>
     </div>
   )}
 
   {!compact && (
-    <div>
-      <label for={`if-msg-${audience}`}>Message</label>
-      <textarea id={`if-msg-${audience}`} name="message" placeholder="Tell us about the role, the team, or your situation." required></textarea>
+    <div class="field">
+      <textarea id={`if-msg-${audience}`} name="message" required placeholder=" "></textarea>
+      <label for={`if-msg-${audience}`}>
+        {audience === 'candidate'
+          ? 'What kind of role are you looking for?'
+          : audience === 'client'
+            ? 'Tell us about the role, the team, and the threat surface'
+            : 'How can we help?'}
+      </label>
     </div>
   )}
 
-  <button class="btn btn-primary" type="submit">
-    {audience === 'candidate' ? 'Submit confidentially' : 'Send inquiry'}
-    <span class="btn-arrow">→</span>
-  </button>
+  <div class="form-footer">
+    <p class="form-hint">
+      {isDemo
+        ? 'Demo mode — set forms.provider = formspree in src/config.ts to deliver.'
+        : 'Encrypted in transit · reply within 1 business day'}
+    </p>
+    <button class="btn btn-primary form-submit" type="submit">
+      <span class="btn-text">
+        {audience === 'candidate' ? 'Submit confidentially' : 'Send inquiry'}
+        <span class="btn-arrow">→</span>
+      </span>
+    </button>
+  </div>
 
-  <p class="dim text-mono" style="font-size:0.7rem; margin:0; letter-spacing:0.1em">
-    <span style="color: var(--accent-2)">●</span> ENCRYPTED IN TRANSIT · INITIAL REPLY WITHIN 1 BUSINESS DAY
-  </p>
+  <p class="form-error" hidden></p>
 </form>
 
 <script is:inline>
-  // Demo-mode interception: when no Formspree ID is configured, render a friendly
-  // capture panel instead of POSTing to a placeholder URL.
-  document.addEventListener('submit', (e) => {
-    const form = e.target.closest && e.target.closest('[data-inquiry-form]');
-    if (!form) return;
-    if (form.dataset.demo === 'true') {
+  /**
+   * Formspree AJAX submission with progressive enhancement.
+   * No external dependency — uses fetch + Accept: application/json,
+   * which Formspree supports natively.
+   *
+   * Falls back to standard form POST if JS fails (the action attribute is
+   * already set, so the browser handles it).
+   */
+  (function () {
+    document.addEventListener('submit', async function (e) {
+      const form = e.target;
+      if (!form || !form.matches || !form.matches('[data-inquiry-form]')) return;
       e.preventDefault();
-      const panel = document.createElement('div');
-      panel.className = 'panel';
-      panel.style.borderColor = 'var(--accent-2)';
-      panel.innerHTML =
-        '<h3 style="margin-top:0; color:var(--accent-2)">[ CAPTURED LOCALLY ]</h3>' +
-        '<p>This form is in demo mode. To deliver inquiries to your inbox, set <code class="text-mono text-accent">forms.provider = \'formspree\'</code> and your <code class="text-mono text-accent">forms.id</code> in <code class="text-mono text-accent">src/config.ts</code>.</p>';
-      form.replaceWith(panel);
+
+      const errorEl = form.querySelector('.form-error');
+      const submitBtn = form.querySelector('.form-submit');
+      if (errorEl) { errorEl.hidden = true; errorEl.textContent = ''; }
+
+      // Client-side validation
+      const required = form.querySelectorAll('[required]');
+      let invalid = null;
+      for (const f of required) {
+        if (!f.value || (f.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.value))) {
+          invalid = f; break;
+        }
+      }
+      if (invalid) {
+        invalid.focus();
+        invalid.setAttribute('aria-invalid', 'true');
+        if (errorEl) {
+          errorEl.textContent = invalid.type === 'email'
+            ? 'Please enter a valid email address.'
+            : 'Please fill in all required fields.';
+          errorEl.hidden = false;
+        }
+        return;
+      }
+
+      // Demo mode short-circuit
+      if (form.dataset.demo === 'true') {
+        renderSuccess(form, true);
+        return;
+      }
+
+      if (submitBtn) submitBtn.dataset.state = 'loading';
+
+      try {
+        const data = new FormData(form);
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { Accept: 'application/json' },
+        });
+        if (res.ok) {
+          renderSuccess(form, false);
+        } else {
+          const json = await res.json().catch(() => null);
+          const msg = json && json.errors && json.errors.length
+            ? json.errors.map(function (x) { return x.message; }).join('. ')
+            : 'Something went wrong. Please email us directly.';
+          if (errorEl) { errorEl.textContent = msg; errorEl.hidden = false; }
+          if (submitBtn) submitBtn.dataset.state = '';
+        }
+      } catch (err) {
+        if (errorEl) {
+          errorEl.textContent = 'Network error. Please try again or email us directly.';
+          errorEl.hidden = false;
+        }
+        if (submitBtn) submitBtn.dataset.state = '';
+      }
+    });
+
+    function renderSuccess(form, isDemo) {
+      const audience = form.dataset.audience || 'general';
+      const wrap = document.createElement('div');
+      wrap.className = 'form-success';
+      const title = audience === 'candidate'
+        ? 'Received. Welcome to the vetting queue.'
+        : isDemo
+          ? 'Captured locally — demo mode'
+          : 'Transmission received.';
+      const body = isDemo
+        ? 'Wire up Formspree in src/config.ts to deliver inquiries to your inbox.'
+        : audience === 'candidate'
+          ? 'A Fortium recruiter will reach out within 1 business day. All communications stay confidential.'
+          : 'You\'ll hear back from Punit within 1 business day with a calibration slot.';
+      wrap.innerHTML = '<div class="check">✓</div>' +
+        '<h3>' + title + '</h3>' +
+        '<p>' + body + '</p>';
+      form.replaceWith(wrap);
     }
-  });
+
+    // Strip aria-invalid as user types
+    document.addEventListener('input', function (e) {
+      const t = e.target;
+      if (t && t.matches && t.matches('[aria-invalid]')) t.removeAttribute('aria-invalid');
+    });
+  })();
 </script>
