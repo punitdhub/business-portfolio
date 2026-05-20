@@ -31,7 +31,14 @@
   --accent-rgb:   168, 189, 209;
   --accent-2-rgb: 200, 209, 220;
 
-  /* —— Semantic-only (status/warm contexts) —— */
+  /* —— Subtle dot palette — quiet variety for pills & note dots —— */
+  --dot-1:        #A8BDD1; /* slate-blue */
+  --dot-2:        #9DC4B9; /* soft sage */
+  --dot-3:        #C9B19C; /* warm sand */
+  --dot-4:        #B4A7CF; /* muted lavender */
+  --dot-5:        #BFC6B4; /* desaturated olive */
+
+  /* —— Semantic-only (status contexts) —— */
   --plum:         #B4A7CF;
   --plum-rgb:     180, 167, 207;
   --warm:         #D4A78E;
@@ -330,11 +337,21 @@ section {
   isolation: isolate;
   overflow: hidden;
 }
+/* Resting state: subtle corner glow, top-left, very low opacity */
+.panel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(280px circle at 0% 0%, rgba(var(--accent-rgb), 0.04), transparent 55%);
+  pointer-events: none;
+  z-index: -1;
+  transition: opacity var(--t-med) var(--ease);
+}
 .panel::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(360px circle at var(--px, 50%) var(--py, 50%), rgba(var(--accent-rgb), 0.05), transparent 55%);
+  background: radial-gradient(360px circle at var(--px, 50%) var(--py, 50%), rgba(var(--accent-rgb), 0.07), transparent 55%);
   opacity: 0;
   transition: opacity var(--t-med) var(--ease);
   pointer-events: none;
@@ -349,6 +366,9 @@ section {
 
 .panel-accent {
   border: 1px solid var(--border-strong);
+  background:
+    radial-gradient(420px circle at 100% 0%, rgba(var(--accent-rgb), 0.05), transparent 60%),
+    var(--surface);
 }
 .panel-accent:hover { box-shadow: var(--shadow-3), var(--inset-hi); }
 
@@ -852,6 +872,11 @@ section {
   flex-wrap: wrap;
   gap: 0.7rem;
 }
+.hero-cta .btn {
+  white-space: normal;
+  text-align: center;
+  line-height: 1.2;
+}
 @media (max-width: 520px) {
   .hero-cta { width: 100%; }
   .hero-cta .btn { flex: 1 1 calc(50% - 0.35rem); justify-content: center; }
@@ -951,10 +976,16 @@ section {
   transform: translateY(-1px);
 }
 .pill .dot {
-  width: 5px; height: 5px;
-  background: var(--accent);
+  width: 6px; height: 6px;
+  background: var(--dot-1);
   border-radius: var(--r-pill);
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--dot-1) 30%, transparent);
 }
+/* Subtle dot color variety — rotates across the calm palette */
+.pill-cloud .pill:nth-child(5n+2) .dot { background: var(--dot-2); box-shadow: 0 0 0 2px color-mix(in oklab, var(--dot-2) 30%, transparent); }
+.pill-cloud .pill:nth-child(5n+3) .dot { background: var(--dot-3); box-shadow: 0 0 0 2px color-mix(in oklab, var(--dot-3) 30%, transparent); }
+.pill-cloud .pill:nth-child(5n+4) .dot { background: var(--dot-4); box-shadow: 0 0 0 2px color-mix(in oklab, var(--dot-4) 30%, transparent); }
+.pill-cloud .pill:nth-child(5n+5) .dot { background: var(--dot-5); box-shadow: 0 0 0 2px color-mix(in oklab, var(--dot-5) 30%, transparent); }
 
 /* ---------------------------------------------------------------
    ANSWER BLOCK — single accent left rule
