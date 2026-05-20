@@ -1,7 +1,6 @@
 ---
 /**
- * DecryptText — characters scramble through glyphs then "resolve" to final text.
- * Triggers on scroll into view. SSR-safe (renders final text).
+ * DecryptText — retired. Now renders plain text so existing pages keep working.
  */
 export interface Props {
   text: string;
@@ -9,55 +8,7 @@ export interface Props {
   duration?: number;
   className?: string;
 }
-const { text, as = 'span', duration = 1100, className } = Astro.props;
+const { text, as = 'span', className } = Astro.props;
 const Tag = as;
 ---
-<Tag class:list={['decrypt', className]} data-decrypt data-text={text} data-duration={duration}>{text}</Tag>
-
-<script is:inline>
-  (function () {
-    if (window.__decryptInit) return;
-    window.__decryptInit = true;
-    const GLYPHS = '!@#$%&*+=<>?/\\|01ABCDEFGHJKLMNPQRSTUVWXYZ';
-    const seen = new WeakSet();
-
-    function rand() { return GLYPHS[Math.floor(Math.random() * GLYPHS.length)]; }
-
-    function run(el) {
-      if (seen.has(el)) return;
-      seen.add(el);
-      const final = el.dataset.text || el.textContent;
-      const duration = parseInt(el.dataset.duration || '1100', 10);
-      const start = performance.now();
-
-      function frame(now) {
-        const p = Math.min(1, (now - start) / duration);
-        const reveal = Math.floor(p * final.length);
-        let out = '';
-        for (let i = 0; i < final.length; i++) {
-          if (i < reveal) out += final[i];
-          else if (final[i] === ' ') out += ' ';
-          else out += rand();
-        }
-        el.textContent = out;
-        if (p < 1) requestAnimationFrame(frame);
-        else el.textContent = final;
-      }
-      requestAnimationFrame(frame);
-    }
-
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) { run(e.target); io.unobserve(e.target); }
-      });
-    }, { threshold: 0.4 });
-
-    function attach() {
-      document.querySelectorAll('[data-decrypt]').forEach((el) => {
-        if (!seen.has(el)) io.observe(el);
-      });
-    }
-    if (document.readyState !== 'loading') attach();
-    else document.addEventListener('DOMContentLoaded', attach);
-  })();
-</script>
+<Tag class:list={[className]}>{text}</Tag>

@@ -1,84 +1,55 @@
 ---
 /**
- * Network Graph — signature element.
- *
- * Visualizes Fortium's "vetting network": a central client node, satellite
- * practitioner nodes, and connecting edges that pulse along their length.
- * The premise of the firm — practitioners vetting practitioners — is
- * communicated in a glance.
- *
- * Pure SVG. No JS needed. Animation runs at ~60fps via CSS only.
+ * Network Graph — minimal vetting-network diagram.
+ * Single accent, slow motion, low contrast. Pure SVG + CSS.
  */
 ---
 <svg class="netgraph" viewBox="0 0 600 400" role="img" aria-label="Vetting network diagram">
   <title>Fortium vetting network</title>
-  <desc>A central client node connected via vetting edges to practitioner nodes.</desc>
+  <desc>A central node connected via vetting edges to practitioner nodes.</desc>
 
   <defs>
-    <radialGradient id="ng-hub" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="var(--accent)" stop-opacity="1" />
+    <linearGradient id="ng-edge" x1="0" x2="1">
+      <stop offset="0%"  stop-color="var(--accent)" stop-opacity="0" />
+      <stop offset="50%" stop-color="var(--accent)" stop-opacity="0.45" />
       <stop offset="100%" stop-color="var(--accent)" stop-opacity="0" />
-    </radialGradient>
-    <linearGradient id="ng-edge-1" x1="0" x2="1">
-      <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.05" />
-      <stop offset="50%" stop-color="var(--accent)" stop-opacity="0.6" />
-      <stop offset="100%" stop-color="var(--accent)" stop-opacity="0.05" />
-    </linearGradient>
-    <linearGradient id="ng-edge-2" x1="0" x2="1">
-      <stop offset="0%" stop-color="var(--plum)" stop-opacity="0.05" />
-      <stop offset="50%" stop-color="var(--plum)" stop-opacity="0.6" />
-      <stop offset="100%" stop-color="var(--plum)" stop-opacity="0.05" />
-    </linearGradient>
-    <linearGradient id="ng-edge-3" x1="0" x2="1">
-      <stop offset="0%" stop-color="var(--warm)" stop-opacity="0.05" />
-      <stop offset="50%" stop-color="var(--warm)" stop-opacity="0.6" />
-      <stop offset="100%" stop-color="var(--warm)" stop-opacity="0.05" />
     </linearGradient>
   </defs>
 
-  <!-- Halo behind central hub -->
-  <circle cx="300" cy="200" r="120" fill="url(#ng-hub)" opacity="0.5" />
-
   <!-- Edges (drawn first so nodes sit on top) -->
-  <g stroke-linecap="round" fill="none">
-    <line x1="300" y1="200" x2="90"  y2="80"  stroke="url(#ng-edge-1)" class="edge" />
-    <line x1="300" y1="200" x2="510" y2="80"  stroke="url(#ng-edge-2)" class="edge edge-plum" style="animation-delay: -0.8s" />
-    <line x1="300" y1="200" x2="510" y2="320" stroke="url(#ng-edge-3)" class="edge edge-warm" style="animation-delay: -1.6s" />
-    <line x1="300" y1="200" x2="90"  y2="320" stroke="url(#ng-edge-1)" class="edge" style="animation-delay: -2.4s" />
-    <line x1="300" y1="200" x2="60"  y2="200" stroke="url(#ng-edge-2)" class="edge edge-plum" style="animation-delay: -1.2s" />
-    <line x1="300" y1="200" x2="540" y2="200" stroke="url(#ng-edge-3)" class="edge edge-warm" style="animation-delay: -2.0s" />
-    <line x1="300" y1="200" x2="180" y2="350" stroke="url(#ng-edge-1)" class="edge" style="animation-delay: -1.4s" />
-    <line x1="300" y1="200" x2="420" y2="60"  stroke="url(#ng-edge-2)" class="edge edge-plum" style="animation-delay: -0.4s" />
+  <g stroke-linecap="round" fill="none" stroke="url(#ng-edge)" stroke-width="0.7">
+    <line x1="300" y1="200" x2="100" y2="90" />
+    <line x1="300" y1="200" x2="500" y2="90" />
+    <line x1="300" y1="200" x2="500" y2="310" />
+    <line x1="300" y1="200" x2="100" y2="310" />
+    <line x1="300" y1="200" x2="70"  y2="200" />
+    <line x1="300" y1="200" x2="530" y2="200" />
   </g>
 
-  <!-- Practitioner nodes -->
+  <!-- Practitioner nodes — uniform, calm -->
   <g>
-    <circle cx="90"  cy="80"  r="6" class="node" style="animation-delay: -0.3s" />
-    <circle cx="510" cy="80"  r="5" class="node node-plum" style="animation-delay: -1.1s" />
-    <circle cx="510" cy="320" r="7" class="node node-warm" style="animation-delay: -2.0s" />
-    <circle cx="90"  cy="320" r="5" class="node" style="animation-delay: -1.5s" />
-    <circle cx="60"  cy="200" r="4" class="node node-plum" style="animation-delay: -0.8s" />
-    <circle cx="540" cy="200" r="6" class="node node-warm" style="animation-delay: -1.9s" />
-    <circle cx="180" cy="350" r="4" class="node" style="animation-delay: -2.5s" />
-    <circle cx="420" cy="60"  r="5" class="node node-plum" style="animation-delay: -0.6s" />
+    <circle cx="100" cy="90"  r="4" class="node" style="animation-delay: -0.3s" />
+    <circle cx="500" cy="90"  r="4" class="node" style="animation-delay: -1.1s" />
+    <circle cx="500" cy="310" r="4" class="node" style="animation-delay: -2.0s" />
+    <circle cx="100" cy="310" r="4" class="node" style="animation-delay: -1.5s" />
+    <circle cx="70"  cy="200" r="3.5" class="node" style="animation-delay: -0.8s" />
+    <circle cx="530" cy="200" r="3.5" class="node" style="animation-delay: -1.9s" />
   </g>
 
-  <!-- Central hub (the firm) -->
+  <!-- Central hub — concentric ring, slow breathing -->
   <g>
-    <circle cx="300" cy="200" r="22" fill="none" stroke="var(--accent)" stroke-width="1.5" opacity="0.4">
-      <animate attributeName="r" values="22;30;22" dur="3.5s" repeatCount="indefinite" />
-      <animate attributeName="opacity" values="0.6;0;0.6" dur="3.5s" repeatCount="indefinite" />
+    <circle cx="300" cy="200" r="18" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.25">
+      <animate attributeName="r" values="18;26;18" dur="6s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.35;0;0.35" dur="6s" repeatCount="indefinite" />
     </circle>
-    <circle cx="300" cy="200" r="14" fill="var(--accent)" filter="drop-shadow(0 0 12px rgba(0,229,255,0.7))" />
-    <path d="M300 188 L312 200 L300 212 L288 200 Z" fill="var(--bg-deep)" />
+    <circle cx="300" cy="200" r="8" fill="var(--accent)" opacity="0.85" />
   </g>
 
-  <!-- Caption labels (subtle, optional) -->
-  <g font-family="var(--font-mono)" font-size="10" fill="var(--text-dim)" letter-spacing="1">
-    <text x="48"  y="68"  text-anchor="start">CISO · NA</text>
-    <text x="552" y="68"  text-anchor="end">RED·EU</text>
-    <text x="552" y="336" text-anchor="end">AI·SF</text>
-    <text x="48"  y="336" text-anchor="start">CLOUD·SG</text>
-    <text x="300" y="248" text-anchor="middle" fill="var(--text-muted)" font-size="9">FORTIUM CORE</text>
+  <!-- Labels — sparse, mono, very low contrast -->
+  <g font-family="var(--font-mono)" font-size="9" fill="var(--text-dim)" letter-spacing="1.5">
+    <text x="60"  y="76"  text-anchor="start">CISO · NA</text>
+    <text x="540" y="76"  text-anchor="end">RED · EU</text>
+    <text x="540" y="328" text-anchor="end">AI · SF</text>
+    <text x="60"  y="328" text-anchor="start">CLOUD · SG</text>
   </g>
 </svg>
