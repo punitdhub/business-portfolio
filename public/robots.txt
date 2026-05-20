@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.fortiumgroup.co/sitemap-index.xml
+Sitemap: https://punitdhub.github.io/business-portfolio/sitemap-index.xml
