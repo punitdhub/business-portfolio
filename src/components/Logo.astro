@@ -1,0 +1,93 @@
+---
+// Fortium Group — Shield + Gem lockup.
+// Pure SVG, theme-aware via currentColor. Use `variant="mark"` for icon-only.
+export interface Props {
+  variant?: 'lockup' | 'mark';
+  height?: number;
+  withLink?: boolean;
+}
+const { variant = 'lockup', height = 32, withLink = true } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+
+{withLink ? (
+  <a href={base} aria-label="Fortium Group home" class="logo-link">
+    <span class="logo" style={`--logo-h:${height}px`} data-variant={variant}>
+      <svg viewBox="0 0 48 48" aria-hidden="true" class="logo-mark">
+        <defs>
+          <linearGradient id="fortium-grad" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0%" stop-color="var(--accent)" />
+            <stop offset="100%" stop-color="var(--accent-2)" />
+          </linearGradient>
+        </defs>
+        <!-- Shield outline -->
+        <path
+          d="M24 3 L42 10 V24 C42 34 34 41.5 24 45 C14 41.5 6 34 6 24 V10 Z"
+          fill="none"
+          stroke="url(#fortium-grad)"
+          stroke-width="2"
+          stroke-linejoin="round"
+        />
+        <!-- Inner circuit ticks -->
+        <path d="M10 14 H14 M34 14 H38 M10 24 H13 M35 24 H38 M12 34 H15 M33 34 H36"
+              stroke="var(--accent)" stroke-width="1" stroke-linecap="round" opacity="0.55" />
+        <!-- Gem (octahedron) -->
+        <g transform="translate(24 24)">
+          <path d="M0 -10 L8 0 L0 14 L-8 0 Z" fill="url(#fortium-grad)" opacity="0.95" />
+          <path d="M0 -10 L8 0 L-8 0 Z" fill="var(--accent)" opacity="0.45" />
+          <path d="M0 -10 L0 14" stroke="var(--bg)" stroke-width="0.6" opacity="0.5" />
+          <path d="M-8 0 L8 0" stroke="var(--bg)" stroke-width="0.6" opacity="0.5" />
+        </g>
+      </svg>
+      {variant === 'lockup' && (
+        <span class="logo-word">
+          FORTIUM<span class="logo-dot">.</span>
+        </span>
+      )}
+    </span>
+  </a>
+) : (
+  <span class="logo" style={`--logo-h:${height}px`} data-variant={variant}>
+    <svg viewBox="0 0 48 48" aria-hidden="true" class="logo-mark">
+      <defs>
+        <linearGradient id="fortium-grad-2" x1="0" x2="1" y1="0" y2="1">
+          <stop offset="0%" stop-color="var(--accent)" />
+          <stop offset="100%" stop-color="var(--accent-2)" />
+        </linearGradient>
+      </defs>
+      <path
+        d="M24 3 L42 10 V24 C42 34 34 41.5 24 45 C14 41.5 6 34 6 24 V10 Z"
+        fill="none"
+        stroke="url(#fortium-grad-2)"
+        stroke-width="2"
+        stroke-linejoin="round"
+      />
+      <path d="M10 14 H14 M34 14 H38 M10 24 H13 M35 24 H38 M12 34 H15 M33 34 H36"
+            stroke="var(--accent)" stroke-width="1" stroke-linecap="round" opacity="0.55" />
+      <g transform="translate(24 24)">
+        <path d="M0 -10 L8 0 L0 14 L-8 0 Z" fill="url(#fortium-grad-2)" opacity="0.95" />
+        <path d="M0 -10 L8 0 L-8 0 Z" fill="var(--accent)" opacity="0.45" />
+      </g>
+    </svg>
+    {variant === 'lockup' && <span class="logo-word">FORTIUM<span class="logo-dot">.</span></span>}
+  </span>
+)}
+
+<style>
+  .logo-link { display: inline-flex; text-decoration: none; }
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    color: var(--text);
+  }
+  .logo-mark { width: var(--logo-h); height: var(--logo-h); display: block; }
+  .logo-word {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: calc(var(--logo-h) * 0.55);
+    letter-spacing: 0.08em;
+    color: var(--text);
+  }
+  .logo-dot { color: var(--accent); }
+</style>

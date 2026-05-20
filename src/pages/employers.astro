@@ -1,0 +1,252 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import InquiryForm from '../components/InquiryForm.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const vetting = [
+  { n: '01', t: 'Intake calibration', d: 'A working session with your hiring manager to map technical depth, leadership signal, threat model, comp band, and dealbreakers.' },
+  { n: '02', t: 'Practitioner sourcing', d: 'We surface candidates through our network of 1,200+ active security operators — most are not on the open market.' },
+  { n: '03', t: 'Expert technical screen', d: 'An active CISO or principal engineer validates the candidate against your specific threat surface — not a generic skills checklist.' },
+  { n: '04', t: 'Cultural & comp calibration', d: 'We pre-negotiate expectations on package, location, equity, and team fit before you ever meet them.' },
+  { n: '05', t: 'Reference verification', d: 'Backchannel checks with prior security peers — the kind that only practitioners can credibly run.' },
+];
+
+const models = [
+  {
+    name: 'Direct-Hire (Contingency)',
+    best: 'Single role, moderate urgency',
+    fee: 'Pay only on placement',
+    bullets: ['No upfront cost', '90-day replacement guarantee', 'Typical engagement: 1–6 weeks'],
+    badge: 'Most popular',
+  },
+  {
+    name: 'Retained Search',
+    best: 'Senior leadership (CISO / VP)',
+    fee: 'Engaged fee, exclusive partnership',
+    bullets: ['Confidential incumbent replacement', 'Board-level reporting', 'Dedicated practitioner panel'],
+    badge: 'Executive',
+  },
+  {
+    name: 'Embedded Recruiter',
+    best: 'Multi-hire team builds',
+    fee: 'Monthly retainer + per-hire',
+    bullets: ['Sits inside your TA function', 'Builds full security pipeline', 'Best for 5+ hires in 6 months'],
+    badge: 'Scale-up',
+  },
+];
+
+const faqs = [
+  { q: 'How fast can Fortium Group fill a CISO role?', a: 'Most CISO mandates produce a shortlist of 3–5 vetted candidates within 7–10 business days. Time-to-offer averages 21 days. For confidential incumbent replacements we move slower by design to protect discretion.' },
+  { q: 'Do you recruit for AI Security and LLM Security engineers?', a: 'Yes. AI Security is one of our core practice areas. We recruit for LLM Security Engineers, AI Red Teamers, Adversarial ML Engineers, ML Threat Researchers, AI Governance leads, and Model Supply-Chain Security specialists.' },
+  { q: "What's your replacement guarantee?", a: 'Direct-hire placements include a 90-day replacement guarantee. If the candidate leaves or is terminated for cause within 90 days, we re-run the search at no additional fee.' },
+  { q: 'How is Fortium different from generalist agencies?', a: 'Generalist agencies optimize for resume volume. Fortium optimizes for fit. Our shortlists are validated by active CISOs and principal security engineers — not keyword-matched by a generalist HR sourcer.' },
+  { q: 'Do you work with startups or only enterprises?', a: 'Both. We routinely place first-CISO hires at Series-B and Series-C startups, and we run AI Red Team builds inside Fortune 500 enterprises. Our process scales to either.' },
+  { q: 'Can you embed inside our internal recruiting team?', a: "Yes — that's our Embedded Recruiter model. We sit inside your TA function for 3–12 months and build a full security hiring pipeline, transferring the playbook before we leave." },
+];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'Cyber Security Recruiting',
+    provider: { '@type': 'Organization', name: 'Fortium Group' },
+    areaServed: 'Worldwide',
+    description: 'Direct-hire recruiting for Cyber and AI Security roles including CISO, VP of Security, AI Red Team, Cloud Security, AppSec, and Zero Trust architecture.',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+];
+---
+<BaseLayout
+  title="For Employers — Cyber & AI Security Recruiting"
+  description="How Fortium Group vets Cyber and AI Security candidates: 5-stage protocol, 7-day shortlists, 90-day replacement guarantee. Direct-hire, retained, and embedded models."
+  path="/employers"
+  jsonLd={jsonLd}
+>
+  <!-- §1 HERO -->
+  <section class="hero" style="min-height:auto; padding-top:6rem; padding-bottom:4rem">
+    <div class="particle-field" aria-hidden="true"></div>
+    <div class="container hero-inner">
+      <p class="eyebrow" data-reveal>For employers</p>
+      <h1 data-reveal data-delay="1">
+        Stop reviewing resumes. <span class="accent">Start hiring gems.</span>
+      </h1>
+      <p class="hero-sub" data-reveal data-delay="2">
+        Direct-hire Cyber & AI Security recruiting, engineered for hiring managers who refuse to settle. 5-stage vetting. 7-day shortlists. 90-day replacement guarantee.
+      </p>
+      <div class="hero-cta" data-reveal data-delay="3">
+        <a class="btn btn-primary" href="#brief">Brief us on your role <span class="btn-arrow">→</span></a>
+        <a class="btn btn-ghost" href="#vetting">See vetting protocol ↓</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- §2 AEO ANSWER BLOCK -->
+  <section class="section-tight">
+    <div class="container">
+      <div class="answer-block" data-reveal>
+        <h2>How does Fortium Group vet Cyber Security candidates?</h2>
+        <p>
+          Fortium Group uses a <strong>5-stage vetting protocol</strong>: (1) intake calibration with the hiring manager, (2) sourcing through our practitioner network, (3) technical screen by an active CISO or principal engineer, (4) cultural and compensation calibration, (5) reference verification with prior security peers. The result is a shortlist of 3–5 Most Placeable Candidates ready for final-round interviews, typically within 7 business days.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- §3 VETTING FUNNEL -->
+  <section id="vetting">
+    <div class="container">
+      <p class="eyebrow" data-reveal>The protocol</p>
+      <h2 data-reveal data-delay="1">A five-stage funnel built by practitioners.</h2>
+      <div class="grid grid-3" style="margin-top:2.5rem">
+        {vetting.map((v, i) => (
+          <article class="card" data-reveal data-delay={(i % 4) + 1}>
+            <span class="text-mono text-accent" style="font-size:0.8rem; letter-spacing:0.15em">STAGE {v.n}</span>
+            <h3 style="margin-top:0.5rem">{v.t}</h3>
+            <p>{v.d}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- §4 ENGAGEMENT MODELS -->
+  <section>
+    <div class="container">
+      <p class="eyebrow" data-reveal>Engagement models</p>
+      <h2 data-reveal data-delay="1">Three ways to work with Fortium.</h2>
+      <div class="grid grid-3" style="margin-top:2.5rem">
+        {models.map((m, i) => (
+          <article class="card" data-reveal data-delay={(i % 3) + 1} style="display:flex; flex-direction:column; gap:0.75rem">
+            <span class="pill" style="align-self:flex-start"><span class="dot"></span>{m.badge}</span>
+            <h3 style="margin:0">{m.name}</h3>
+            <p class="muted" style="margin:0; font-size:0.9rem"><strong style="color:var(--text)">Best for:</strong> {m.best}</p>
+            <p class="muted" style="margin:0; font-size:0.9rem"><strong style="color:var(--text)">Fee:</strong> {m.fee}</p>
+            <ul style="padding-left:1.1rem; margin:0.5rem 0 0; color:var(--text-muted); font-size:0.9rem">
+              {m.bullets.map((b) => <li style="margin-bottom:0.3rem">{b}</li>)}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- §5 SPEED METRICS -->
+  <section>
+    <div class="container">
+      <div class="split">
+        <div data-reveal>
+          <p class="eyebrow">Speed vs. industry</p>
+          <h2>We move at the speed of the threat — without skipping vetting.</h2>
+          <p class="lead">
+            Industry average time-to-fill for a senior security role: <strong>68 days</strong>. Fortium average: <strong>21 days</strong>. We compress the timeline by doing the vetting upstream — before you ever see a resume.
+          </p>
+        </div>
+        <div class="card" data-reveal data-delay="1" style="padding:2rem">
+          <table style="width:100%; border-collapse:collapse; font-size:0.95rem">
+            <thead>
+              <tr style="border-bottom:1px solid var(--border)">
+                <th style="text-align:left; padding:0.5rem 0"></th>
+                <th class="text-mono text-accent" style="text-align:right; padding:0.5rem 0; font-size:0.85rem">FORTIUM</th>
+                <th class="muted text-mono" style="text-align:right; padding:0.5rem 0; font-size:0.85rem">INDUSTRY</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--border)"><td style="padding:0.65rem 0">First shortlist</td><td style="text-align:right" class="text-accent">7 days</td><td class="muted" style="text-align:right">28 days</td></tr>
+              <tr style="border-bottom:1px solid var(--border)"><td style="padding:0.65rem 0">Time to offer</td><td style="text-align:right" class="text-accent">21 days</td><td class="muted" style="text-align:right">68 days</td></tr>
+              <tr style="border-bottom:1px solid var(--border)"><td style="padding:0.65rem 0">Offer acceptance</td><td style="text-align:right" class="text-accent">94%</td><td class="muted" style="text-align:right">71%</td></tr>
+              <tr><td style="padding:0.65rem 0">90-day retention</td><td style="text-align:right" class="text-accent">98%</td><td class="muted" style="text-align:right">82%</td></tr>
+            </tbody>
+          </table>
+          <p class="muted text-mono" style="font-size:0.7rem; margin-top:1rem; margin-bottom:0">
+            * Industry figures: SHRM 2024 benchmarks. Fortium figures are internal placeholders pending audit.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- §6 GUARANTEE -->
+  <section>
+    <div class="container">
+      <div class="answer-block" data-reveal style="border-left-color:var(--accent-2)">
+        <h2>The 90-day guarantee.</h2>
+        <p>
+          Every direct-hire placement carries a <strong>90-day replacement guarantee</strong>. If the candidate leaves or is terminated for cause within 90 days of start, we re-run the search at no additional fee. Because we only get paid when you keep a hire, our incentives are aligned with retention — not headcount churn.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- §7 ROLES TABLE -->
+  <section id="roles">
+    <div class="container">
+      <p class="eyebrow" data-reveal>Practice areas (full taxonomy)</p>
+      <h2 data-reveal data-delay="1">Roles we recruit.</h2>
+      <div class="grid grid-2" style="margin-top:2rem">
+        <article class="card" data-reveal>
+          <h3>Cyber Security</h3>
+          <ul style="padding-left:1.1rem; color:var(--text-muted); margin:0; columns:2; column-gap:1.5rem">
+            <li>CISO</li><li>VP of Security</li><li>Security Architect</li><li>Detection & Response Lead</li>
+            <li>AppSec Engineer</li><li>Cloud Security Engineer</li><li>IAM Architect</li><li>GRC Director</li>
+            <li>Penetration Tester</li><li>Threat Intel Analyst</li><li>SOC Manager</li><li>Incident Responder</li>
+            <li>Zero Trust Architect</li><li>OT/ICS Security</li><li>DevSecOps Lead</li><li>Security Engineering Mgr</li>
+          </ul>
+        </article>
+        <article class="card" data-reveal data-delay="1">
+          <h3>AI Security</h3>
+          <ul style="padding-left:1.1rem; color:var(--text-muted); margin:0; columns:2; column-gap:1.5rem">
+            <li>LLM Security Engineer</li><li>AI Red Teamer</li><li>ML Threat Researcher</li><li>AI Governance Lead</li>
+            <li>Adversarial ML Engineer</li><li>Model Supply-Chain Sec</li><li>AI Trust & Safety</li><li>Prompt Injection Analyst</li>
+            <li>AI Policy & Risk</li><li>Responsible AI Lead</li><li>ML SecOps</li><li>Model Privacy Engineer</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- §8 FAQ -->
+  <section>
+    <div class="container">
+      <p class="eyebrow" data-reveal>FAQ</p>
+      <h2 data-reveal data-delay="1">Questions hiring managers ask us.</h2>
+      <div style="margin-top:2rem; max-width:75ch">
+        {faqs.map((f, i) => (
+          <details class="faq-item" data-reveal data-delay={(i % 4) + 1}>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- §9 BRIEF FORM -->
+  <section id="brief">
+    <div class="container">
+      <div class="split">
+        <div data-reveal>
+          <p class="eyebrow">Brief us</p>
+          <h2>Send a role brief. Get a shortlist.</h2>
+          <p class="lead">
+            Drop the role you're trying to fill, the urgency, and any context. Punit will personally read your brief and respond within one business day.
+          </p>
+          <p class="muted text-mono" style="font-size:0.85rem">
+            <span style="color:var(--accent-2)">●</span> Initial conversation is free — no engagement fee until we mutually decide to proceed.
+          </p>
+        </div>
+        <div class="card" data-reveal data-delay="1">
+          <InquiryForm audience="client" />
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

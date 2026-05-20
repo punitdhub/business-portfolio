@@ -1,0 +1,48 @@
+---
+import Logo from './Logo.astro';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <Logo height={28} />
+        <p class="muted" style="margin-top:1rem; max-width:32ch;">
+          Direct-hire recruiting for Cyber & AI Security teams. Gems, not just resumes.
+        </p>
+      </div>
+      <div>
+        <h4>Sitemap</h4>
+        <ul>
+          <li><a href={`${base}/`}>Home</a></li>
+          <li><a href={`${base}/about`}>About</a></li>
+          <li><a href={`${base}/employers`}>For Employers</a></li>
+          <li><a href={`${base}/candidates`}>For Candidates</a></li>
+          <li><a href={`${base}/contact`}>Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Practice Areas</h4>
+        <ul>
+          <li><a href={`${base}/employers#roles`}>CISO Search</a></li>
+          <li><a href={`${base}/employers#roles`}>AI Security</a></li>
+          <li><a href={`${base}/employers#roles`}>Cloud Security</a></li>
+          <li><a href={`${base}/employers#roles`}>AppSec & Detection</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="mailto:hello@fortiumgroup.com">hello@fortiumgroup.com</a></li>
+          <li><a href="#" rel="noopener">LinkedIn</a></li>
+          <li><a href={`${base}/contact`}>Book Discovery →</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© {year} Fortium Group. All rights reserved.</span>
+      <span class="text-mono muted">v1.0 · Built with Astro</span>
+    </div>
+  </div>
+</footer>

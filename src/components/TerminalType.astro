@@ -1,0 +1,42 @@
+---
+// Terminal-typing effect for an H1. Renders content immediately for SSR/SEO,
+// then re-animates on the client when JS is available.
+export interface Props {
+  text: string;
+  speed?: number;
+  as?: 'h1' | 'h2';
+  className?: string;
+}
+const { text, speed = 35, as = 'h1', className = '' } = Astro.props;
+const Tag = as;
+---
+<Tag class:list={['caret', className]} data-typewriter data-text={text} data-speed={speed}>{text}</Tag>
+
+<script is:inline>
+  (function () {
+    function type(el) {
+      const full = el.dataset.text || el.textContent;
+      const speed = parseInt(el.dataset.speed || '35', 10);
+      el.textContent = '';
+      let i = 0;
+      const tick = () => {
+        if (i <= full.length) {
+          el.textContent = full.slice(0, i);
+          i++;
+          setTimeout(tick, speed + (Math.random() * 30 - 15));
+        }
+      };
+      tick();
+    }
+
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) return;
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { type(e.target); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('[data-typewriter]').forEach((el) => io.observe(el));
+  })();
+</script>

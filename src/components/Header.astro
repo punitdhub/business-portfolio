@@ -1,0 +1,41 @@
+---
+import Logo from './Logo.astro';
+import ThemeToggle from './ThemeToggle.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const path = Astro.url.pathname.replace(/\/$/, '');
+
+const links = [
+  { href: `${base}/about`, label: 'About' },
+  { href: `${base}/employers`, label: 'For Employers' },
+  { href: `${base}/candidates`, label: 'For Candidates' },
+  { href: `${base}/contact`, label: 'Contact' },
+];
+---
+<header class="site-header">
+  <div class="container site-header-inner">
+    <Logo height={30} />
+    <nav class="nav-links" aria-label="Primary">
+      {links.map((l) => (
+        <a href={l.href} aria-current={path === l.href || path === l.href.replace(base, '') ? 'page' : undefined}>{l.label}</a>
+      ))}
+    </nav>
+    <div class="header-actions">
+      <ThemeToggle />
+      <a class="btn btn-primary" href={`${base}/contact`}>
+        Book Discovery <span class="btn-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  // Liquid-neon hover tracking for buttons.
+  document.addEventListener('mousemove', (e) => {
+    const btn = e.target.closest && e.target.closest('.btn');
+    if (!btn) return;
+    const r = btn.getBoundingClientRect();
+    btn.style.setProperty('--mx', `${e.clientX - r.left}px`);
+    btn.style.setProperty('--my', `${e.clientY - r.top}px`);
+  });
+</script>

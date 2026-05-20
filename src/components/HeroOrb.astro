@@ -1,0 +1,73 @@
+---
+// Slow-rotating cryptographic sphere — pure SVG, animated with CSS.
+---
+<svg class="hero-orb" viewBox="0 0 600 600" aria-hidden="true">
+  <defs>
+    <radialGradient id="orbGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.35" />
+      <stop offset="60%" stop-color="var(--accent)" stop-opacity="0.05" />
+      <stop offset="100%" stop-color="var(--accent)" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="orbLine" x1="0" x2="1">
+      <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.0" />
+      <stop offset="50%" stop-color="var(--accent)" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="var(--accent)" stop-opacity="0.0" />
+    </linearGradient>
+  </defs>
+
+  <!-- Glow halo -->
+  <circle cx="300" cy="300" r="280" fill="url(#orbGlow)" />
+
+  <!-- Concentric rings -->
+  <g class="orb-rings" stroke="var(--accent)" fill="none" stroke-width="1">
+    <circle cx="300" cy="300" r="240" opacity="0.15" />
+    <circle cx="300" cy="300" r="200" opacity="0.2" />
+    <circle cx="300" cy="300" r="160" opacity="0.25" />
+    <ellipse cx="300" cy="300" rx="240" ry="90" opacity="0.35" />
+    <ellipse cx="300" cy="300" rx="180" ry="70" opacity="0.45" />
+  </g>
+
+  <!-- Rotating wireframe -->
+  <g class="orb-wire" stroke="url(#orbLine)" fill="none" stroke-width="1.4">
+    <ellipse cx="300" cy="300" rx="220" ry="220" transform="rotate(0 300 300)" />
+    <ellipse cx="300" cy="300" rx="220" ry="80" transform="rotate(20 300 300)" />
+    <ellipse cx="300" cy="300" rx="220" ry="80" transform="rotate(60 300 300)" />
+    <ellipse cx="300" cy="300" rx="220" ry="80" transform="rotate(100 300 300)" />
+    <ellipse cx="300" cy="300" rx="220" ry="80" transform="rotate(140 300 300)" />
+  </g>
+
+  <!-- Central gem -->
+  <g transform="translate(300 300)" class="orb-gem">
+    <path d="M0 -60 L48 0 L0 80 L-48 0 Z" fill="var(--accent)" opacity="0.85" />
+    <path d="M0 -60 L48 0 L-48 0 Z" fill="var(--accent-2)" opacity="0.55" />
+    <path d="M0 -60 L0 80 M-48 0 L48 0" stroke="var(--bg)" stroke-width="1" opacity="0.4" />
+  </g>
+
+  <!-- Floating nodes -->
+  <g class="orb-nodes" fill="var(--accent-2)">
+    <circle cx="120" cy="220" r="3" />
+    <circle cx="480" cy="180" r="2.5" />
+    <circle cx="500" cy="380" r="3.5" />
+    <circle cx="100" cy="400" r="2.5" />
+    <circle cx="380" cy="120" r="2" />
+  </g>
+</svg>
+
+<style>
+  .hero-orb .orb-wire { transform-origin: 300px 300px; animation: orb-rotate 36s linear infinite; }
+  .hero-orb .orb-rings { transform-origin: 300px 300px; animation: orb-rotate-rev 60s linear infinite; }
+  .hero-orb .orb-gem { transform-origin: 0 0; animation: orb-pulse 6s var(--ease) infinite; }
+  .hero-orb .orb-nodes circle { animation: node-blink 4s ease-in-out infinite; }
+  .hero-orb .orb-nodes circle:nth-child(2) { animation-delay: 0.8s; }
+  .hero-orb .orb-nodes circle:nth-child(3) { animation-delay: 1.6s; }
+  .hero-orb .orb-nodes circle:nth-child(4) { animation-delay: 2.4s; }
+  .hero-orb .orb-nodes circle:nth-child(5) { animation-delay: 3.2s; }
+
+  @keyframes orb-rotate { to { transform: rotate(360deg); } }
+  @keyframes orb-rotate-rev { to { transform: rotate(-360deg); } }
+  @keyframes orb-pulse {
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 12px rgba(var(--accent-rgb), 0.5)); }
+    50% { transform: scale(1.05); filter: drop-shadow(0 0 28px rgba(var(--accent-rgb), 0.8)); }
+  }
+  @keyframes node-blink { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
+</style>

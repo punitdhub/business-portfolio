@@ -1,0 +1,147 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import StatCounter from '../components/StatCounter.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: 'About Fortium Group',
+  description:
+    'Fortium Group is a direct-hire Cyber and AI Security recruiting firm founded by Punit Dwivedi, with 15+ years of pure cyber security domain experience.',
+  url: 'https://punitdhub.github.io/business-portfolio/about',
+};
+
+const principles = [
+  {
+    n: '01',
+    t: 'Verified, not asserted',
+    d: 'Anyone can write "expert in Kubernetes security" on a resume. We require evidence. A practitioner on our network actually probes the depth before a candidate moves forward.',
+  },
+  {
+    n: '02',
+    t: 'Few, not many',
+    d: 'A volume-recruiting agency hands you 25 names and hopes one sticks. We hand you 3–5 names and stand behind each one. Fewer interviews. Higher conversion.',
+  },
+  {
+    n: '03',
+    t: 'Permanent, not transactional',
+    d: 'Direct-hire placements only. We are not interested in churning contractors. We are interested in seeing our placements promoted in 18 months.',
+  },
+];
+---
+<BaseLayout
+  title="About Fortium Group — Founded by Cyber Security Veterans"
+  description="Fortium Group was founded by Punit Dwivedi, an industry veteran with 15+ years of pure Cyber Security domain experience. We built the recruiting firm we wished existed."
+  path="/about"
+  jsonLd={jsonLd}
+>
+  <!-- §1 HERO -->
+  <section class="hero" style="min-height:auto; padding-top:6rem; padding-bottom:4rem">
+    <div class="particle-field" aria-hidden="true"></div>
+    <div class="container hero-inner">
+      <p class="eyebrow" data-reveal>About Fortium</p>
+      <h1 data-reveal data-delay="1">
+        We were security practitioners before we were <span class="accent">recruiters.</span>
+      </h1>
+      <p class="hero-sub" data-reveal data-delay="2">
+        Fortium Group was founded on a frustration: hiring managers were drowning in unqualified resumes while elite security operators were invisible to generalist recruiters. We built the firm we wished existed.
+      </p>
+    </div>
+  </section>
+
+  <!-- §2 ORIGIN STORY -->
+  <section>
+    <div class="container">
+      <div class="split">
+        <div data-reveal>
+          <p class="eyebrow">Origin story</p>
+          <h2>From the SOC floor to the search firm.</h2>
+          <p class="lead">
+            For 15+ years, our founder operated inside the Cyber Security industry — building detection programs, briefing boards on risk, and watching gifted security engineers slip through the cracks of recruiters who couldn't tell SAST from DAST.
+          </p>
+          <p>
+            Fortium Group exists to close that gap. We translate fluently in both directions: we know what a CISO is actually asking for when they say "I need someone who gets Zero Trust," and we know what a brilliant detection engineer is actually worth on the open market today.
+          </p>
+          <p>
+            We are a small, deliberate firm by design. Our throughput is not measured in placements per quarter — it is measured in how many of our placements are still thriving in their roles three years later.
+          </p>
+        </div>
+        <aside class="card" data-reveal data-delay="1" style="padding:2rem;">
+          <p class="text-mono text-accent" style="font-size:0.8rem; letter-spacing:0.15em; text-transform:uppercase;">Pull quote</p>
+          <blockquote style="font-family: var(--font-display); font-size:1.4rem; line-height:1.3; color:var(--text); margin:0.5rem 0 1rem;">
+            "A resume is a story someone tells about themselves. A gem is a story we can verify."
+          </blockquote>
+          <p class="muted text-mono" style="margin:0; font-size:0.85rem">— Punit Dwivedi, Founder</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- §3 STAT BAND -->
+  <section class="section-tight">
+    <div class="container">
+      <div class="stat-band" data-reveal>
+        <StatCounter value="15+" label="Years domain experience" />
+        <StatCounter value="1200+" label="Practitioners vetting" />
+        <StatCounter value="21d" label="Average time to offer" />
+        <StatCounter value="94%" label="Offer acceptance" />
+      </div>
+    </div>
+  </section>
+
+  <!-- §4 FOUNDER CARD -->
+  <section>
+    <div class="container">
+      <p class="eyebrow" data-reveal>Leadership</p>
+      <h2 data-reveal data-delay="1">Founder</h2>
+      <article class="card" data-reveal data-delay="2" style="display:grid; grid-template-columns: 120px 1fr; gap:1.5rem; align-items:start; padding:2rem;">
+        <div aria-hidden="true" style="width:120px; height:120px; border-radius:50%; background: linear-gradient(135deg, var(--accent), var(--accent-2)); display:flex; align-items:center; justify-content:center; font-family: var(--font-display); font-weight:700; font-size:2.5rem; color:#001016; flex-shrink:0">
+          PD
+        </div>
+        <div>
+          <h3 style="margin-bottom:0.25rem">Punit Dwivedi</h3>
+          <p class="muted text-mono" style="font-size:0.85rem; margin-bottom:0.75rem; text-transform:uppercase; letter-spacing:0.1em">Founder · Fortium Group</p>
+          <p>
+            Punit founded Fortium Group after 15+ years inside the Cyber Security industry. He has watched the AI Security discipline emerge from research papers into board-level risk, and built Fortium to be the recruiting partner that speaks both languages fluently.
+          </p>
+          <p class="text-mono" style="font-size:0.85rem"><a href="#">LinkedIn →</a> <span class="muted">[ placeholder ]</span></p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- §5 PHILOSOPHY -->
+  <section>
+    <div class="container">
+      <p class="eyebrow" data-reveal>Operating philosophy</p>
+      <h2 data-reveal data-delay="1">Why "Gems, Not Resumes."</h2>
+      <div class="grid grid-3" style="margin-top:2.5rem">
+        {principles.map((p, i) => (
+          <article class="card" data-reveal data-delay={(i % 3) + 1}>
+            <span class="text-mono text-accent" style="font-size:0.85rem; letter-spacing:0.15em">PRINCIPLE {p.n}</span>
+            <h3 style="margin-top:0.5rem">{p.t}</h3>
+            <p>{p.d}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- §6 CTA -->
+  <section>
+    <div class="container" style="text-align:center">
+      <div data-reveal>
+        <h2>See the vetting protocol in action.</h2>
+        <p class="lead" style="max-width:55ch; margin-inline:auto">
+          The fastest way to understand Fortium is to brief us on a real role.
+        </p>
+        <div class="hero-cta" style="justify-content:center; margin-top:1.5rem">
+          <a class="btn btn-primary" href={`${base}/contact`}>Book a discovery call <span class="btn-arrow">→</span></a>
+          <a class="btn btn-ghost" href={`${base}/employers`}>How we vet →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
