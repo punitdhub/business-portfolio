@@ -1,8 +1,8 @@
 /**
  * FORTIUM GROUP — Central Configuration
  *
- * Edit this file to change brand info, scheduling provider, and global
- * site behavior. No need to touch component code.
+ * Edit this file to change brand info, form backend, and global behavior.
+ * No need to touch component code.
  */
 
 export const site = {
@@ -12,52 +12,58 @@ export const site = {
   base: '/business-portfolio',
   description:
     'Direct-hire recruiting for elite Cyber Security and AI Security talent. Founded by industry veterans with 15+ years of pure cyber security domain experience.',
-  email: 'hello@fortiumgroup.com',
+  email: 'punit.ankur@gmail.com',
   linkedin: 'https://www.linkedin.com/company/fortium-group/',
   founder: { name: 'Punit Dwivedi', role: 'Founder' },
-  // Used by JSON-LD and structured data
   founded: 2024,
 } as const;
 
 /**
- * Scheduling provider configuration.
+ * Form backend — Formspree.
  *
- * `provider` switches the entire site's "Book Discovery" experience.
- * Just change this value and (optionally) the URL — no component edits needed.
+ * SETUP (one-time, ~2 minutes):
+ *   1. Log in at https://formspree.io  (you already created an account
+ *      with punit.ankur@gmail.com).
+ *   2. Click "+ New Form". Name it "Fortium Inquiries". Save.
+ *   3. Formspree shows your endpoint, e.g.  https://formspree.io/f/xpzgkbra
+ *      Copy the ID — the part after  /f/  (e.g.  xpzgkbra).
+ *   4. Paste it below as `id`, and change `provider` to 'formspree'.
+ *   5. Commit and push — emails will arrive at punit.ankur@gmail.com
+ *      every time someone submits any form on the site.
  *
- * Supported: 'calendly' | 'cal' | 'savvycal' | 'tidycal' | 'mailto' | 'form'
- */
-export const scheduling = {
-  provider: 'form' as 'calendly' | 'cal' | 'savvycal' | 'tidycal' | 'mailto' | 'form',
-  // Examples (uncomment your provider and paste your URL):
-  // url: 'https://calendly.com/fortium-group/discovery',
-  // url: 'https://cal.com/fortium-group/15min',
-  // url: 'https://savvycal.com/fortium-group/discovery',
-  // url: 'https://tidycal.com/fortium-group/discovery',
-  url: '',
-  buttonLabel: 'Book Discovery',
-  inlineHeight: 700,
-} as const;
-
-/**
- * Form backend — currently Formspree. Replace `id` with your real form ID.
- * Set provider: 'demo' to use the local-only fallback (good for staging).
+ * Until you add the ID, the form stays in safe "demo" mode that captures
+ * the submission visually but doesn't email anyone.
  */
 export const forms = {
-  provider: 'demo' as 'formspree' | 'demo',
-  id: 'PLACEHOLDER_FORMSPREE_ID',
+  provider: 'formspree' as 'formspree' | 'demo',
+  id: 'mqejewen',
 } as const;
 
 /**
- * Feature flags — toggle uniqueness modules.
+ * Feature flags — toggle high-impact modules.
+ *
+ * Tip: keep features that show *competence* (terminal, network graph)
+ *      and disable ones that read as noise (threat ticker, matrix rain).
  */
 export const features = {
-  matrixStream: true,        // Vertical role-name stream behind hero
-  threatTicker: true,        // Top-of-page CVE-style marquee
-  constellationCursor: true, // Connecting-dot cursor trail (subtle)
-  scanLine: true,            // Travelling scan line overlay
-  konamiEasterEgg: true,     // Konami code → rootkit mode
-  ambientGlitch: true,       // Random subtle glitch on H1
+  threatTicker: false,       // Top-of-page CVE marquee — felt aggressive
+  matrixStream: false,       // Vertical role-name stream — felt robotic
+  scanLine: false,           // Global scan-line overlay
+  constellationCursor: true, // Subtle connecting-dot cursor trail
+  konamiEasterEgg: true,     // Konami code → rootkit theme
+  ambientGlitch: true,       // Random subtle glitch on key headings
+  networkGraph: true,        // Animated vetting-network SVG (signature element)
+  terminalSection: true,     // Interactive shell section (collapsible)
+} as const;
+
+/**
+ * Scheduling — kept as form-only (single source of truth: Formspree).
+ * Discovery calls happen via the contact form; we reply to schedule.
+ */
+export const scheduling = {
+  provider: 'form' as 'form',
+  url: '',
+  buttonLabel: 'Book Discovery',
 } as const;
 
 export type Theme = 'dark' | 'light';

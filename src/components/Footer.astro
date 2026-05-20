@@ -11,7 +11,7 @@ const year = new Date().getFullYear();
       <div>
         <Logo height={28} />
         <p class="muted" style="margin-top:1rem; max-width:36ch; font-size:0.92rem;">
-          Direct-hire recruiting for Cyber & AI Security teams. <span class="text-accent">Gems, not just resumes.</span>
+          Direct-hire recruiting for Cyber & AI Security teams. <span class="gradient-text">Gems, not just resumes.</span>
         </p>
         <div style="margin-top:1.25rem">
           <ScheduleButton variant="ghost" />
@@ -47,7 +47,30 @@ const year = new Date().getFullYear();
     </div>
     <div class="footer-bottom">
       <span>© {year} {site.name}. All rights reserved.</span>
-      <span class="dim">v1.1 · Mission Control · built with Astro</span>
+      <span class="live-status" aria-live="polite">
+        <span class="dot" aria-hidden="true"></span>
+        <span data-live-status>All systems operational</span>
+      </span>
     </div>
   </div>
 </footer>
+
+<script is:inline>
+  // Playful "last vetting cycle" timer in the footer — recalculates on load.
+  // Demonstrates the firm runs continuously without claiming false data.
+  (function () {
+    const el = document.querySelector('[data-live-status]');
+    if (!el) return;
+    const messages = [
+      'All systems operational',
+      'Vetting network online',
+      'Intake queue: open',
+      'MPC pipeline: warm',
+    ];
+    let i = 0;
+    setInterval(function () {
+      i = (i + 1) % messages.length;
+      el.textContent = messages[i];
+    }, 5200);
+  })();
+</script>

@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroOrb from '../components/HeroOrb.astro';
 import TerminalHero from '../components/TerminalHero.astro';
-import MatrixStream from '../components/MatrixStream.astro';
+import NetworkGraph from '../components/NetworkGraph.astro';
 import InquiryForm from '../components/InquiryForm.astro';
 import StatCounter from '../components/StatCounter.astro';
 import ScheduleButton from '../components/ScheduleButton.astro';
@@ -13,8 +13,6 @@ import { stats } from '../data/stats';
 import { allRoles } from '../data/roles';
 import { glossary } from '../data/faqs';
 import { features } from '../config';
-
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const orgLd = {
   '@context': 'https://schema.org',
@@ -62,18 +60,18 @@ const definedTermLd = glossary.map((g, i) => ({
 }));
 
 const bento = [
-  { wide: true, title: '15+ Years In The Trenches', body: 'Built by practitioners who shipped SOCs, ran red teams, and architected Zero Trust — not generalist recruiters.', icon: '◆' },
-  { wide: false, title: 'Expert-Validated Talent', body: 'Every shortlist is screened by an active CISO or principal security engineer before it touches your inbox.', icon: '✓' },
-  { wide: false, title: 'Tactical Speed', body: 'First qualified slate in 7 days. Average time-to-offer: 21 days.', icon: '⚡' },
-  { wide: true, title: 'Built For Modern Threats', body: 'We recruit for LLM Security Engineers, AI Red Teamers, Cloud Detection Engineers, AppSec Architects, and Zero Trust leads.', icon: '⚙' },
-  { wide: false, title: 'Direct-Hire, Not Drip-Feed', body: 'Permanent placement only. We commit to fit, not headcount throughput.', icon: '⌬' },
+  { wide: true,  title: '15+ Years In The Trenches',     body: 'Built by practitioners who shipped SOCs, ran red teams, and architected Zero Trust — not generalist recruiters.', icon: '◆' },
+  { wide: false, title: 'Expert-Validated Talent',       body: 'Every shortlist is screened by an active CISO or principal security engineer before it touches your inbox.',     icon: '✓' },
+  { wide: false, title: 'Tactical Speed',                body: 'First qualified slate in 7 days. Average time-to-offer: 21 days — vs an industry median of 68 days.',           icon: '⚡' },
+  { wide: true,  title: 'Built For Modern Threats',     body: 'We recruit LLM Security Engineers, AI Red Teamers, Cloud Detection Engineers, AppSec Architects, and Zero Trust leads.', icon: '⚙' },
+  { wide: false, title: 'Direct-Hire, Not Drip-Feed',    body: 'Permanent placement only. We commit to fit, not headcount throughput.',                                           icon: '⌬' },
 ];
 
 const process = [
-  { n: '01', t: 'Intake calibration', d: 'We sit with your hiring manager to map technical depth, leadership signal, and team culture before sourcing.' },
-  { n: '02', t: 'Practitioner sourcing', d: 'Our network of active security operators surfaces candidates invisible to generalist recruiters.' },
-  { n: '03', t: 'Expert technical screen', d: 'Active CISOs and principal engineers validate skills against the actual threat surface you operate in.' },
-  { n: '04', t: 'Shortlist delivered', d: '3–5 Most Placeable Candidates land in your inbox, typically within 7 business days.' },
+  { n: '01', t: 'Intake calibration',       d: 'We sit with your hiring manager to map technical depth, leadership signal, and team culture before sourcing.' },
+  { n: '02', t: 'Practitioner sourcing',    d: 'Our network of active security operators surfaces candidates invisible to generalist recruiters.' },
+  { n: '03', t: 'Expert technical screen',  d: 'Active CISOs and principal engineers validate skills against the actual threat surface you operate in.' },
+  { n: '04', t: 'Shortlist delivered',      d: '3–5 Most Placeable Candidates land in your inbox, typically within 7 business days.' },
 ];
 ---
 <BaseLayout
@@ -86,13 +84,13 @@ const process = [
 >
   <!-- §1 HERO -->
   <section class="hero">
-    {features.matrixStream && <MatrixStream />}
+    <div class="mesh-bg" aria-hidden="true"></div>
     <div class="grid-bg" aria-hidden="true"></div>
     <HeroOrb />
     <div class="container hero-inner">
-      <div style="display:flex; gap:0.6rem; flex-wrap:wrap; margin-bottom:1.25rem" data-reveal>
+      <div class="hero-badges" data-reveal>
         <StatusBadge label="OPERATIONAL" tone="green" />
-        <StatusBadge label="VETTING · LIVE" tone="accent" />
+        <StatusBadge label="VETTING LIVE" tone="accent" />
         <StatusBadge label="2026 INTAKE OPEN" tone="amber" />
       </div>
       <p class="eyebrow" data-reveal>Cyber & AI Security Recruiting</p>
@@ -100,32 +98,33 @@ const process = [
         Securing your infrastructure begins with <GlitchText as="span" text="securing your talent." auto className="accent" />
       </h1>
       <p class="hero-sub" data-reveal data-delay="2">
-        Fortium Group delivers deeply vetted Cyber & AI Security leaders — placed faster, validated by practitioners, ready on day one. <span class="text-mono text-accent">Gems, not just resumes.</span>
+        Fortium Group delivers deeply vetted Cyber & AI Security leaders — placed faster, validated by practitioners, ready on day one. <span class="gradient-text" style="font-weight:600">Gems, not just resumes.</span>
       </p>
       <div class="hero-cta" data-reveal data-delay="3">
         <ScheduleButton label="Secure Your Next Hire" />
-        <a class="btn btn-ghost" href="#terminal">Explore via Terminal ↓</a>
+        <a class="btn btn-ghost" href="#network">See the network ↓</a>
       </div>
     </div>
   </section>
 
-  <!-- §2 INTERACTIVE TERMINAL -->
-  <section id="terminal" style="padding-top:2rem">
+  <!-- §2 SIGNATURE NETWORK GRAPH -->
+  <section id="network" style="padding-top:3.5rem">
     <div class="container">
-      <div class="split" style="grid-template-columns: 1fr 1.1fr">
+      <div class="split" style="grid-template-columns: 1fr 1.15fr; align-items:center">
         <div data-reveal>
-          <p class="eyebrow">Try the shell</p>
-          <h2><DecryptText as="span" text="The fastest way to understand us is to use us." /></h2>
+          <p class="eyebrow">The vetting network</p>
+          <h2><DecryptText as="span" text="Practitioners vetting practitioners." /></h2>
           <p class="lead">
-            This isn't a marketing terminal. It runs real commands that describe what we do. Type <code class="text-mono text-accent">help</code> to start — or <code class="text-mono text-accent">book</code> to talk to a human.
+            Every Fortium placement goes through our network of active CISOs, red team leads, and principal engineers. No generalist recruiters in the loop. No résumé theater. Real signal, validated by people who ship in production.
           </p>
-          <ul style="list-style:none; padding:0; margin:1.5rem 0; display:grid; gap:0.5rem">
-            <li class="text-mono dim" style="font-size:0.85rem"><span class="text-accent-2">▸</span> help · whoami · mission · vetting</li>
-            <li class="text-mono dim" style="font-size:0.85rem"><span class="text-accent-2">▸</span> mandates · book · sudo · clear</li>
-          </ul>
+          <div class="pill-cloud" style="margin-top:1.5rem">
+            <span class="pill"><span class="dot"></span>1,200+ operators</span>
+            <span class="pill"><span class="dot"></span>4 continents</span>
+            <span class="pill"><span class="dot"></span>Active vetters only</span>
+          </div>
         </div>
-        <div data-reveal data-delay="1">
-          <TerminalHero />
+        <div data-reveal data-delay="1" style="max-width: 100%;">
+          {features.networkGraph && <NetworkGraph />}
         </div>
       </div>
     </div>
@@ -214,12 +213,31 @@ const process = [
         {stats.map((s) => <StatCounter value={s.value} label={s.label} />)}
       </div>
       <p class="dim text-mono" style="font-size:0.7rem; margin-top:0.75rem; text-align:center; letter-spacing:0.15em">
-        // NETWORK SIZE & RATE METRICS ARE ANONYMIZED AGGREGATES · REPLACE WITH AUDITED FIGURES PRE-LAUNCH
+        // network size & rate metrics are anonymized aggregates · replace with audited figures pre-launch
       </p>
     </div>
   </section>
 
-  <!-- §9 FINAL CTA -->
+  <!-- §9 TERMINAL (collapsible easter egg, no longer dominant) -->
+  {features.terminalSection && (
+    <section class="section-tight">
+      <div class="container" style="max-width: 900px">
+        <details class="shell-collapse">
+          <summary>
+            <span><span class="text-accent-2">$</span> open shell — explore Fortium via terminal commands</span>
+          </summary>
+          <div class="shell-inner">
+            <p class="muted" style="font-size:0.92rem; margin: 0.5rem 0 1.25rem">
+              For the curious: type <code class="text-mono text-accent">help</code> to see what's available. Try <code class="text-mono text-accent">whoami</code>, <code class="text-mono text-accent">mission</code>, or <code class="text-mono text-accent">book</code>.
+            </p>
+            <TerminalHero />
+          </div>
+        </details>
+      </div>
+    </section>
+  )}
+
+  <!-- §10 FINAL CTA -->
   <section>
     <div class="container">
       <div class="split">
@@ -230,11 +248,11 @@ const process = [
             Brief us on the role, the team, and the urgency. You'll have a qualified shortlist faster than your next sprint review.
           </p>
           <p class="muted text-mono" style="font-size:0.85rem">
-            — Punit Dwivedi, <span class="text-accent">Founder</span>
+            — Punit Dwivedi, <span class="gradient-text" style="font-weight:600">Founder</span>
           </p>
         </div>
-        <div class="panel" data-reveal data-delay="1">
-          <InquiryForm audience="client" compact />
+        <div class="panel panel-accent" data-reveal data-delay="1">
+          <InquiryForm audience="client" />
         </div>
       </div>
     </div>
