@@ -1,0 +1,9 @@
+---
+export interface Props {
+  label: string;
+  tone?: 'accent' | 'green' | 'amber' | 'warn';
+}
+const { label, tone = 'accent' } = Astro.props;
+const toneClass = tone === 'green' ? 'badge-green' : tone === 'amber' ? 'badge-amber' : tone === 'warn' ? 'badge-warn' : '';
+---
+<span class:list={['badge', toneClass]}>{label}</span>

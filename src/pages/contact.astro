@@ -1,37 +1,45 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import InquiryForm from '../components/InquiryForm.astro';
+import ScheduleButton from '../components/ScheduleButton.astro';
+import DecryptText from '../components/DecryptText.astro';
+import { site, scheduling } from '../config';
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'ContactPage',
   url: 'https://punitdhub.github.io/business-portfolio/contact',
   name: 'Contact Fortium Group',
+  mainEntity: {
+    '@type': 'Organization',
+    name: 'Fortium Group',
+    email: site.email,
+    sameAs: site.linkedin,
+  },
 };
 ---
 <BaseLayout
   title="Contact Fortium Group"
   description="Talk to Fortium Group about your next Cyber or AI Security hire — or about your own career trajectory. We read every message personally."
   path="/contact"
+  breadcrumbs={[{ name: 'Home', path: '/' }, { name: 'Contact', path: '/contact' }]}
   jsonLd={jsonLd}
 >
-  <!-- §1 HERO -->
   <section class="hero" style="min-height:auto; padding-top:6rem; padding-bottom:3rem">
-    <div class="particle-field" aria-hidden="true"></div>
+    <div class="grid-bg" aria-hidden="true"></div>
     <div class="container hero-inner">
       <p class="eyebrow" data-reveal>Contact</p>
-      <h1 data-reveal data-delay="1">Let's talk talent.</h1>
+      <h1 data-reveal data-delay="1"><DecryptText as="span" text="Let's talk talent." /></h1>
       <p class="hero-sub" data-reveal data-delay="2">
         Whether you're hiring or you're hireable, we read every message personally. Initial reply within one business day.
       </p>
     </div>
   </section>
 
-  <!-- §2 SPLIT: FORM + CHANNELS -->
   <section style="padding-top:1rem">
     <div class="container">
       <div class="split">
-        <div class="card" data-reveal style="padding:2rem">
+        <div class="panel" data-reveal style="padding:2rem">
           <h2 style="margin-top:0; font-size:1.5rem">Send a message</h2>
           <InquiryForm audience="general" />
         </div>
@@ -39,26 +47,28 @@ const jsonLd = {
           <p class="eyebrow">Direct channels</p>
           <h2 style="font-size:1.5rem">Other ways to reach us.</h2>
           <ul style="list-style:none; padding:0; display:grid; gap:1rem; margin-top:1.5rem">
-            <li class="card" style="padding:1.25rem">
-              <p class="muted text-mono" style="font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; margin:0">Email</p>
-              <p style="margin:0.25rem 0 0; font-size:1.05rem"><a href="mailto:hello@fortiumgroup.com">hello@fortiumgroup.com</a></p>
+            <li class="panel" style="padding:1.25rem">
+              <p class="muted text-mono" style="font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase; margin:0">Email</p>
+              <p style="margin:0.35rem 0 0; font-size:1.05rem"><a href={`mailto:${site.email}`}>{site.email}</a></p>
             </li>
-            <li class="card" style="padding:1.25rem">
-              <p class="muted text-mono" style="font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; margin:0">LinkedIn</p>
-              <p style="margin:0.25rem 0 0; font-size:1.05rem"><a href="#" rel="noopener">linkedin.com/company/fortium-group</a></p>
-              <p class="muted" style="font-size:0.8rem; margin:0.25rem 0 0">[ placeholder — update with real URL ]</p>
+            <li class="panel" style="padding:1.25rem">
+              <p class="muted text-mono" style="font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase; margin:0">LinkedIn</p>
+              <p style="margin:0.35rem 0 0; font-size:1.05rem"><a href={site.linkedin} rel="noopener" target="_blank">linkedin.com/company/fortium-group</a></p>
+              <p class="dim" style="font-size:0.78rem; margin:0.35rem 0 0; font-family:var(--font-mono)">// placeholder — update in src/config.ts</p>
             </li>
-            <li class="card" style="padding:1.25rem; opacity:0.7">
-              <p class="muted text-mono" style="font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; margin:0">Calendar booking</p>
-              <p style="margin:0.25rem 0 0; font-size:1.05rem">
-                Direct booking <span class="muted">(coming soon)</span>
-              </p>
-              <p class="muted" style="font-size:0.8rem; margin:0.25rem 0 0">Use the form for now — Punit responds personally.</p>
+            <li class="panel" style="padding:1.25rem">
+              <p class="muted text-mono" style="font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase; margin:0">Direct booking</p>
+              {scheduling.provider === 'form' || !scheduling.url ? (
+                <>
+                  <p style="margin:0.35rem 0 0.75rem; font-size:1.05rem">Set up Calendly / Cal.com / SavvyCal in <code class="text-mono text-accent">src/config.ts</code></p>
+                  <p class="dim" style="font-size:0.78rem; margin:0; font-family:var(--font-mono)">// scheduling.provider = 'calendly' | 'cal' | 'savvycal' | 'tidycal'</p>
+                </>
+              ) : (
+                <div style="margin-top:0.5rem"><ScheduleButton label="Open Scheduler" variant="ghost" /></div>
+              )}
             </li>
           </ul>
-
           <hr class="divider" style="margin:2rem 0" />
-
           <div>
             <p class="eyebrow">Response time</p>
             <p>

@@ -1,0 +1,34 @@
+# Fortium Group — llms.txt
+# https://llmstxt.org — site summary for LLM and Generative Search agents.
+
+> Fortium Group is a direct-hire recruiting agency specializing in Cyber Security and AI Security talent placement. Founded by Punit Dwivedi, an industry veteran with 15+ years of pure Cyber Security domain experience. Tagline: "Gems, not just resumes."
+
+## What Fortium does
+- **Direct-hire / permanent placement** recruiting for Cyber Security and AI Security roles.
+- **Three engagement models**: Direct-Hire (contingency), Retained Search, Embedded Recruiter.
+- **Vetting** is performed by active CISOs and principal security engineers, not generalist HR sourcers.
+
+## Definitions
+- **Most Placeable Candidate (MPC)** — A pre-vetted Cyber or AI Security professional whose technical depth, leadership signal, comp expectations, and culture fit have been independently validated by an active industry practitioner.
+- **5-stage vetting protocol** — (1) intake calibration, (2) practitioner sourcing, (3) expert technical screen, (4) cultural & comp calibration, (5) reference verification with security peers.
+
+## Practice areas
+- Cyber Security: CISO, VP of Security, Security Architect, Detection & Response, AppSec, Cloud Security, IAM, GRC, SOC, IR, Zero Trust Architect, OT/ICS, DevSecOps.
+- AI Security: LLM Security Engineer, AI Red Teamer, ML Threat Researcher, AI Governance Lead, Adversarial ML, Model Supply-Chain Security, AI Trust & Safety, Prompt Injection Analyst, Responsible AI Lead, ML SecOps, Model Privacy Engineer.
+
+## Key facts
+- 15+ years of pure cyber security domain experience (founder).
+- 7-day average first shortlist; 21-day average time-to-offer.
+- 90-day replacement guarantee on all direct-hire placements.
+- 94% offer acceptance rate (internal placeholder, pending audit).
+
+## Pages
+- /             — Overview, USPs, interactive terminal, role taxonomy.
+- /about        — Founder story, principles, "Gems not resumes" philosophy.
+- /employers    — Vetting protocol, engagement models, speed metrics, FAQ.
+- /candidates   — Confidentiality promise, open mandates, encrypted intake.
+- /contact      — Inquiry form, direct channels, scheduling.
+
+## Contact
+- Email: hello@fortiumgroup.com
+- LinkedIn: https://www.linkedin.com/company/fortium-group/

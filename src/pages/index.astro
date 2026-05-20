@@ -1,31 +1,65 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroOrb from '../components/HeroOrb.astro';
+import TerminalHero from '../components/TerminalHero.astro';
+import MatrixStream from '../components/MatrixStream.astro';
 import InquiryForm from '../components/InquiryForm.astro';
 import StatCounter from '../components/StatCounter.astro';
+import ScheduleButton from '../components/ScheduleButton.astro';
+import GlitchText from '../components/GlitchText.astro';
+import DecryptText from '../components/DecryptText.astro';
+import StatusBadge from '../components/StatusBadge.astro';
+import { stats } from '../data/stats';
+import { allRoles } from '../data/roles';
+import { glossary } from '../data/faqs';
+import { features } from '../config';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-const jsonLd = {
+const orgLd = {
   '@context': 'https://schema.org',
-  '@type': 'Organization',
+  '@type': ['Organization', 'ProfessionalService'],
   name: 'Fortium Group',
   url: 'https://punitdhub.github.io/business-portfolio/',
   logo: 'https://punitdhub.github.io/business-portfolio/favicon.svg',
+  image: 'https://punitdhub.github.io/business-portfolio/og.svg',
   description:
     'Direct-hire recruiting agency specializing in Cyber Security and AI Security talent placement. Founded by industry veterans with 15+ years of domain experience.',
   founder: { '@type': 'Person', name: 'Punit Dwivedi' },
   knowsAbout: [
-    'Cyber Security recruiting',
-    'AI Security recruiting',
-    'CISO placement',
-    'LLM security engineering',
-    'Zero Trust architecture',
-    'Cloud detection engineering',
-    'AppSec engineering',
+    'Cyber Security recruiting', 'AI Security recruiting', 'CISO placement',
+    'LLM security engineering', 'Zero Trust architecture', 'Cloud detection engineering',
+    'AppSec engineering', 'AI Red Team recruiting', 'Adversarial ML', 'Security Operations',
   ],
+  areaServed: { '@type': 'Place', name: 'Worldwide' },
+  serviceType: 'Direct-Hire Recruiting',
   sameAs: ['https://www.linkedin.com/company/fortium-group/'],
 };
+
+const howToLd = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: 'How Fortium Group Vets Cyber Security Candidates',
+  description:
+    'A five-stage protocol for sourcing, vetting, and placing Most Placeable Candidates (MPCs) in Cyber and AI Security roles.',
+  totalTime: 'P7D',
+  step: [
+    { '@type': 'HowToStep', position: 1, name: 'Intake calibration', text: 'Working session with the hiring manager to map technical depth, leadership signal, threat model, comp band, and dealbreakers.' },
+    { '@type': 'HowToStep', position: 2, name: 'Practitioner sourcing', text: 'Surface candidates through our network of 1,200+ active security operators — most are not on the open market.' },
+    { '@type': 'HowToStep', position: 3, name: 'Expert technical screen', text: 'Active CISO or principal engineer validates the candidate against your specific threat surface.' },
+    { '@type': 'HowToStep', position: 4, name: 'Cultural and compensation calibration', text: 'Pre-negotiate expectations on package, location, equity, and team fit before final-round interviews.' },
+    { '@type': 'HowToStep', position: 5, name: 'Reference verification', text: 'Backchannel checks with prior security peers — the kind only practitioners can credibly run.' },
+  ],
+};
+
+const definedTermLd = glossary.map((g, i) => ({
+  '@context': 'https://schema.org',
+  '@type': 'DefinedTerm',
+  '@id': `#term-${i}`,
+  name: g.term,
+  description: g.definition,
+  inDefinedTermSet: 'Fortium Cyber & AI Security Glossary',
+}));
 
 const bento = [
   { wide: true, title: '15+ Years In The Trenches', body: 'Built by practitioners who shipped SOCs, ran red teams, and architected Zero Trust — not generalist recruiters.', icon: '◆' },
@@ -33,13 +67,6 @@ const bento = [
   { wide: false, title: 'Tactical Speed', body: 'First qualified slate in 7 days. Average time-to-offer: 21 days.', icon: '⚡' },
   { wide: true, title: 'Built For Modern Threats', body: 'We recruit for LLM Security Engineers, AI Red Teamers, Cloud Detection Engineers, AppSec Architects, and Zero Trust leads.', icon: '⚙' },
   { wide: false, title: 'Direct-Hire, Not Drip-Feed', body: 'Permanent placement only. We commit to fit, not headcount throughput.', icon: '⌬' },
-];
-
-const roles = [
-  'CISO', 'VP of Security', 'Security Architect', 'Detection & Response Lead',
-  'AppSec Engineer', 'Cloud Security Engineer', 'IAM Architect', 'GRC Director',
-  'Penetration Tester', 'Threat Intel Analyst', 'LLM Security Engineer', 'AI Red Teamer',
-  'ML Threat Researcher', 'AI Governance Lead', 'Adversarial ML Engineer', 'Model Supply-Chain Security',
 ];
 
 const process = [
@@ -51,32 +78,60 @@ const process = [
 ---
 <BaseLayout
   title="Fortium Group — Cyber & AI Security Recruiting"
-  description="Direct-hire recruiting agency for Cyber Security and AI Security talent. Founded by industry veterans with 15+ years of domain experience. Gems, not just resumes."
+  description="Direct-hire recruiting for Cyber Security and AI Security talent. Founded by industry veterans with 15+ years of domain experience. Gems, not just resumes."
   path="/"
-  jsonLd={jsonLd}
+  keywords={['cyber security recruiting','AI security recruiting','CISO recruiter','LLM security hiring','AI red team recruiter','direct hire cyber','Zero Trust hiring']}
+  breadcrumbs={[{ name: 'Home', path: '/' }]}
+  jsonLd={[orgLd, howToLd, ...definedTermLd]}
 >
   <!-- §1 HERO -->
   <section class="hero">
-    <div class="particle-field" aria-hidden="true"></div>
+    {features.matrixStream && <MatrixStream />}
+    <div class="grid-bg" aria-hidden="true"></div>
     <HeroOrb />
     <div class="container hero-inner">
+      <div style="display:flex; gap:0.6rem; flex-wrap:wrap; margin-bottom:1.25rem" data-reveal>
+        <StatusBadge label="OPERATIONAL" tone="green" />
+        <StatusBadge label="VETTING · LIVE" tone="accent" />
+        <StatusBadge label="2026 INTAKE OPEN" tone="amber" />
+      </div>
       <p class="eyebrow" data-reveal>Cyber & AI Security Recruiting</p>
       <h1 data-reveal data-delay="1">
-        Securing Your Infrastructure Begins With <span class="accent">Securing Your Talent.</span>
+        Securing your infrastructure begins with <GlitchText as="span" text="securing your talent." auto className="accent" />
       </h1>
       <p class="hero-sub" data-reveal data-delay="2">
         Fortium Group delivers deeply vetted Cyber & AI Security leaders — placed faster, validated by practitioners, ready on day one. <span class="text-mono text-accent">Gems, not just resumes.</span>
       </p>
       <div class="hero-cta" data-reveal data-delay="3">
-        <a class="btn btn-primary" href={`${base}/contact`}>
-          Secure Your Next Hire <span class="btn-arrow">→</span>
-        </a>
-        <a class="btn btn-ghost" href="#bento">Browse Our Capabilities</a>
+        <ScheduleButton label="Secure Your Next Hire" />
+        <a class="btn btn-ghost" href="#terminal">Explore via Terminal ↓</a>
       </div>
     </div>
   </section>
 
-  <!-- §2 LOGO RAIL -->
+  <!-- §2 INTERACTIVE TERMINAL -->
+  <section id="terminal" style="padding-top:2rem">
+    <div class="container">
+      <div class="split" style="grid-template-columns: 1fr 1.1fr">
+        <div data-reveal>
+          <p class="eyebrow">Try the shell</p>
+          <h2><DecryptText as="span" text="The fastest way to understand us is to use us." /></h2>
+          <p class="lead">
+            This isn't a marketing terminal. It runs real commands that describe what we do. Type <code class="text-mono text-accent">help</code> to start — or <code class="text-mono text-accent">book</code> to talk to a human.
+          </p>
+          <ul style="list-style:none; padding:0; margin:1.5rem 0; display:grid; gap:0.5rem">
+            <li class="text-mono dim" style="font-size:0.85rem"><span class="text-accent-2">▸</span> help · whoami · mission · vetting</li>
+            <li class="text-mono dim" style="font-size:0.85rem"><span class="text-accent-2">▸</span> mandates · book · sudo · clear</li>
+          </ul>
+        </div>
+        <div data-reveal data-delay="1">
+          <TerminalHero />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- §3 LOGO RAIL -->
   <section class="section-tight">
     <div class="container">
       <p class="eyebrow" data-reveal style="justify-content:center; display:flex">Trusted by security teams at</p>
@@ -90,16 +145,16 @@ const process = [
     </div>
   </section>
 
-  <!-- §3 USP BENTO -->
+  <!-- §4 USP BENTO -->
   <section id="bento">
     <div class="container">
       <p class="eyebrow" data-reveal>Why Fortium</p>
-      <h2 data-reveal data-delay="1">A vetting protocol built by security people, for security people.</h2>
+      <h2 data-reveal data-delay="1"><DecryptText as="span" text="A vetting protocol built by security people, for security people." /></h2>
       <div class="bento" style="margin-top:2.5rem">
         {bento.map((t, i) => (
-          <article class={`card ${t.wide ? 'tile-wide' : 'tile-square'}`} data-reveal data-delay={(i % 4) + 1}>
-            <span class="text-mono text-accent" style="font-size:1.4rem">{t.icon}</span>
-            <h3 style="margin-top:0.75rem">{t.title}</h3>
+          <article class={`panel ${t.wide ? 'tile-wide' : 'tile-square'}`} data-reveal data-delay={(i % 4) + 1}>
+            <span class="icon">{t.icon}</span>
+            <h3>{t.title}</h3>
             <p>{t.body}</p>
           </article>
         ))}
@@ -107,43 +162,43 @@ const process = [
     </div>
   </section>
 
-  <!-- §4 ANSWER BLOCK (AEO) -->
+  <!-- §5 ANSWER BLOCK (AEO + Speakable) -->
   <section class="section-tight">
     <div class="container">
-      <div class="answer-block" data-reveal>
-        <h2>What Is A "Most Placeable Candidate"?</h2>
+      <article class="answer-block" data-reveal>
+        <h2>What is a "Most Placeable Candidate"?</h2>
         <p>
           A <strong>Most Placeable Candidate (MPC)</strong> is a pre-vetted Cyber Security or AI Security professional whose technical depth, leadership signal, compensation expectations, and cultural fit have been independently validated by an active industry practitioner. Fortium Group's MPC framework reduces hiring-manager interview load by an average of 60% and produces offer-to-acceptance rates above 90%.
         </p>
-      </div>
+      </article>
     </div>
   </section>
 
-  <!-- §5 ROLES WE PLACE -->
+  <!-- §6 ROLES -->
   <section id="roles">
     <div class="container">
-      <p class="eyebrow" data-reveal>Practice Areas</p>
-      <h2 data-reveal data-delay="1">Roles We Place</h2>
-      <p class="lead" data-reveal data-delay="2" style="max-width:60ch">
+      <p class="eyebrow" data-reveal>Practice areas</p>
+      <h2 data-reveal data-delay="1">Roles we place.</h2>
+      <p class="lead" data-reveal data-delay="2">
         From first-CISO mandates at Series-B startups to AI Red Team builds at Fortune 500 enterprises — Fortium covers the full Cyber and AI Security stack.
       </p>
       <div class="pill-cloud" style="margin-top:2rem" data-reveal data-delay="3">
-        {roles.map((r) => (
+        {allRoles.map((r) => (
           <span class="pill"><span class="dot"></span>{r}</span>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- §6 PROCESS TIMELINE -->
+  <!-- §7 PROCESS TIMELINE -->
   <section>
     <div class="container">
-      <p class="eyebrow" data-reveal>The Vetting Protocol</p>
+      <p class="eyebrow" data-reveal>The vetting protocol</p>
       <h2 data-reveal data-delay="1">From brief to shortlist in 7 days.</h2>
       <div class="timeline" style="margin-top:2.5rem">
         {process.map((p, i) => (
           <div class="timeline-step" data-reveal data-delay={(i % 4) + 1}>
-            <span class="step-num text-mono">STEP {p.n}</span>
+            <span class="step-num">STEP {p.n}</span>
             <h4>{p.t}</h4>
             <p>{p.d}</p>
           </div>
@@ -152,22 +207,19 @@ const process = [
     </div>
   </section>
 
-  <!-- §7 STAT BAND -->
+  <!-- §8 STAT BAND -->
   <section class="section-tight">
     <div class="container">
       <div class="stat-band" data-reveal>
-        <StatCounter value="15+" label="Years domain experience" />
-        <StatCounter value="1200+" label="Vetting network practitioners" />
-        <StatCounter value="21d" label="Average time to offer" />
-        <StatCounter value="94%" label="Offer acceptance rate" />
+        {stats.map((s) => <StatCounter value={s.value} label={s.label} />)}
       </div>
-      <p class="muted text-mono" style="font-size:0.75rem; margin-top:0.75rem; text-align:center">
-        Network size & rate metrics are anonymized aggregates; replace with audited figures pre-launch.
+      <p class="dim text-mono" style="font-size:0.7rem; margin-top:0.75rem; text-align:center; letter-spacing:0.15em">
+        // NETWORK SIZE & RATE METRICS ARE ANONYMIZED AGGREGATES · REPLACE WITH AUDITED FIGURES PRE-LAUNCH
       </p>
     </div>
   </section>
 
-  <!-- §8 FINAL CTA -->
+  <!-- §9 FINAL CTA -->
   <section>
     <div class="container">
       <div class="split">
@@ -181,10 +233,23 @@ const process = [
             — Punit Dwivedi, <span class="text-accent">Founder</span>
           </p>
         </div>
-        <div class="card" data-reveal data-delay="1">
+        <div class="panel" data-reveal data-delay="1">
           <InquiryForm audience="client" compact />
         </div>
       </div>
     </div>
+  </section>
+
+  <!-- Hidden glossary — semantic gold for GEO, no aesthetic impact -->
+  <section class="sr-only" aria-hidden="true">
+    <h2>Glossary</h2>
+    <dl>
+      {glossary.map((g) => (
+        <>
+          <dt>{g.term}</dt>
+          <dd>{g.definition}</dd>
+        </>
+      ))}
+    </dl>
   </section>
 </BaseLayout>

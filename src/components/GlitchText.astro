@@ -1,0 +1,49 @@
+---
+/**
+ * GlitchText — periodic, subtle RGB-split glitch on hover or at random intervals.
+ * Wraps any text node; preserves SEO since the text is in the DOM.
+ */
+export interface Props {
+  text: string;
+  as?: 'span' | 'h1' | 'h2' | 'h3' | 'h4';
+  auto?: boolean;
+  className?: string;
+}
+const { text, as = 'span', auto = false, className } = Astro.props;
+const Tag = as;
+---
+<Tag
+  class:list={['glitch', className]}
+  data-text={text}
+  data-glitch
+  data-auto={auto ? 'true' : 'false'}
+>{text}</Tag>
+
+<script is:inline>
+  (function () {
+    if (window.__glitchInit) return;
+    window.__glitchInit = true;
+
+    function trigger(el) {
+      el.dataset.glitchActive = 'true';
+      setTimeout(() => { el.dataset.glitchActive = 'false'; }, 700);
+    }
+
+    function attach() {
+      document.querySelectorAll('[data-glitch]').forEach((el) => {
+        el.addEventListener('mouseenter', () => trigger(el));
+        el.addEventListener('focus', () => trigger(el));
+        if (el.dataset.auto === 'true') {
+          const loop = () => {
+            trigger(el);
+            const next = 6000 + Math.random() * 8000;
+            setTimeout(loop, next);
+          };
+          setTimeout(loop, 2000 + Math.random() * 4000);
+        }
+      });
+    }
+    if (document.readyState !== 'loading') attach();
+    else document.addEventListener('DOMContentLoaded', attach);
+  })();
+</script>

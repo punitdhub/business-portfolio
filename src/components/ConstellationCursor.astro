@@ -1,0 +1,80 @@
+---
+/**
+ * ConstellationCursor — pointer leaves a trail of small nodes that draw
+ * connecting lines to each other. Subtle, on-brand cyber "network" feel.
+ * Auto-disabled on touch devices and prefers-reduced-motion.
+ */
+---
+<canvas id="constellation-canvas" aria-hidden="true"></canvas>
+
+<script is:inline>
+  (function () {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (window.matchMedia('(pointer: coarse)').matches) return;
+
+    const canvas = document.getElementById('constellation-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    let w = (canvas.width = window.innerWidth);
+    let h = (canvas.height = window.innerHeight);
+    window.addEventListener('resize', () => {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    });
+
+    const points = [];
+    const MAX = 14;
+
+    function getAccent() {
+      const v = getComputedStyle(document.documentElement).getPropertyValue('--accent-rgb').trim();
+      return v || '0, 229, 255';
+    }
+    let accent = getAccent();
+    new MutationObserver(() => { accent = getAccent(); })
+      .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+    let lastMove = 0;
+    window.addEventListener('mousemove', (e) => {
+      const now = performance.now();
+      if (now - lastMove < 35) return;
+      lastMove = now;
+      points.push({ x: e.clientX, y: e.clientY, life: 1 });
+      if (points.length > MAX) points.shift();
+    });
+
+    function frame() {
+      ctx.clearRect(0, 0, w, h);
+      for (let i = 0; i < points.length; i++) {
+        points[i].life -= 0.018;
+      }
+      while (points.length && points[0].life <= 0) points.shift();
+
+      // Lines
+      for (let i = 0; i < points.length; i++) {
+        for (let j = i + 1; j < points.length; j++) {
+          const a = points[i], b = points[j];
+          const d = Math.hypot(a.x - b.x, a.y - b.y);
+          if (d < 160) {
+            const op = (1 - d / 160) * Math.min(a.life, b.life) * 0.6;
+            ctx.strokeStyle = `rgba(${accent}, ${op})`;
+            ctx.lineWidth = 0.8;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+      }
+      // Nodes
+      for (const p of points) {
+        ctx.fillStyle = `rgba(${accent}, ${p.life * 0.9})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 2.2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  })();
+</script>
