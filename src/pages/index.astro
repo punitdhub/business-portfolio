@@ -2,7 +2,6 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroOrb from '../components/HeroOrb.astro';
 import TerminalHero from '../components/TerminalHero.astro';
-import NetworkGraph from '../components/NetworkGraph.astro';
 import InquiryForm from '../components/InquiryForm.astro';
 import StatCounter from '../components/StatCounter.astro';
 import ScheduleButton from '../components/ScheduleButton.astro';
@@ -102,31 +101,28 @@ const process = [
         Fortium Group delivers deeply vetted Cyber & AI Security leaders — placed faster, validated by practitioners, ready on day one. <span class="gradient-text" style="font-weight:600">Gems, not just resumes.</span>
       </p>
       <div class="hero-cta" data-reveal data-delay="3">
-        <ScheduleButton label="Secure Your Next Hire" />
-        <a class="btn btn-ghost" href="#network">See the network ↓</a>
+        <ScheduleButton label="Start Hiring" />
+        <a class="btn btn-ghost" href="#network">See how we vet ↓</a>
       </div>
     </div>
   </section>
 
-  <!-- §2 SIGNATURE NETWORK GRAPH -->
+  <!-- §2 VETTING NETWORK — text-led, no decorative graph -->
   <section id="network" style="padding-top:3.5rem">
-    <div class="container">
-      <div class="split" style="grid-template-columns: 1fr 1.15fr; align-items:center">
-        <div data-reveal>
-          <p class="eyebrow">The vetting network</p>
-          <h2><DecryptText as="span" text="Practitioners vetting practitioners." /></h2>
-          <p class="lead">
-            Every Fortium placement goes through our network of active CISOs, red team leads, and principal engineers. No generalist recruiters in the loop. No résumé theater. Real signal, validated by people who ship in production.
-          </p>
-          <div class="pill-cloud" style="margin-top:1.5rem">
-            <span class="pill"><span class="dot"></span>1,200+ operators</span>
-            <span class="pill"><span class="dot"></span>4 continents</span>
-            <span class="pill"><span class="dot"></span>Active vetters only</span>
-          </div>
-        </div>
-        <div data-reveal data-delay="1" style="max-width: 100%;">
-          {features.networkGraph && <NetworkGraph />}
-        </div>
+    <div class="container" style="max-width: 920px">
+      <p class="eyebrow" data-reveal>The vetting network</p>
+      <h2 data-reveal data-delay="1">Practitioners vetting practitioners.</h2>
+      <p class="lead" data-reveal data-delay="2">
+        Every Fortium placement passes through a network of active CISOs, red team leads, and principal engineers. No generalist recruiters in the loop. No résumé theater. Real signal, validated by people who ship in production.
+      </p>
+      <div class="pill-cloud" style="margin-top:1.75rem" data-reveal data-delay="3">
+        <span class="pill"><span class="dot"></span>1,200+ operators</span>
+        <span class="pill"><span class="dot"></span>4 continents</span>
+        <span class="pill"><span class="dot"></span>Active vetters only</span>
+        <span class="pill"><span class="dot"></span>CISO · North America</span>
+        <span class="pill"><span class="dot"></span>Red Team · Europe</span>
+        <span class="pill"><span class="dot"></span>AI · San Francisco</span>
+        <span class="pill"><span class="dot"></span>Cloud · Singapore</span>
       </div>
     </div>
   </section>
