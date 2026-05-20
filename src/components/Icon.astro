@@ -1,0 +1,125 @@
+---
+/**
+ * Icon — inline SVG icon set.
+ *
+ * Stroke-based, currentColor, 24x24 viewBox. Names match a Lucide-style
+ * vocabulary so additions stay predictable. Use the `class` and `size`
+ * props to control sizing and colour from the call site.
+ */
+export interface Props {
+  name:
+    | 'shield'
+    | 'shield-check'
+    | 'check'
+    | 'check-circle'
+    | 'bolt'
+    | 'layers'
+    | 'target'
+    | 'lock'
+    | 'gem'
+    | 'compass'
+    | 'chevron-down'
+    | 'chevron-up'
+    | 'chevron-right'
+    | 'arrow-right'
+    | 'sparkle'
+    | 'plus'
+    | 'minus'
+    | 'circle-dot';
+  size?: number;
+  strokeWidth?: number;
+  class?: string;
+  ariaLabel?: string;
+}
+
+const { name, size = 24, strokeWidth = 1.6, class: className, ariaLabel } = Astro.props;
+const aria = ariaLabel ? { 'aria-label': ariaLabel } : { 'aria-hidden': 'true' };
+---
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width={strokeWidth}
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class:list={['icon', `icon-${name}`, className]}
+  {...aria}
+>
+  {name === 'shield' && (
+    <path d="M12 3 L20 6 V12 C20 16.5 16.5 19.7 12 21 C7.5 19.7 4 16.5 4 12 V6 Z" />
+  )}
+  {name === 'shield-check' && (
+    <>
+      <path d="M12 3 L20 6 V12 C20 16.5 16.5 19.7 12 21 C7.5 19.7 4 16.5 4 12 V6 Z" />
+      <path d="M9 12 L11 14 L15 10" />
+    </>
+  )}
+  {name === 'check' && <path d="M5 12 L10 17 L19 7" />}
+  {name === 'check-circle' && (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M8 12 L11 15 L16 9" />
+    </>
+  )}
+  {name === 'bolt' && (
+    <path d="M13 3 L5 13 H11 L11 21 L19 11 H13 Z" />
+  )}
+  {name === 'layers' && (
+    <>
+      <path d="M12 3 L21 8 L12 13 L3 8 Z" />
+      <path d="M3 13 L12 18 L21 13" />
+      <path d="M3 17 L12 22 L21 17" />
+    </>
+  )}
+  {name === 'target' && (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <circle cx="12" cy="12" r="5" />
+      <circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none" />
+    </>
+  )}
+  {name === 'lock' && (
+    <>
+      <rect x="4" y="11" width="16" height="10" rx="2" />
+      <path d="M8 11 V7 a4 4 0 0 1 8 0 V11" />
+    </>
+  )}
+  {name === 'gem' && (
+    <>
+      <path d="M6 3 H18 L22 9 L12 21 L2 9 Z" />
+      <path d="M2 9 H22" />
+      <path d="M9 9 L12 21" />
+      <path d="M15 9 L12 21" />
+      <path d="M9 9 L6 3" />
+      <path d="M15 9 L18 3" />
+    </>
+  )}
+  {name === 'compass' && (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M15.5 8.5 L13 13 L8.5 15.5 L11 11 Z" />
+    </>
+  )}
+  {name === 'chevron-down' && <path d="M6 9 L12 15 L18 9" />}
+  {name === 'chevron-up' && <path d="M6 15 L12 9 L18 15" />}
+  {name === 'chevron-right' && <path d="M9 6 L15 12 L9 18" />}
+  {name === 'arrow-right' && <path d="M5 12 H19 M13 6 L19 12 L13 18" />}
+  {name === 'sparkle' && (
+    <path d="M12 3 L13.5 9 L19.5 10.5 L13.5 12 L12 18 L10.5 12 L4.5 10.5 L10.5 9 Z" />
+  )}
+  {name === 'plus' && <path d="M12 5 V19 M5 12 H19" />}
+  {name === 'minus' && <path d="M5 12 H19" />}
+  {name === 'circle-dot' && (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none" />
+    </>
+  )}
+</svg>
+
+<style>
+  .icon { display: inline-block; vertical-align: middle; flex-shrink: 0; }
+</style>

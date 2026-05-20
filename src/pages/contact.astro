@@ -7,7 +7,7 @@ import { site } from '../config';
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'ContactPage',
-  url: 'https://punitdhub.github.io/business-portfolio/contact',
+  url: 'https://www.fortiumgroup.co/contact',
   name: 'Contact Fortium Group',
   mainEntity: {
     '@type': 'Organization',
@@ -24,7 +24,7 @@ const jsonLd = {
   breadcrumbs={[{ name: 'Home', path: '/' }, { name: 'Contact', path: '/contact' }]}
   jsonLd={jsonLd}
 >
-  <section class="hero" style="min-height:auto; padding-top:6rem; padding-bottom:3rem">
+  <section class="hero hero-compact">
     <div class="grid-bg" aria-hidden="true"></div>
     <div class="container hero-inner">
       <p class="eyebrow" data-reveal>Contact</p>
@@ -53,7 +53,6 @@ const jsonLd = {
             <li class="panel" style="padding:1.25rem">
               <p class="muted text-mono" style="font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase; margin:0">LinkedIn</p>
               <p style="margin:0.35rem 0 0; font-size:1.05rem"><a href={site.linkedin} rel="noopener" target="_blank">linkedin.com/company/fortium-group</a></p>
-              <p class="dim" style="font-size:0.78rem; margin:0.35rem 0 0; font-family:var(--font-mono)">// placeholder — update in src/config.ts</p>
             </li>
             <li class="panel" style="padding:1.25rem">
               <p class="muted text-mono" style="font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase; margin:0">What happens next</p>

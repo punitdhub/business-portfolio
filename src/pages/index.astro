@@ -9,6 +9,7 @@ import ScheduleButton from '../components/ScheduleButton.astro';
 import GlitchText from '../components/GlitchText.astro';
 import DecryptText from '../components/DecryptText.astro';
 import StatusBadge from '../components/StatusBadge.astro';
+import Icon from '../components/Icon.astro';
 import { stats } from '../data/stats';
 import { allRoles } from '../data/roles';
 import { glossary } from '../data/faqs';
@@ -18,9 +19,9 @@ const orgLd = {
   '@context': 'https://schema.org',
   '@type': ['Organization', 'ProfessionalService'],
   name: 'Fortium Group',
-  url: 'https://punitdhub.github.io/business-portfolio/',
-  logo: 'https://punitdhub.github.io/business-portfolio/favicon.svg',
-  image: 'https://punitdhub.github.io/business-portfolio/og.svg',
+  url: 'https://www.fortiumgroup.co/',
+  logo: 'https://www.fortiumgroup.co/favicon.svg',
+  image: 'https://www.fortiumgroup.co/og.svg',
   description:
     'Direct-hire recruiting agency specializing in Cyber Security and AI Security talent placement. Founded by industry veterans with 15+ years of domain experience.',
   founder: { '@type': 'Person', name: 'Punit Dwivedi' },
@@ -60,11 +61,11 @@ const definedTermLd = glossary.map((g, i) => ({
 }));
 
 const bento = [
-  { wide: true,  title: '15+ Years In The Trenches',     body: 'Built by practitioners who shipped SOCs, ran red teams, and architected Zero Trust — not generalist recruiters.', icon: '◆' },
-  { wide: false, title: 'Expert-Validated Talent',       body: 'Every shortlist is screened by an active CISO or principal security engineer before it touches your inbox.',     icon: '✓' },
-  { wide: false, title: 'Tactical Speed',                body: 'First qualified slate in 7 days. Average time-to-offer: 21 days — vs an industry median of 68 days.',           icon: '⚡' },
-  { wide: true,  title: 'Built For Modern Threats',     body: 'We recruit LLM Security Engineers, AI Red Teamers, Cloud Detection Engineers, AppSec Architects, and Zero Trust leads.', icon: '⚙' },
-  { wide: false, title: 'Direct-Hire, Not Drip-Feed',    body: 'Permanent placement only. We commit to fit, not headcount throughput.',                                           icon: '⌬' },
+  { wide: true,  title: '15+ Years In The Trenches',     body: 'Built by practitioners who shipped SOCs, ran red teams, and architected Zero Trust — not generalist recruiters.', icon: 'shield' as const },
+  { wide: false, title: 'Expert-Validated Talent',       body: 'Every shortlist is screened by an active CISO or principal security engineer before it touches your inbox.',     icon: 'shield-check' as const },
+  { wide: false, title: 'Tactical Speed',                body: 'First qualified slate in 7 days. Average time-to-offer: 21 days — vs an industry median of 68 days.',           icon: 'bolt' as const },
+  { wide: true,  title: 'Built For Modern Threats',     body: 'We recruit LLM Security Engineers, AI Red Teamers, Cloud Detection Engineers, AppSec Architects, and Zero Trust leads.', icon: 'layers' as const },
+  { wide: false, title: 'Direct-Hire, Not Drip-Feed',    body: 'Permanent placement only. We commit to fit, not headcount throughput.',                                           icon: 'target' as const },
 ];
 
 const process = [
@@ -151,8 +152,8 @@ const process = [
       <h2 data-reveal data-delay="1"><DecryptText as="span" text="A vetting protocol built by security people, for security people." /></h2>
       <div class="bento" style="margin-top:2.5rem">
         {bento.map((t, i) => (
-          <article class={`panel ${t.wide ? 'tile-wide' : 'tile-square'}`} data-reveal data-delay={(i % 4) + 1}>
-            <span class="icon">{t.icon}</span>
+          <article class={`panel bento-tile ${t.wide ? 'tile-wide' : 'tile-square'}`} data-reveal data-delay={(i % 4) + 1}>
+            <span class="bento-icon"><Icon name={t.icon} size={26} strokeWidth={1.5} /></span>
             <h3>{t.title}</h3>
             <p>{t.body}</p>
           </article>
@@ -212,8 +213,8 @@ const process = [
       <div class="stat-band" data-reveal>
         {stats.map((s) => <StatCounter value={s.value} label={s.label} />)}
       </div>
-      <p class="dim text-mono" style="font-size:0.7rem; margin-top:0.75rem; text-align:center; letter-spacing:0.15em">
-        // network size & rate metrics are anonymized aggregates · replace with audited figures pre-launch
+      <p class="dim text-mono caption" style="margin-top:0.9rem; text-align:center">
+        Network size and placement metrics shown as anonymized internal aggregates.
       </p>
     </div>
   </section>
