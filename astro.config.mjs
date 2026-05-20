@@ -4,8 +4,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://punitdhub.github.io',
-  base: '/business-portfolio',
+  site: 'https://www.fortiumgroup.co',
   trailingSlash: 'ignore',
   integrations: [sitemap()],
   build: { inlineStylesheets: 'auto' },
