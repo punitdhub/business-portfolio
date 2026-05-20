@@ -46,14 +46,14 @@ export const forms = {
  *      and disable ones that read as noise (threat ticker, matrix rain).
  */
 export const features = {
-  threatTicker: false,       // Top-of-page CVE marquee — felt aggressive
-  matrixStream: false,       // Vertical role-name stream — felt robotic
-  scanLine: false,           // Global scan-line overlay
-  constellationCursor: true, // Subtle connecting-dot cursor trail
-  konamiEasterEgg: true,     // Konami code → rootkit theme
-  ambientGlitch: true,       // Random subtle glitch on key headings
-  networkGraph: true,        // Animated vetting-network SVG (signature element)
-  terminalSection: true,     // Interactive shell section (collapsible)
+  threatTicker: false,
+  matrixStream: false,
+  scanLine: false,
+  constellationCursor: false,
+  konamiEasterEgg: false,
+  ambientGlitch: false,
+  networkGraph: true,
+  terminalSection: true,
 } as const;
 
 /**
