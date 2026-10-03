@@ -38,10 +38,31 @@ src/
 │   ├── about.astro
 │   ├── employers.astro
 │   ├── candidates.astro
-│   └── contact.astro
+│   ├── contact.astro
+│   ├── salary-benchmark.astro # Free salary benchmark request form
+│   ├── privacy.astro / terms.astro
+│   ├── roles/                # /roles index + /roles/<slug> hiring guides
+│   ├── insights/             # /insights index + /insights/<slug> articles
+│   └── rss.xml.ts            # RSS feed of Insights
+├── content/insights/         # Insights articles (Markdown)
+├── data/                     # Editable site data (see below)
 └── styles/
     └── global.css            # Design tokens, themes, components
 ```
+
+## ✏️ Editing Content (no code changes needed)
+
+| What | Where |
+| --- | --- |
+| Publish an article | Add a `.md` file to `src/content/insights/` (copy an existing one for the front-matter fields). Set `draft: true` to hide it. |
+| Add / edit a role hiring guide | `src/data/rolePages.ts` — salary ranges, sources, questions, FAQs |
+| Headline stats | `src/data/stats.ts` — only publish numbers you can substantiate |
+| Client logos | `src/data/clients.ts` — leave empty until you have permission |
+| Testimonials | `src/data/testimonials.ts` — section stays hidden while empty |
+| Open roles on /candidates | `src/data/mandates.ts`, then set `features.showMandates = true` in `src/config.ts` |
+| Legal page settings | `legal` in `src/config.ts` |
+
+Links inside articles use the full `/business-portfolio/...` path; update them if the site moves to a custom domain.
 
 ---
 

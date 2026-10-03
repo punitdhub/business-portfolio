@@ -8,6 +8,7 @@ import { faqs } from '../data/faqs';
 import { comparisonRows } from '../data/stats';
 import Testimonials from '../components/Testimonials.astro';
 import { cyberRoles, aiSecurityRoles } from '../data/roles';
+import { roleLink } from '../data/rolePages';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -172,6 +173,19 @@ const jsonLd = [
     </div>
   </section>
 
+  <section class="section-tight">
+    <div class="container">
+      <div class="panel panel-accent benchmark-cta" data-reveal>
+        <div>
+          <p class="eyebrow" style="margin-bottom:0.4rem">Free for employers</p>
+          <h2 style="font-size:1.45rem; margin:0">Not sure what to offer? Get a salary benchmark.</h2>
+          <p class="muted" style="margin:0.5rem 0 0">Base range, bonus and equity norms, and market tightness for your exact role and location — typically within 2 business days.</p>
+        </div>
+        <a class="btn btn-primary" href={`${base}/salary-benchmark`}>Request benchmark <span class="btn-arrow">→</span></a>
+      </div>
+    </div>
+  </section>
+
   <section id="roles">
     <div class="container">
       <p class="eyebrow" data-reveal>Practice areas (full taxonomy)</p>
@@ -180,13 +194,13 @@ const jsonLd = [
         <article class="panel" data-reveal>
           <h3>Cyber Security</h3>
           <ul style="padding-left:1.1rem; color:var(--text-muted); margin:0; columns:2; column-gap:1.5rem; font-size:0.92rem">
-            {cyberRoles.map((r) => <li style="margin-bottom:0.2rem">{r}</li>)}
+            {cyberRoles.map((r) => { const s = roleLink(r); return <li style="margin-bottom:0.2rem">{s ? <a href={`${base}/roles/${s}`}>{r}</a> : r}</li>; })}
           </ul>
         </article>
         <article class="panel" data-reveal data-delay="1">
           <h3>AI Security</h3>
           <ul style="padding-left:1.1rem; color:var(--text-muted); margin:0; columns:2; column-gap:1.5rem; font-size:0.92rem">
-            {aiSecurityRoles.map((r) => <li style="margin-bottom:0.2rem">{r}</li>)}
+            {aiSecurityRoles.map((r) => { const s = roleLink(r); return <li style="margin-bottom:0.2rem">{s ? <a href={`${base}/roles/${s}`}>{r}</a> : r}</li>; })}
           </ul>
         </article>
       </div>

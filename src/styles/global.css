@@ -1142,6 +1142,43 @@ section {
 .legal ul { padding-left: 1.1rem; color: var(--text-muted); }
 .legal li { margin-bottom: 0.4rem; }
 
+/* ---------------------------------------------------------------
+   ROLE GUIDES + INSIGHTS
+   --------------------------------------------------------------- */
+.role-h { font-size: clamp(1.15rem, 0.8vw + 0.9rem, 1.35rem); margin: 0 0 1rem; }
+.role-ol, .role-ul { margin: 0; padding-left: 1.2rem; display: grid; gap: 0.6rem; color: var(--text); font-size: 0.95rem; }
+.role-card { display: flex; flex-direction: column; gap: 0.6rem; color: inherit; text-decoration: none; }
+.role-card h3 { margin: 0; }
+.role-card p { margin: 0; font-size: 0.92rem; }
+.role-card .text-accent { margin-top: auto; font-size: 0.9rem; }
+
+.data-table { width: 100%; border-collapse: collapse; font-size: 0.93rem; }
+.data-table th {
+  text-align: left; padding: 0.5rem 0; font-family: var(--font-mono);
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim);
+}
+.data-table td { padding: 0.65rem 0.75rem 0.65rem 0; border-top: 1px solid var(--border); vertical-align: top; }
+.source-list { margin: 0; padding-left: 1.1rem; font-size: 0.8rem; display: grid; gap: 0.25rem; }
+
+.prose { font-size: 1.04rem; line-height: 1.75; color: var(--text); }
+.prose > * + * { margin-top: 1.1rem; }
+.prose h2 { font-size: clamp(1.4rem, 1.2vw + 1rem, 1.85rem); margin-top: 2.75rem; }
+.prose h3 { font-size: clamp(1.1rem, 0.6vw + 0.95rem, 1.3rem); margin-top: 2rem; }
+.prose p, .prose li { color: var(--text); }
+.prose ul, .prose ol { padding-left: 1.3rem; }
+.prose li + li { margin-top: 0.4rem; }
+.prose a { text-decoration: underline; text-underline-offset: 3px; }
+.prose em { color: var(--text-muted); }
+.prose table {
+  display: block; overflow-x: auto; width: 100%;
+  border-collapse: collapse; font-size: 0.92rem; line-height: 1.5;
+}
+.prose th, .prose td { padding: 0.65rem 0.9rem 0.65rem 0; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+.prose th {
+  font-family: var(--font-mono); font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim);
+}
+
 .form-consent {
   margin: 0;
   font-size: 0.78rem;
@@ -1503,3 +1540,11 @@ section {
   body { background: white; color: black; }
   a { color: black; text-decoration: underline; }
 }
+
+.benchmark-cta {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1.5rem; flex-wrap: wrap; padding: clamp(1.5rem, 3vw, 2.25rem);
+}
+.benchmark-cta > div { flex: 1 1 380px; }
+a.pill { color: var(--text-muted); text-decoration: none; }
+a.pill:hover { color: var(--text); }

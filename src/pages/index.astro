@@ -13,6 +13,7 @@ import Testimonials from '../components/Testimonials.astro';
 import { stats, statsFootnote } from '../data/stats';
 import { clients, sectors } from '../data/clients';
 import { allRoles } from '../data/roles';
+import { roleLink } from '../data/rolePages';
 import { glossary } from '../data/faqs';
 import { features } from '../config';
 
@@ -191,9 +192,15 @@ const process = [
         From first-CISO hires at growth-stage startups to AI Red Team builds inside large enterprises — Fortium covers the full Cyber and AI Security stack.
       </p>
       <div class="pill-cloud" style="margin-top:2rem" data-reveal data-delay="3">
-        {allRoles.map((r) => (
-          <span class="pill"><span class="dot"></span>{r}</span>
-        ))}
+        {allRoles.map((r) => {
+          const slug = roleLink(r);
+          return slug
+            ? <a class="pill" href={`${base}/roles/${slug}`}><span class="dot"></span>{r}</a>
+            : <span class="pill"><span class="dot"></span>{r}</span>;
+        })}
+      </div>
+      <p data-reveal style="margin-top:1.25rem">
+        <a href={`${base}/roles`}>Browse role hiring guides — skills, salaries, interview questions →</a>
       </div>
     </div>
   </section>

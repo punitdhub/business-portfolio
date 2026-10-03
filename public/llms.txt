@@ -26,8 +26,11 @@
 - /             — Overview, USPs, interactive terminal, role taxonomy.
 - /about        — Founder story, principles, "Gems not resumes" philosophy.
 - /employers    — Vetting protocol, engagement models, speed metrics, FAQ.
-- /candidates   — Confidentiality promise, open mandates, encrypted intake.
+- /candidates   — Confidentiality promise, candidate journey, confidential intake.
 - /contact      — Inquiry form, direct channels, scheduling.
+- /roles        — Hiring guides per role (SOC Analyst & Lead, AI Red Teamer, LLM Security Engineer, Cloud Security Engineer, AppSec Engineer, GRC Lead): skills, certifications, 2026 salary ranges with sources, interview questions, red flags.
+- /insights     — Articles: AI Security Salary Guide 2026, How to Hire Your First CISO, How to Build an AI Red Team. RSS at /rss.xml.
+- /salary-benchmark — Free, role-specific compensation snapshot for employers (typically within 2 business days).
 - /privacy      — Privacy policy (candidate and client data handling).
 - /terms        — Terms of use.
 

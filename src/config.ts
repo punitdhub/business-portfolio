@@ -12,7 +12,7 @@ export const site = {
   base: '/business-portfolio',
   description:
     'Direct-hire recruiting for elite Cyber Security and AI Security talent. Founded by industry veterans with 15+ years of pure cyber security domain experience.',
-  email: 'punit.ankur@gmail.com',
+  email: 'hello@fortiumgroup.com',
   linkedin: 'https://www.linkedin.com/company/fortium-group/',
   founder: { name: 'Punit Dwivedi', role: 'Founder' },
   founded: 2024,
@@ -66,6 +66,8 @@ export const features = {
   ambientGlitch: false,
   networkGraph: true,
   terminalSection: true,
+  /** Open-role cards on /candidates. Turn on once src/data/mandates.ts holds real roles. */
+  showMandates: false,
 } as const;
 
 /**

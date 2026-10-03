@@ -7,7 +7,8 @@ export interface Mandate {
   status: 'OPEN' | 'INTERVIEWING' | 'CLOSING';
 }
 
-// Anonymized placeholder mandates. Easy to swap; CMS-ready shape.
+// Anonymized mandates. PLACEHOLDERS — replace with real roles, then set
+// features.showMandates = true in src/config.ts to display them.
 export const mandates: Mandate[] = [
   {
     ref: 'FG-2026-014',

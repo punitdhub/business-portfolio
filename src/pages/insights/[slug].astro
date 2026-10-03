@@ -1,0 +1,88 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { render } from 'astro:content';
+import { getInsights, readingTime, formatDate, type Insight } from '../../data/insights';
+import { site } from '../../config';
+
+export async function getStaticPaths() {
+  const posts = await getInsights();
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props as { post: Insight };
+const { Content } = await render(post);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const path = `/insights/${post.id}`;
+const { title, description, pubDate, updatedDate, author, tags } = post.data;
+
+const more = (await getInsights()).filter((p) => p.id !== post.id).slice(0, 2);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  datePublished: pubDate.toISOString(),
+  dateModified: (updatedDate ?? pubDate).toISOString(),
+  author: { '@type': 'Person', name: author, url: `${site.url}/about` },
+  publisher: { '@type': 'Organization', name: site.name, logo: { '@type': 'ImageObject', url: `${site.url}/favicon.svg` } },
+  mainEntityOfPage: `${site.url}${path}`,
+  keywords: tags.join(', '),
+};
+---
+<BaseLayout
+  title={title}
+  description={description}
+  path={path}
+  keywords={tags}
+  breadcrumbs={[{ name: 'Home', path: '/' }, { name: 'Insights', path: '/insights' }, { name: title, path }]}
+  jsonLd={jsonLd}
+>
+  <section class="hero hero-compact">
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="container hero-inner" style="max-width:820px">
+      <p class="eyebrow" data-reveal><a href={`${base}/insights`}>Insights</a></p>
+      <h1 data-reveal data-delay="1" style="font-size:clamp(2rem, 3.4vw + 0.6rem, 3.1rem)">{title}</h1>
+      <p class="hero-sub" data-reveal data-delay="2">{description}</p>
+      <p class="dim text-mono caption" data-reveal data-delay="3">
+        By <a href={`${base}/about`}>{author}</a> · {formatDate(pubDate)}{updatedDate && ` · Updated ${formatDate(updatedDate)}`} · {readingTime(post)}
+      </p>
+    </div>
+  </section>
+
+  <section style="padding-top:1rem">
+    <div class="container" style="max-width:820px">
+      <article class="prose">
+        <Content />
+      </article>
+
+      <aside class="panel panel-accent" style="margin-top:3rem; padding:2rem">
+        <p class="eyebrow">About the author</p>
+        <h2 style="font-size:1.3rem; margin:0.25rem 0 0.5rem">{author}</h2>
+        <p class="muted" style="margin:0 0 1.25rem">
+          Founder of {site.name}, with 15+ years in the Cyber Security industry. Fortium places Cyber and AI Security talent vetted by active practitioners.
+        </p>
+        <div class="hero-cta" style="margin:0">
+          <a class="btn btn-primary" href={`${base}/employers#brief`}>Brief us on a role <span class="btn-arrow">→</span></a>
+          <a class="btn btn-ghost" href={`${base}/salary-benchmark`}>Free salary benchmark</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  {more.length > 0 && (
+    <section class="section-tight">
+      <div class="container" style="max-width:820px">
+        <p class="eyebrow">Keep reading</p>
+        <div class="grid grid-2" style="margin-top:1rem">
+          {more.map((p) => (
+            <a class="panel role-card" href={`${base}/insights/${p.id}`}>
+              <h3>{p.data.title}</h3>
+              <span class="text-accent">Read article →</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+</BaseLayout>
