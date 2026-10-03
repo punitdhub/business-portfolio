@@ -4,7 +4,7 @@ import StatCounter from '../components/StatCounter.astro';
 import ScheduleButton from '../components/ScheduleButton.astro';
 import GlitchText from '../components/GlitchText.astro';
 import DecryptText from '../components/DecryptText.astro';
-import { stats } from '../data/stats';
+import { stats, statsFootnote } from '../data/stats';
 import { site } from '../config';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -87,6 +87,7 @@ const principles = [
       <div class="stat-band" data-reveal>
         {stats.map((s) => <StatCounter value={s.value} label={s.label} />)}
       </div>
+      <p class="dim text-mono caption" style="margin-top:0.9rem; text-align:center">{statsFootnote}</p>
     </div>
   </section>
 

@@ -18,9 +18,9 @@
 
 ## Key facts
 - 15+ years of pure cyber security domain experience (founder).
-- 7-day average first shortlist; 21-day average time-to-offer.
+- Target: first vetted shortlist within 7 business days of intake.
 - 90-day replacement guarantee on all direct-hire placements.
-- 94% offer acceptance rate (internal placeholder, pending audit).
+- First reply to every inquiry within 1 business day.
 
 ## Pages
 - /             — Overview, USPs, interactive terminal, role taxonomy.
@@ -28,6 +28,8 @@
 - /employers    — Vetting protocol, engagement models, speed metrics, FAQ.
 - /candidates   — Confidentiality promise, open mandates, encrypted intake.
 - /contact      — Inquiry form, direct channels, scheduling.
+- /privacy      — Privacy policy (candidate and client data handling).
+- /terms        — Terms of use.
 
 ## Contact
 - Email: hello@fortiumgroup.com

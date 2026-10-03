@@ -9,10 +9,14 @@ import GlitchText from '../components/GlitchText.astro';
 import DecryptText from '../components/DecryptText.astro';
 import StatusBadge from '../components/StatusBadge.astro';
 import Icon from '../components/Icon.astro';
-import { stats } from '../data/stats';
+import Testimonials from '../components/Testimonials.astro';
+import { stats, statsFootnote } from '../data/stats';
+import { clients, sectors } from '../data/clients';
 import { allRoles } from '../data/roles';
 import { glossary } from '../data/faqs';
 import { features } from '../config';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const orgLd = {
   '@context': 'https://schema.org',
@@ -43,7 +47,7 @@ const howToLd = {
   totalTime: 'P7D',
   step: [
     { '@type': 'HowToStep', position: 1, name: 'Intake calibration', text: 'Working session with the hiring manager to map technical depth, leadership signal, threat model, comp band, and dealbreakers.' },
-    { '@type': 'HowToStep', position: 2, name: 'Practitioner sourcing', text: 'Surface candidates through our network of 1,200+ active security operators — most are not on the open market.' },
+    { '@type': 'HowToStep', position: 2, name: 'Practitioner sourcing', text: 'Surface candidates through our network of active security operators — many are not on the open market.' },
     { '@type': 'HowToStep', position: 3, name: 'Expert technical screen', text: 'Active CISO or principal engineer validates the candidate against your specific threat surface.' },
     { '@type': 'HowToStep', position: 4, name: 'Cultural and compensation calibration', text: 'Pre-negotiate expectations on package, location, equity, and team fit before final-round interviews.' },
     { '@type': 'HowToStep', position: 5, name: 'Reference verification', text: 'Backchannel checks with prior security peers — the kind only practitioners can credibly run.' },
@@ -62,7 +66,7 @@ const definedTermLd = glossary.map((g, i) => ({
 const bento = [
   { wide: true,  title: '15+ Years In The Trenches',     body: 'Built by practitioners who shipped SOCs, ran red teams, and architected Zero Trust — not generalist recruiters.', icon: 'shield' as const },
   { wide: false, title: 'Expert-Validated Talent',       body: 'Every shortlist is screened by an active CISO or principal security engineer before it touches your inbox.',     icon: 'shield-check' as const },
-  { wide: false, title: 'Tactical Speed',                body: 'First qualified slate in 7 days. Average time-to-offer: 21 days — vs an industry median of 68 days.',           icon: 'bolt' as const },
+  { wide: false, title: 'Tactical Speed',                body: 'Target: a vetted shortlist within 7 business days of intake. Vetting happens upstream — before you ever see a resume.',           icon: 'bolt' as const },
   { wide: true,  title: 'Built For Modern Threats',     body: 'We recruit LLM Security Engineers, AI Red Teamers, Cloud Detection Engineers, AppSec Architects, and Zero Trust leads.', icon: 'layers' as const },
   { wide: false, title: 'Direct-Hire, Not Drip-Feed',    body: 'Permanent placement only. We commit to fit, not headcount throughput.',                                           icon: 'target' as const },
 ];
@@ -89,9 +93,9 @@ const process = [
     <HeroOrb />
     <div class="container hero-inner">
       <div class="hero-badges" data-reveal>
-        <StatusBadge label="OPERATIONAL" tone="green" />
-        <StatusBadge label="VETTING LIVE" tone="accent" />
-        <StatusBadge label="2026 INTAKE OPEN" tone="amber" />
+        <StatusBadge label="DIRECT-HIRE" tone="green" />
+        <StatusBadge label="CYBER + AI SECURITY" tone="accent" />
+        <StatusBadge label="ACCEPTING 2026 MANDATES" tone="amber" />
       </div>
       <p class="eyebrow" data-reveal>Cyber & AI Security Recruiting</p>
       <h1 data-reveal data-delay="1">
@@ -116,28 +120,36 @@ const process = [
         Every Fortium placement passes through a network of active CISOs, red team leads, and principal engineers. No generalist recruiters in the loop. No résumé theater. Real signal, validated by people who ship in production.
       </p>
       <div class="pill-cloud" style="margin-top:1.75rem" data-reveal data-delay="3">
-        <span class="pill"><span class="dot"></span>1,200+ operators</span>
-        <span class="pill"><span class="dot"></span>4 continents</span>
-        <span class="pill"><span class="dot"></span>Active vetters only</span>
-        <span class="pill"><span class="dot"></span>CISO · North America</span>
-        <span class="pill"><span class="dot"></span>Red Team · Europe</span>
-        <span class="pill"><span class="dot"></span>AI · San Francisco</span>
-        <span class="pill"><span class="dot"></span>Cloud · Singapore</span>
+        <span class="pill"><span class="dot"></span>Active practitioners only</span>
+        <span class="pill"><span class="dot"></span>CISO &amp; security leadership</span>
+        <span class="pill"><span class="dot"></span>Red Team &amp; offensive</span>
+        <span class="pill"><span class="dot"></span>AI &amp; ML security</span>
+        <span class="pill"><span class="dot"></span>Cloud &amp; detection</span>
+        <span class="pill"><span class="dot"></span>AppSec &amp; product security</span>
       </div>
     </div>
   </section>
 
-  <!-- §3 LOGO RAIL -->
+  <!-- §3 LOGO RAIL — real clients (src/data/clients.ts), else sectors -->
   <section class="section-tight">
     <div class="container">
-      <p class="eyebrow" data-reveal style="justify-content:center; display:flex">Trusted by security teams at</p>
-      <div class="logo-rail" data-reveal data-delay="1" aria-label="Placeholder client roster">
-        <span class="client">CLIENT.01</span>
-        <span class="client">CLIENT.02</span>
-        <span class="client">CLIENT.03</span>
-        <span class="client">CLIENT.04</span>
-        <span class="client">CLIENT.05</span>
-      </div>
+      {clients.length > 0 ? (
+        <>
+          <p class="eyebrow" data-reveal style="justify-content:center; display:flex">Trusted by security teams at</p>
+          <div class="logo-rail" data-reveal data-delay="1" aria-label="Client roster">
+            {clients.map((c) => (
+              <span class="client">{c.logo ? <img src={`${base}${c.logo}`} alt={c.name} loading="lazy" /> : c.name}</span>
+            ))}
+          </div>
+        </>
+      ) : (
+        <>
+          <p class="eyebrow" data-reveal style="justify-content:center; display:flex">Built for security teams in</p>
+          <div class="logo-rail" data-reveal data-delay="1" aria-label="Sectors we hire for">
+            {sectors.map((s) => <span class="client">{s}</span>)}
+          </div>
+        </>
+      )}
     </div>
   </section>
 
@@ -164,7 +176,7 @@ const process = [
       <article class="answer-block" data-reveal>
         <h2>What is a "Most Placeable Candidate"?</h2>
         <p>
-          A <strong>Most Placeable Candidate (MPC)</strong> is a pre-vetted Cyber Security or AI Security professional whose technical depth, leadership signal, compensation expectations, and cultural fit have been independently validated by an active industry practitioner. Fortium Group's MPC framework reduces hiring-manager interview load by an average of 60% and produces offer-to-acceptance rates above 90%.
+          A <strong>Most Placeable Candidate (MPC)</strong> is a pre-vetted Cyber Security or AI Security professional whose technical depth, leadership signal, compensation expectations, and cultural fit have been independently validated by an active industry practitioner. The MPC framework is designed to cut hiring-manager interview load: you meet 3–5 candidates who have already cleared a practitioner-led technical screen, instead of sifting through dozens of resumes.
         </p>
       </article>
     </div>
@@ -176,7 +188,7 @@ const process = [
       <p class="eyebrow" data-reveal>Practice areas</p>
       <h2 data-reveal data-delay="1">Roles we place.</h2>
       <p class="lead" data-reveal data-delay="2">
-        From first-CISO mandates at Series-B startups to AI Red Team builds at Fortune 500 enterprises — Fortium covers the full Cyber and AI Security stack.
+        From first-CISO hires at growth-stage startups to AI Red Team builds inside large enterprises — Fortium covers the full Cyber and AI Security stack.
       </p>
       <div class="pill-cloud" style="margin-top:2rem" data-reveal data-delay="3">
         {allRoles.map((r) => (
@@ -210,10 +222,12 @@ const process = [
         {stats.map((s) => <StatCounter value={s.value} label={s.label} />)}
       </div>
       <p class="dim text-mono caption" style="margin-top:0.9rem; text-align:center">
-        Network size and placement metrics shown as anonymized internal aggregates.
+        {statsFootnote}
       </p>
     </div>
   </section>
+
+  <Testimonials audience="employer" heading="What hiring leaders say." />
 
   <!-- §9 TERMINAL (collapsible easter egg, no longer dominant) -->
   {features.terminalSection && (

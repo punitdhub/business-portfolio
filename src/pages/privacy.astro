@@ -1,0 +1,96 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site, legal } from '../config';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<BaseLayout
+  title="Privacy Policy — Fortium Group"
+  description="How Fortium Group collects, uses, stores, and protects the personal information of candidates, clients, and website visitors."
+  path="/privacy"
+  breadcrumbs={[{ name: 'Home', path: '/' }, { name: 'Privacy Policy', path: '/privacy' }]}
+>
+  <section class="hero hero-compact">
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="container hero-inner">
+      <p class="eyebrow" data-reveal>Legal</p>
+      <h1 data-reveal data-delay="1">Privacy Policy</h1>
+      <p class="hero-sub" data-reveal data-delay="2">
+        Confidentiality is the core of what we do. This page explains exactly what we collect, why, and the control you keep over it.
+      </p>
+      <p class="dim text-mono caption" data-reveal data-delay="3">Last updated: {legal.lastUpdated}</p>
+    </div>
+  </section>
+
+  <section style="padding-top:1rem">
+    <div class="container legal">
+      <h2>Who we are</h2>
+      <p>
+        {site.name} ("we", "us") is a recruiting firm placing Cyber Security and AI Security professionals. We are the data controller for personal information submitted through this website. Contact us about anything in this policy at <a href={`mailto:${site.email}`}>{site.email}</a>.
+      </p>
+
+      <h2>What we collect</h2>
+      <ul>
+        <li><strong>Information you submit through our forms:</strong> your name, email address, and message, plus — depending on the form — your current title, LinkedIn or portfolio link, the role you are hiring for, and hiring urgency.</li>
+        <li><strong>Information you share later in the process:</strong> for candidates, this may include your résumé, career history, compensation expectations, and references you authorize us to contact.</li>
+        <li><strong>Technical data:</strong> our hosting provider and font provider receive standard request data such as your IP address and browser type when you load the site. We do not run analytics, advertising, or tracking cookies.</li>
+        <li><strong>Local preferences:</strong> your light/dark theme choice is stored in your own browser (localStorage). It never leaves your device.</li>
+      </ul>
+
+      <h2>How we use it</h2>
+      <ul>
+        <li>To reply to your inquiry and schedule conversations.</li>
+        <li>For candidates: to assess fit and, <strong>only with your explicit consent for each opportunity</strong>, to introduce you to a hiring company.</li>
+        <li>For employers: to understand and deliver your search.</li>
+        <li>To meet legal, accounting, and record-keeping obligations.</li>
+      </ul>
+      <p>
+        Our legal bases are your consent, steps taken at your request before entering into an engagement, and our legitimate interest in running a recruiting business. We never sell your personal information, and we never use it for automated decision-making or profiling.
+      </p>
+
+      <h2>Who we share it with</h2>
+      <ul>
+        <li><strong>Hiring companies</strong> — candidate details are shared only after you approve a specific introduction.</li>
+        <li><strong>Formspree</strong> — processes website form submissions and delivers them to us by email.</li>
+        <li><strong>GitHub Pages</strong> — hosts this website.</li>
+        <li><strong>Google Fonts</strong> — serves the typefaces used on this site.</li>
+        <li><strong>Authorities</strong> — only where required by law.</li>
+      </ul>
+      <p>Some of these providers may process data outside your country. Where required, transfers rely on appropriate safeguards such as Standard Contractual Clauses.</p>
+
+      <h2>How long we keep it</h2>
+      <p>
+        Candidate profiles are kept for up to {legal.candidateRetentionMonths} months after our last contact so we can tell you about relevant new roles, then deleted. Inquiries that do not lead to an engagement are deleted once they are resolved. You can ask us to delete your information sooner at any time.
+      </p>
+
+      <h2>How we protect it</h2>
+      <p>
+        All traffic to this site and to our form provider is encrypted in transit (HTTPS/TLS). Access to candidate and client information is limited to the people working on your search.
+      </p>
+
+      <h2>Your rights</h2>
+      <p>
+        Depending on where you live (for example under the GDPR, UK GDPR, or California CCPA/CPRA), you may have the right to:
+      </p>
+      <ul>
+        <li>access the personal information we hold about you;</li>
+        <li>correct or update it;</li>
+        <li>have it deleted;</li>
+        <li>withdraw consent or object to processing;</li>
+        <li>receive a portable copy;</li>
+        <li>complain to your local data protection authority.</li>
+      </ul>
+      <p>
+        To exercise any of these, email <a href={`mailto:${site.email}`}>{site.email}</a>. We respond within 30 days and will never discriminate against you for exercising a right.
+      </p>
+
+      <h2>Children</h2>
+      <p>This site and our services are intended for working professionals and are not directed at anyone under 16.</p>
+
+      <h2>Changes</h2>
+      <p>
+        If we change this policy, we will update the date at the top of this page. Questions? <a href={`${base}/contact`}>Get in touch</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

@@ -46,26 +46,24 @@ const year = new Date().getFullYear();
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© {year} {site.name}. All rights reserved.</span>
+      <span>© {year} {site.name}. All rights reserved. · <a href={`${base}/privacy`}>Privacy</a> · <a href={`${base}/terms`}>Terms</a></span>
       <span class="live-status" aria-live="polite">
         <span class="dot" aria-hidden="true"></span>
-        <span data-live-status>All systems operational</span>
+        <span data-live-status>Accepting new mandates</span>
       </span>
     </div>
   </div>
 </footer>
 
 <script is:inline>
-  // Playful "last vetting cycle" timer in the footer — recalculates on load.
-  // Demonstrates the firm runs continuously without claiming false data.
+  // Rotating footer status — factual service commitments only.
   (function () {
     const el = document.querySelector('[data-live-status]');
     if (!el) return;
     const messages = [
-      'All systems operational',
-      'Vetting network online',
-      'Intake queue: open',
-      'MPC pipeline: warm',
+      'Accepting new mandates',
+      'Reply within 1 business day',
+      'Confidential by default',
     ];
     let i = 0;
     setInterval(function () {

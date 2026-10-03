@@ -1,7 +1,7 @@
 export const faqs = [
   {
     q: 'How fast can Fortium Group fill a CISO role?',
-    a: 'Most CISO mandates produce a shortlist of 3–5 vetted candidates within 7–10 business days. Time-to-offer averages 21 days. For confidential incumbent replacements we move slower by design to protect discretion.',
+    a: 'Our target for a CISO mandate is a shortlist of 3–5 vetted candidates within 7–10 business days of intake. Overall time-to-offer depends mostly on your interview process. Confidential incumbent replacements move slower by design to protect discretion.',
   },
   {
     q: 'Do you recruit for AI Security and LLM Security engineers?',
@@ -17,7 +17,7 @@ export const faqs = [
   },
   {
     q: 'Do you work with startups or only enterprises?',
-    a: 'Both. We routinely place first-CISO hires at Series-B and Series-C startups, and we run AI Red Team builds inside Fortune 500 enterprises. Our process scales to either.',
+    a: 'Both. Our process is built for first-CISO hires at growth-stage startups as well as AI Red Team and security team builds inside large enterprises.',
   },
   {
     q: 'Can you embed inside our internal recruiting team?',

@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site, legal } from '../config';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const law = legal.governingLaw || 'the jurisdiction in which Fortium Group is registered';
+---
+<BaseLayout
+  title="Terms of Use — Fortium Group"
+  description="Terms governing use of the Fortium Group website, including role listings, content, and inquiries."
+  path="/terms"
+  breadcrumbs={[{ name: 'Home', path: '/' }, { name: 'Terms of Use', path: '/terms' }]}
+>
+  <section class="hero hero-compact">
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="container hero-inner">
+      <p class="eyebrow" data-reveal>Legal</p>
+      <h1 data-reveal data-delay="1">Terms of Use</h1>
+      <p class="hero-sub" data-reveal data-delay="2">
+        The plain-language rules for using this website.
+      </p>
+      <p class="dim text-mono caption" data-reveal data-delay="3">Last updated: {legal.lastUpdated}</p>
+    </div>
+  </section>
+
+  <section style="padding-top:1rem">
+    <div class="container legal">
+      <h2>Using this site</h2>
+      <p>
+        By using this website you agree to these terms. If you do not agree, please do not use the site.
+      </p>
+
+      <h2>Information on this site</h2>
+      <p>
+        Content here — including role descriptions, compensation ranges, timelines, and guarantees — is general information about our services. It is not an offer of employment or a binding commitment. The specific terms of any search, including fees and the replacement guarantee, are set out in a written agreement between {site.name} and the client.
+      </p>
+      <p>
+        Role listings are anonymized and may be filled or withdrawn at any time. Company identities are disclosed only after a confidential conversation.
+      </p>
+
+      <h2>Submitting information</h2>
+      <p>
+        When you contact us, you confirm that what you send is accurate and that you are entitled to share it. Please do not send confidential information belonging to a current or former employer. How we handle your data is described in our <a href={`${base}/privacy`}>Privacy Policy</a>.
+      </p>
+      <p>
+        Submitting a form does not create a client or representation relationship. Candidates are never charged a fee.
+      </p>
+
+      <h2>Acceptable use</h2>
+      <ul>
+        <li>Do not attempt to disrupt, overload, or gain unauthorized access to the site.</li>
+        <li>Do not submit spam, malicious code, or another person's information without their consent.</li>
+        <li>Responsible security research is welcome — see <a href={`${base}/.well-known/security.txt`}>security.txt</a> for how to report a vulnerability.</li>
+      </ul>
+
+      <h2>Intellectual property</h2>
+      <p>
+        The {site.name} name, logo, site design, and written content belong to {site.name}. You may share links to our pages, but please do not copy or republish substantial portions without permission.
+      </p>
+
+      <h2>Third-party links</h2>
+      <p>We link to services such as LinkedIn. We are not responsible for their content or privacy practices.</p>
+
+      <h2>Disclaimer and liability</h2>
+      <p>
+        The site is provided "as is" without warranties of any kind. To the fullest extent permitted by law, {site.name} is not liable for any indirect or consequential loss arising from use of the site.
+      </p>
+
+      <h2>Governing law</h2>
+      <p>These terms are governed by the laws of {law}.</p>
+
+      <h2>Contact</h2>
+      <p>Questions about these terms: <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+    </div>
+  </section>
+</BaseLayout>

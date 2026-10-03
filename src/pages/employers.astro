@@ -6,13 +6,14 @@ import GlitchText from '../components/GlitchText.astro';
 import DecryptText from '../components/DecryptText.astro';
 import { faqs } from '../data/faqs';
 import { comparisonRows } from '../data/stats';
+import Testimonials from '../components/Testimonials.astro';
 import { cyberRoles, aiSecurityRoles } from '../data/roles';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const vetting = [
   { n: '01', t: 'Intake calibration', d: 'A working session with your hiring manager to map technical depth, leadership signal, threat model, comp band, and dealbreakers.' },
-  { n: '02', t: 'Practitioner sourcing', d: 'We surface candidates through our network of 1,200+ active security operators — most are not on the open market.' },
+  { n: '02', t: 'Practitioner sourcing', d: 'We surface candidates through our network of active security operators — many of whom are not on the open market.' },
   { n: '03', t: 'Expert technical screen', d: 'An active CISO or principal engineer validates the candidate against your specific threat surface — not a generic skills checklist.' },
   { n: '04', t: 'Cultural & comp calibration', d: 'We pre-negotiate expectations on package, location, equity, and team fit before you ever meet them.' },
   { n: '05', t: 'Reference verification', d: 'Backchannel checks with prior security peers — the kind that only practitioners can credibly run.' },
@@ -127,10 +128,10 @@ const jsonLd = [
     <div class="container">
       <div class="split">
         <div data-reveal>
-          <p class="eyebrow">Speed vs. industry</p>
+          <p class="eyebrow">How we compare</p>
           <h2>We move at the speed of the threat — without skipping vetting.</h2>
           <p class="lead">
-            Industry average time-to-fill for a senior security role: <strong>68 days</strong>. Fortium average: <strong>21 days</strong>. We compress the timeline by doing the vetting upstream — before you ever see a resume.
+            Senior security searches stall when hiring managers become the screening layer. We compress the timeline by doing the vetting upstream — our target is a vetted shortlist within <strong>7 business days</strong> of intake, before you ever see a resume.
           </p>
         </div>
         <div class="panel" data-reveal data-delay="1" style="padding:2rem">
@@ -139,7 +140,7 @@ const jsonLd = [
               <tr style="border-bottom:1px solid var(--border)">
                 <th style="text-align:left; padding:0.5rem 0; font-weight:500"></th>
                 <th class="text-accent" style="text-align:right; padding:0.5rem 0; font-size:0.78rem; letter-spacing:0.15em">FORTIUM</th>
-                <th class="dim" style="text-align:right; padding:0.5rem 0; font-size:0.78rem; letter-spacing:0.15em">INDUSTRY</th>
+                <th class="dim" style="text-align:right; padding:0.5rem 0; font-size:0.78rem; letter-spacing:0.15em">TYPICAL AGENCY</th>
               </tr>
             </thead>
             <tbody>
@@ -153,7 +154,7 @@ const jsonLd = [
             </tbody>
           </table>
           <p class="dim text-mono caption" style="margin-top:1rem; margin-bottom:0">
-            Industry benchmarks sourced from SHRM 2024 hiring research. Fortium figures based on internal placement data.
+            Fortium figures are service commitments, not historical averages. Final terms are set in each engagement agreement.
           </p>
         </div>
       </div>
@@ -191,6 +192,8 @@ const jsonLd = [
       </div>
     </div>
   </section>
+
+  <Testimonials audience="employer" heading="What hiring leaders say." />
 
   <section>
     <div class="container">

@@ -19,6 +19,18 @@ export const site = {
 } as const;
 
 /**
+ * Legal pages (/privacy, /terms). Review these values — and the pages
+ * themselves — with a lawyer in your jurisdiction before relying on them.
+ */
+export const legal = {
+  lastUpdated: 'October 3, 2026',
+  /** How long candidate profiles are kept after last contact. */
+  candidateRetentionMonths: 24,
+  /** e.g. 'the State of Delaware, USA' — leave empty to use generic wording. */
+  governingLaw: '',
+} as const;
+
+/**
  * Form backend — Formspree.
  *
  * SETUP (one-time, ~2 minutes):

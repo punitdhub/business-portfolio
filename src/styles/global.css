@@ -1114,6 +1114,39 @@ section {
   border: 1px solid var(--border);
   border-radius: var(--r-pill);
 }
+.logo-rail .client img { display: block; height: 28px; width: auto; }
+
+/* ---------------------------------------------------------------
+   TESTIMONIALS
+   --------------------------------------------------------------- */
+.testimonial { margin: 0; display: flex; flex-direction: column; gap: 1.25rem; }
+.testimonial blockquote {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: var(--text);
+}
+.testimonial figcaption {
+  margin-top: auto;
+  display: grid;
+  gap: 0.2rem;
+  font-size: 0.85rem;
+}
+
+/* ---------------------------------------------------------------
+   LEGAL PAGES (privacy, terms)
+   --------------------------------------------------------------- */
+.legal { max-width: 75ch; }
+.legal h2 { font-size: clamp(1.25rem, 1vw + 0.9rem, 1.5rem); margin: 2.5rem 0 0.75rem; }
+.legal ul { padding-left: 1.1rem; color: var(--text-muted); }
+.legal li { margin-bottom: 0.4rem; }
+
+.form-consent {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+}
 
 /* ---------------------------------------------------------------
    TERMINAL

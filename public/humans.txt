@@ -4,7 +4,7 @@ Site: https://www.linkedin.com/company/fortium-group/
 Location: Worldwide (Remote-first)
 
 /* THANKS */
-Practitioner network · 1,200+ active security operators
+Practitioner network · active security operators
 
 /* SITE */
 Last update: 2026
