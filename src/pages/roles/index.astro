@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { rolePages, article } from '../../data/rolePages';
+import { allRoles } from '../../data/roles';
+import { site } from '../../config';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const practices = ['Cyber Security', 'AI Security'] as const;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Cyber & AI Security hiring guides',
+  itemListElement: rolePages.map((r, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: `How to hire ${article(r.title)} ${r.title}`,
+    url: `${site.url}/roles/${r.slug}`,
+  })),
+};
+---
+<BaseLayout
+  title="Cyber & AI Security Hiring Guides by Role"
+  description="Role-by-role hiring guides for Cyber and AI Security: responsibilities, skills, certifications, 2026 salary ranges, interview questions, and red flags."
+  path="/roles"
+  keywords={['cyber security hiring guide', 'AI security hiring guide', 'security role salaries 2026', 'security interview questions']}
+  breadcrumbs={[{ name: 'Home', path: '/' }, { name: 'Roles', path: '/roles' }]}
+  jsonLd={jsonLd}
+>
+  <section class="hero hero-compact">
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="container hero-inner">
+      <p class="eyebrow" data-reveal>Hiring guides</p>
+      <h1 data-reveal data-delay="1">Hire security talent <span class="accent">with confidence.</span></h1>
+      <p class="hero-sub" data-reveal data-delay="2">
+        Practitioner-written guides for the roles we place: what the job really involves, 2026 salary ranges, the interview questions that expose real skill, and the red flags we screen for.
+      </p>
+    </div>
+  </section>
+
+  {practices.map((p) => {
+    const list = rolePages.filter((r) => r.practice === p);
+    return list.length > 0 && (
+      <section class="section-tight">
+        <div class="container">
+          <p class="eyebrow" data-reveal>{p}</p>
+          <div class="grid grid-3" style="margin-top:1rem">
+            {list.map((r, i) => (
+              <a class="panel role-card" href={`${base}/roles/${r.slug}`} data-reveal data-delay={(i % 3) + 1}>
+                <h3>{r.title}</h3>
+                <p class="muted">{r.summary}</p>
+                <span class="text-accent">Read guide →</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  })}
+
+  <section class="section-tight">
+    <div class="container">
+      <p class="eyebrow" data-reveal>Full practice coverage</p>
+      <h2 data-reveal data-delay="1">We also recruit for</h2>
+      <div class="pill-cloud" style="margin-top:1.25rem" data-reveal data-delay="2">
+        {allRoles.map((r) => <span class="pill"><span class="dot"></span>{r}</span>)}
+      </div>
+      <div class="hero-cta" style="margin-top:2rem">
+        <a class="btn btn-primary" href={`${base}/employers#brief`}>Brief us on a role <span class="btn-arrow">→</span></a>
+        <a class="btn btn-ghost" href={`${base}/salary-benchmark`}>Get a salary benchmark</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,119 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import InquiryForm from '../components/InquiryForm.astro';
+import { rolePages } from '../data/rolePages';
+import { site } from '../config';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const deliverables = [
+  { t: 'Base salary range', d: 'Realistic low / mid / high base for your exact level and location — or remote region.' },
+  { t: 'Bonus & equity norms', d: 'What competing employers typically add on top of base for this role and company stage.' },
+  { t: 'Market tightness', d: 'How hard the role is to fill right now, and which requirements narrow the pool the most.' },
+  { t: 'Offer sanity-check', d: 'Share your planned offer and we will tell you plainly whether it is likely to land.' },
+];
+
+const faqs = [
+  { q: 'Is the salary benchmark really free?', a: 'Yes. There is no fee and no obligation to engage Fortium for a search.' },
+  { q: 'How quickly will I receive it?', a: 'Typically within 2 business days, by email.' },
+  { q: 'Where does the data come from?', a: 'We combine public compensation data with live conversations with security practitioners and hiring managers in our network.' },
+  { q: 'Will you share my request with anyone?', a: 'No. Benchmark requests are confidential and handled under our Privacy Policy.' },
+];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Cyber & AI Security Salary Benchmark',
+    serviceType: 'Compensation benchmarking',
+    provider: { '@type': 'Organization', name: site.name },
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    description: 'Free, role-specific compensation snapshot for Cyber and AI Security hires: base range, bonus and equity norms, and market tightness.',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  },
+];
+---
+<BaseLayout
+  title="Free Cyber & AI Security Salary Benchmark"
+  description="Get a free compensation snapshot for any Cyber or AI Security role: base range, bonus and equity norms, and market tightness for your level and location. Typically delivered within 2 business days."
+  path="/salary-benchmark"
+  keywords={['cyber security salary benchmark', 'AI security salary', 'security compensation data', 'CISO salary benchmark', 'SOC analyst salary']}
+  breadcrumbs={[{ name: 'Home', path: '/' }, { name: 'Salary Benchmark', path: '/salary-benchmark' }]}
+  jsonLd={jsonLd}
+>
+  <section class="hero hero-compact">
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="container hero-inner">
+      <p class="eyebrow" data-reveal>For employers · Free</p>
+      <h1 data-reveal data-delay="1">Know the number <span class="accent">before you make the offer.</span></h1>
+      <p class="hero-sub" data-reveal data-delay="2">
+        Tell us the role, level, and location. We'll send a tailored compensation snapshot for that Cyber or AI Security hire — typically within 2 business days, at no cost and with no obligation.
+      </p>
+    </div>
+  </section>
+
+  <section style="padding-top:1rem">
+    <div class="container">
+      <div class="split">
+        <div data-reveal>
+          <p class="eyebrow">What you receive</p>
+          <h2 style="font-size:1.6rem">A one-page snapshot, written by a practitioner.</h2>
+          <div class="grid" style="gap:1rem; margin-top:1.5rem">
+            {deliverables.map((d) => (
+              <div class="panel" style="padding:1.25rem">
+                <h3 style="font-size:1.05rem; margin:0 0 0.35rem">{d.t}</h3>
+                <p class="muted" style="margin:0; font-size:0.92rem">{d.d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div class="panel panel-accent" data-reveal data-delay="1" id="request">
+          <h2 style="margin-top:0; font-size:1.4rem">Request your benchmark</h2>
+          <InquiryForm audience="benchmark" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <p class="eyebrow" data-reveal>Want a head start?</p>
+      <h2 data-reveal data-delay="1">Published ranges by role</h2>
+      <p class="lead" data-reveal data-delay="2">Each hiring guide includes indicative 2026 US salary ranges with sources.</p>
+      <div class="pill-cloud" style="margin-top:1.25rem" data-reveal data-delay="3">
+        {rolePages.map((r) => (
+          <a class="pill" href={`${base}/roles/${r.slug}#salary`}><span class="dot"></span>{r.title}</a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <p class="eyebrow" data-reveal>FAQ</p>
+      <div style="margin-top:1rem; max-width:75ch">
+        {faqs.map((f) => (
+          <details class="faq-item" data-reveal>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <script is:inline>
+    // Pre-fill the role when arriving from a hiring guide (?role=...).
+    (function () {
+      try {
+        var role = new URLSearchParams(location.search).get('role');
+        var input = document.getElementById('if-role-benchmark');
+        if (role && input && !input.value) input.value = role.slice(0, 120);
+      } catch (_) {}
+    })();
+  </script>
+</BaseLayout>

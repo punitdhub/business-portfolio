@@ -1,0 +1,30 @@
+---
+import { testimonials, type Testimonial } from '../data/testimonials';
+
+export interface Props {
+  audience: Testimonial['audience'];
+  eyebrow?: string;
+  heading?: string;
+}
+const { audience, eyebrow = 'In their words', heading = 'What people say about working with us.' } = Astro.props;
+const items = testimonials.filter((t) => t.audience === audience);
+---
+{items.length > 0 && (
+  <section>
+    <div class="container">
+      <p class="eyebrow" data-reveal>{eyebrow}</p>
+      <h2 data-reveal data-delay="1">{heading}</h2>
+      <div class="grid grid-3" style="margin-top:2.5rem">
+        {items.map((t, i) => (
+          <figure class="panel testimonial" data-reveal data-delay={(i % 3) + 1}>
+            <blockquote>“{t.quote}”</blockquote>
+            <figcaption>
+              {t.name && <strong>{t.name}</strong>}
+              <span class="muted">{t.title}{t.company && ` · ${t.company}`}</span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+)}

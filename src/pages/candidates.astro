@@ -4,8 +4,10 @@ import InquiryForm from '../components/InquiryForm.astro';
 import GlitchText from '../components/GlitchText.astro';
 import DecryptText from '../components/DecryptText.astro';
 import StatusBadge from '../components/StatusBadge.astro';
+import Testimonials from '../components/Testimonials.astro';
 import Icon from '../components/Icon.astro';
 import { mandates } from '../data/mandates';
+import { features } from '../config';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -43,7 +45,9 @@ const sevTone: Record<string, 'green' | 'amber' | 'accent'> = { OPEN: 'green', I
       </p>
       <div class="hero-cta" data-reveal data-delay="3">
         <a class="btn btn-primary" href="#submit">Submit Confidentially <span class="btn-arrow">→</span></a>
-        <a class="btn btn-ghost" href="#mandates">Browse Open Mandates ↓</a>
+        {features.showMandates
+          ? <a class="btn btn-ghost" href="#mandates">Browse Open Mandates ↓</a>
+          : <a class="btn btn-ghost" href="#process">How it works ↓</a>}
       </div>
     </div>
   </section>
@@ -64,6 +68,7 @@ const sevTone: Record<string, 'green' | 'amber' | 'accent'> = { OPEN: 'green', I
     </div>
   </section>
 
+  {features.showMandates && (
   <section id="mandates">
     <div class="container">
       <p class="eyebrow" data-reveal>Currently open</p>
@@ -90,6 +95,7 @@ const sevTone: Record<string, 'green' | 'amber' | 'accent'> = { OPEN: 'green', I
       </p>
     </div>
   </section>
+  )}
 
   <section id="submit">
     <div class="container">
@@ -117,7 +123,7 @@ const sevTone: Record<string, 'green' | 'amber' | 'accent'> = { OPEN: 'green', I
     </div>
   </section>
 
-  <section>
+  <section id="process">
     <div class="container">
       <p class="eyebrow" data-reveal>What happens next</p>
       <h2 data-reveal data-delay="1">From submission to offer letter.</h2>
@@ -133,12 +139,14 @@ const sevTone: Record<string, 'green' | 'amber' | 'accent'> = { OPEN: 'green', I
     </div>
   </section>
 
+  <Testimonials audience="candidate" heading="What candidates say." />
+
   <section>
     <div class="container" style="text-align:center">
       <div data-reveal>
-        <h2>None of the current mandates match?</h2>
+        <h2>Not actively looking?</h2>
         <p class="lead" style="margin-inline:auto">
-          Tell us what does. New mandates open monthly — being on our radar means you hear about them first.
+          Tell us what would make you move. Being on our radar means you hear about the right mandate first — confidentially.
         </p>
         <div class="hero-cta" style="justify-content:center; margin-top:1.5rem">
           <a class="btn btn-primary" href="#submit">Get on our radar <span class="btn-arrow">→</span></a>

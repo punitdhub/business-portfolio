@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getInsights, readingTime, formatDate } from '../../data/insights';
+import { site } from '../../config';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const posts = await getInsights();
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  name: `${site.name} Insights`,
+  url: `${site.url}/insights`,
+  blogPost: posts.map((p) => ({
+    '@type': 'BlogPosting',
+    headline: p.data.title,
+    url: `${site.url}/insights/${p.id}`,
+    datePublished: p.data.pubDate.toISOString(),
+    author: { '@type': 'Person', name: p.data.author },
+  })),
+};
+---
+<BaseLayout
+  title="Insights — Cyber & AI Security Hiring"
+  description="Practitioner-written guides on hiring Cyber and AI Security talent: salary data, hiring playbooks, interview frameworks, and market analysis."
+  path="/insights"
+  keywords={['cyber security hiring guide', 'AI security salary', 'how to hire a CISO', 'AI red team hiring', 'security recruiting insights']}
+  breadcrumbs={[{ name: 'Home', path: '/' }, { name: 'Insights', path: '/insights' }]}
+  jsonLd={jsonLd}
+>
+  <section class="hero hero-compact">
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="container hero-inner">
+      <p class="eyebrow" data-reveal>Insights</p>
+      <h1 data-reveal data-delay="1">Field notes on <span class="accent">security hiring.</span></h1>
+      <p class="hero-sub" data-reveal data-delay="2">
+        Salary data, hiring playbooks, and interview frameworks for Cyber and AI Security — written by practitioners, not marketers.
+      </p>
+      <p class="dim text-mono caption" data-reveal data-delay="3"><a href={`${base}/rss.xml`}>Subscribe via RSS →</a></p>
+    </div>
+  </section>
+
+  <section style="padding-top:1rem">
+    <div class="container">
+      <div class="grid grid-3">
+        {posts.map((p, i) => (
+          <a class="panel role-card" href={`${base}/insights/${p.id}`} data-reveal data-delay={(i % 3) + 1}>
+            <span class="text-mono dim caption">{formatDate(p.data.pubDate)} · {readingTime(p)}</span>
+            <h2 class="role-h" style="margin:0.25rem 0 0">{p.data.title}</h2>
+            <p class="muted">{p.data.description}</p>
+            <span class="text-accent">Read article →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,192 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import InquiryForm from '../../components/InquiryForm.astro';
+import { rolePages, rolePageBySlug, salaryAsOf, article, type RolePage } from '../../data/rolePages';
+import { site } from '../../config';
+
+export function getStaticPaths() {
+  return rolePages.map((role) => ({ params: { slug: role.slug }, props: { role } }));
+}
+
+const { role } = Astro.props as { role: RolePage };
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const path = `/roles/${role.slug}`;
+const related = role.related.map((s) => rolePageBySlug[s]).filter(Boolean);
+const a = article(role.title);
+const benchmarkHref = `${base}/salary-benchmark?role=${encodeURIComponent(role.title)}`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: `How to hire ${a} ${role.title}`,
+    description: role.summary,
+    author: { '@type': 'Person', name: site.founder.name },
+    publisher: { '@type': 'Organization', name: site.name },
+    mainEntityOfPage: `${site.url}${path}`,
+    about: { '@type': 'Occupation', name: role.title, skills: role.skills.join(', ') },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: role.faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+];
+---
+<BaseLayout
+  title={`How to Hire ${a} ${role.title} (2026 Guide)`}
+  description={role.summary}
+  path={path}
+  keywords={[`hire ${role.title.toLowerCase()}`, `${role.title.toLowerCase()} salary`, `${role.title.toLowerCase()} recruiter`, `${role.title.toLowerCase()} interview questions`]}
+  breadcrumbs={[{ name: 'Home', path: '/' }, { name: 'Roles', path: '/roles' }, { name: role.title, path }]}
+  jsonLd={jsonLd}
+>
+  <section class="hero hero-compact">
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="container hero-inner">
+      <p class="eyebrow" data-reveal>Hiring guide · {role.practice}</p>
+      <h1 data-reveal data-delay="1">How to hire {a} <span class="accent">{role.title}</span></h1>
+      <p class="hero-sub" data-reveal data-delay="2">{role.summary}</p>
+      <div class="hero-cta" data-reveal data-delay="3">
+        <a class="btn btn-primary" href="#brief">Brief us on this role <span class="btn-arrow">→</span></a>
+        <a class="btn btn-ghost" href={benchmarkHref}>Get a free salary benchmark</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <article class="answer-block" data-reveal>
+        <h2>What does {a} {role.title} do?</h2>
+        {role.overview.map((p) => <p style="margin-bottom:0.9rem">{p}</p>)}
+      </article>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="grid grid-2">
+        <article class="panel" data-reveal>
+          <h2 class="role-h">Key responsibilities</h2>
+          <ul class="ticked-list">{role.responsibilities.map((r) => <li>{r}</li>)}</ul>
+        </article>
+        <article class="panel" data-reveal data-delay="1">
+          <h2 class="role-h">Skills to look for</h2>
+          <ul class="ticked-list">{role.skills.map((s) => <li>{s}</li>)}</ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight" id="salary">
+    <div class="container">
+      <div class="split">
+        <div data-reveal>
+          <p class="eyebrow">Compensation</p>
+          <h2>{role.title} salary in 2026</h2>
+          <p class="lead">{role.salary.note}</p>
+          <p class="muted" style="font-size:0.92rem">
+            Need a number for a specific location and level? We'll send a tailored snapshot — base, bonus, and equity — at no cost.
+          </p>
+          <a class="btn btn-ghost" href={benchmarkHref}>Request a salary benchmark →</a>
+        </div>
+        <div class="panel" data-reveal data-delay="1" style="padding:2rem">
+          <table class="data-table">
+            <thead><tr><th>Level</th><th>US range</th></tr></thead>
+            <tbody>
+              {role.salary.levels.map((l) => (
+                <tr><td>{l.level}</td><td class="text-accent">{l.range}</td></tr>
+              ))}
+            </tbody>
+          </table>
+          <p class="dim caption" style="margin:1rem 0 0.4rem">
+            Indicative ranges compiled from public sources, {salaryAsOf}. Not a Fortium placement average. Sources:
+          </p>
+          <ul class="source-list">
+            {role.salary.sources.map((s) => <li><a href={s.url} rel="noopener nofollow" target="_blank">{s.label}</a></li>)}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <article class="panel" data-reveal>
+        <h2 class="role-h">Certifications</h2>
+        <p class="muted">{role.certifications.note}</p>
+        <div class="pill-cloud">
+          {role.certifications.list.map((c) => <span class="pill"><span class="dot"></span>{c}</span>)}
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="grid grid-2">
+        <article class="panel" data-reveal>
+          <h2 class="role-h">Interview questions that reveal real skill</h2>
+          <ol class="role-ol">{role.interviewQuestions.map((q) => <li>{q}</li>)}</ol>
+        </article>
+        <article class="panel" data-reveal data-delay="1">
+          <h2 class="role-h">Red flags</h2>
+          <ul class="role-ul">{role.redFlags.map((f) => <li>{f}</li>)}</ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <p class="eyebrow" data-reveal>FAQ</p>
+      <h2 data-reveal data-delay="1">Hiring {a} {role.title}: common questions</h2>
+      <div style="margin-top:1.5rem; max-width:75ch">
+        {role.faqs.map((f) => (
+          <details class="faq-item" data-reveal>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {related.length > 0 && (
+    <section class="section-tight">
+      <div class="container">
+        <p class="eyebrow" data-reveal>Related hiring guides</p>
+        <div class="grid grid-3" style="margin-top:1rem">
+          {related.map((r) => (
+            <a class="panel role-card" href={`${base}/roles/${r.slug}`} data-reveal>
+              <span class="text-mono dim caption">{r.practice}</span>
+              <h3>{r.title}</h3>
+              <span class="text-accent">Read guide →</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section id="brief">
+    <div class="container">
+      <div class="split">
+        <div data-reveal>
+          <p class="eyebrow">Hiring now?</p>
+          <h2>Brief us on your {role.title} search.</h2>
+          <p class="lead">
+            Every candidate we put forward is screened by an active security practitioner. Target: a vetted shortlist within 7 business days of intake.
+          </p>
+        </div>
+        <div class="panel panel-accent" data-reveal data-delay="1">
+          <InquiryForm audience="client" defaultRole={role.title} />
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

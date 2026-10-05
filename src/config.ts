@@ -12,10 +12,22 @@ export const site = {
   base: '/business-portfolio',
   description:
     'Direct-hire recruiting for elite Cyber Security and AI Security talent. Founded by industry veterans with 15+ years of pure cyber security domain experience.',
-  email: 'punit.ankur@gmail.com',
+  email: 'hello@fortiumgroup.com',
   linkedin: 'https://www.linkedin.com/company/fortium-group/',
   founder: { name: 'Punit Dwivedi', role: 'Founder' },
   founded: 2024,
+} as const;
+
+/**
+ * Legal pages (/privacy, /terms). Review these values — and the pages
+ * themselves — with a lawyer in your jurisdiction before relying on them.
+ */
+export const legal = {
+  lastUpdated: 'October 3, 2026',
+  /** How long candidate profiles are kept after last contact. */
+  candidateRetentionMonths: 24,
+  /** e.g. 'the State of Delaware, USA' — leave empty to use generic wording. */
+  governingLaw: '',
 } as const;
 
 /**
@@ -54,6 +66,8 @@ export const features = {
   ambientGlitch: false,
   networkGraph: true,
   terminalSection: true,
+  /** Open-role cards on /candidates. Turn on once src/data/mandates.ts holds real roles. */
+  showMandates: false,
 } as const;
 
 /**

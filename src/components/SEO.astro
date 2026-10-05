@@ -15,8 +15,9 @@ export interface Props {
 }
 const { title, description, path = '/', jsonLd, keywords, breadcrumbs } = Astro.props;
 const fullTitle = title.includes(site.name) ? title : `${title} | ${site.name}`;
-const canonical = `${site.url}${site.base}${path === '/' ? '' : path}`.replace(/\/$/, '') || `${site.url}${site.base}`;
-const ogImage = `${site.url}${site.base}/og.svg`;
+// site.url already includes the base path (/business-portfolio).
+const canonical = `${site.url}${path === '/' ? '' : path}`.replace(/\/$/, '');
+const ogImage = `${site.url}/og.svg`;
 
 const breadcrumbLd = breadcrumbs && breadcrumbs.length
   ? {
@@ -26,7 +27,7 @@ const breadcrumbLd = breadcrumbs && breadcrumbs.length
         '@type': 'ListItem',
         position: i + 1,
         name: b.name,
-        item: `${site.url}${site.base}${b.path}`.replace(/\/$/, '') || `${site.url}${site.base}`,
+        item: `${site.url}${b.path}`.replace(/\/$/, ''),
       })),
     }
   : null;
