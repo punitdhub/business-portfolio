@@ -26,10 +26,67 @@ const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`)
     </nav>
     <div class="header-actions">
       <ThemeToggle />
-      <ScheduleButton label="Book Discovery" />
+      <ScheduleButton label="Book Discovery" className="header-cta" />
+      <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle>
+        <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16" />
+        </svg>
+        <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
     </div>
   </div>
+
+  <!-- Mobile menu (≤920px). Hidden until the menu button is pressed. -->
+  <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile" hidden>
+    <div class="container">
+      <ul>
+        {links.map((l) => (
+          <li><a class="mobile-link" href={l.href} aria-current={isCurrent(l.href) ? 'page' : undefined}>{l.label}</a></li>
+        ))}
+      </ul>
+      <ScheduleButton label="Book Discovery" className="mobile-menu-cta" />
+    </div>
+  </nav>
 </header>
+
+<script is:inline>
+  // Mobile menu: open/close, Escape to close, close on link tap or when
+  // the viewport grows past the mobile breakpoint.
+  (function () {
+    const btn = document.querySelector('[data-menu-toggle]');
+    const menu = document.getElementById('mobile-menu');
+    if (!btn || !menu) return;
+    const mq = window.matchMedia('(max-width: 920px)');
+
+    function setOpen(open, restoreFocus) {
+      btn.setAttribute('aria-expanded', String(open));
+      btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      menu.hidden = !open;
+      document.documentElement.classList.toggle('menu-open', open);
+      if (open) {
+        const first = menu.querySelector('a');
+        if (first) first.focus();
+      } else if (restoreFocus) {
+        btn.focus();
+      }
+    }
+
+    btn.addEventListener('click', function () {
+      setOpen(btn.getAttribute('aria-expanded') !== 'true', false);
+    });
+    menu.addEventListener('click', function (e) {
+      if (e.target.closest('a')) setOpen(false, false);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !menu.hidden) setOpen(false, true);
+    });
+    mq.addEventListener('change', function (e) {
+      if (!e.matches) setOpen(false, false);
+    });
+  })();
+</script>
 
 <script is:inline>
   /**
