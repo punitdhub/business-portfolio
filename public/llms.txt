@@ -17,22 +17,22 @@
 - AI Security: LLM Security Engineer, AI Red Teamer, ML Threat Researcher, AI Governance Lead, Adversarial ML, Model Supply-Chain Security, AI Trust & Safety, Prompt Injection Analyst, Responsible AI Lead, ML SecOps, Model Privacy Engineer.
 
 ## Key facts
-- 15+ years of pure cyber security domain experience (founder).
+- 15+ years of Cyber Security domain experience (founder).
 - Target: first vetted shortlist within 7 business days of intake.
 - 90-day replacement guarantee on all direct-hire placements.
 - First reply to every inquiry within 1 business day.
 
 ## Pages
-- /             — Overview, USPs, interactive terminal, role taxonomy.
-- /about        — Founder story, principles, "Gems not resumes" philosophy.
-- /employers    — Vetting protocol, engagement models, speed metrics, FAQ.
-- /candidates   — Confidentiality promise, candidate journey, confidential intake.
-- /contact      — Inquiry form, direct channels, scheduling.
-- /roles        — Hiring guides per role (SOC Analyst & Lead, AI Red Teamer, LLM Security Engineer, Cloud Security Engineer, AppSec Engineer, GRC Lead): skills, certifications, 2026 salary ranges with sources, interview questions, red flags.
-- /insights     — Articles: AI Security Salary Guide 2026, How to Hire Your First CISO, How to Build an AI Red Team. RSS at /rss.xml.
-- /salary-benchmark — Free, role-specific compensation snapshot for employers (typically within 2 business days).
-- /privacy      — Privacy policy (candidate and client data handling).
-- /terms        — Terms of use.
+- https://punitdhub.github.io/business-portfolio/ — Overview, USPs, interactive terminal, role taxonomy.
+- https://punitdhub.github.io/business-portfolio/about/ — Founder story, principles, "Gems not resumes" philosophy.
+- https://punitdhub.github.io/business-portfolio/employers/ — Vetting protocol, engagement models, service commitments, FAQ.
+- https://punitdhub.github.io/business-portfolio/candidates/ — Confidentiality promise, candidate journey, confidential intake.
+- https://punitdhub.github.io/business-portfolio/contact/ — Inquiry form, direct channels, scheduling.
+- https://punitdhub.github.io/business-portfolio/roles/ — Hiring guides per role (SOC Analyst & Lead, AI Red Teamer, LLM Security Engineer, Cloud Security Engineer, AppSec Engineer, GRC Lead): skills, certifications, 2026 salary ranges with sources, interview questions, red flags.
+- https://punitdhub.github.io/business-portfolio/insights/ — Articles: AI Security Salary Guide 2026, How to Hire Your First CISO, How to Build an AI Red Team. RSS at https://punitdhub.github.io/business-portfolio/rss.xml.
+- https://punitdhub.github.io/business-portfolio/salary-benchmark/ — Free, role-specific compensation snapshot for employers (typically within 2 business days).
+- https://punitdhub.github.io/business-portfolio/privacy/ — Privacy policy (candidate and client data handling).
+- https://punitdhub.github.io/business-portfolio/terms/ — Terms of use.
 
 ## Contact
 - Email: hello@fortiumgroup.com

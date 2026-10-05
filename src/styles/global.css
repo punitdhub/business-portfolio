@@ -23,7 +23,8 @@
   /* —— Text (softer than pure white) —— */
   --text:         #ECEEF3;
   --text-muted:   #9CA3AF;
-  --text-dim:     #6B7280;
+  --text-dim:     #8A919C;
+  --border-input: #6B7280;
 
   /* —— Single muted accent — calm slate-blue, professional —— */
   --accent:       #A8BDD1;
@@ -113,10 +114,11 @@
   --border-strong:#C8CDD7;
   --text:         #15171C;
   --text-muted:   #5C6675;
-  --text-dim:     #8C95A3;
-  --accent:       #5C7B96;
+  --text-dim:     #636C7B;
+  --border-input: #8A93A1;
+  --accent:       #4E6A82;
   --accent-2:     #87A2BA;
-  --accent-rgb:   92, 123, 150;
+  --accent-rgb:   78, 106, 130;
   --accent-2-rgb: 135, 162, 186;
   --plum:         #8978AF;
   --plum-rgb:     137, 120, 175;
@@ -168,6 +170,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem; /* keep focused/anchored content clear of the sticky header */
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
 }
@@ -419,6 +422,7 @@ section {
     0 6px 18px -8px rgba(var(--accent-rgb), 0.40);
 }
 :root[data-theme='light'] .btn-primary { --btn-color: #FFFFFF; }
+:root[data-theme='light'] .btn-primary:hover { background: #3F566B; }
 .btn-primary:hover {
   transform: translate3d(var(--mag-x, 0), calc(var(--mag-y, 0) - 2px), 0);
   background: var(--accent-2);
@@ -510,7 +514,7 @@ section {
   font-weight: 400;
   color: var(--text);
   background: var(--surface-2);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-input, var(--border-strong));
   border-radius: var(--r-md);
   transition:
     border-color var(--t-fast) var(--ease),
@@ -547,8 +551,13 @@ section {
   font-size: 1rem;
   color: var(--text-muted);
   pointer-events: none;
+  right: 1.1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   transition: top var(--t-fast) var(--ease), font-size var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
 }
+.field [aria-invalid='true'] { border-color: var(--warn); }
 .field input:focus + label,
 .field select:focus + label,
 .field textarea:focus + label,
@@ -648,12 +657,16 @@ section {
 /* ---------------------------------------------------------------
    REVEAL — Apple-style scroll fade
    --------------------------------------------------------------- */
-[data-reveal] {
+/* Hidden state applies only when JS runs (html.js is set in BaseLayout), so
+   content stays visible without JavaScript, for crawlers, and in print. */
+.js [data-reveal] {
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 900ms var(--ease), transform 900ms var(--ease);
 }
-[data-reveal].is-visible { opacity: 1; transform: none; }
+.js [data-reveal].is-visible { opacity: 1; transform: none; }
+/* Above-the-fold hero content is never delayed (protects LCP). */
+.js .hero-inner > [data-reveal] { opacity: 1; transform: none; transition: none; }
 [data-reveal][data-delay='1'] { transition-delay: 80ms; }
 [data-reveal][data-delay='2'] { transition-delay: 160ms; }
 [data-reveal][data-delay='3'] { transition-delay: 240ms; }
@@ -661,8 +674,13 @@ section {
 [data-reveal][data-delay='5'] { transition-delay: 400ms; }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
-  [data-reveal] { opacity: 1; transform: none; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .js [data-reveal] { opacity: 1; transform: none; }
+  .mesh-bg { animation: none !important; }
   html { scroll-behavior: auto; }
 }
 
@@ -732,8 +750,8 @@ section {
   background: var(--accent);
   transition: width var(--t-med) var(--ease);
 }
-.nav-link:hover, .nav-link[aria-current='page'] { color: var(--text); }
-.nav-link:hover::after, .nav-link[aria-current='page']::after { width: 100%; }
+.nav-link:hover, .nav-link[aria-current] { color: var(--text); }
+.nav-link:hover::after, .nav-link[aria-current]::after { width: 100%; }
 @media (max-width: 920px) {
   .nav-links .nav-link:not(.btn) { display: none; }
 }
@@ -776,8 +794,8 @@ section {
   color: var(--text-muted);
   border-bottom: 1px solid var(--border);
 }
-.mobile-link:hover, .mobile-link[aria-current='page'] { color: var(--text); }
-.mobile-link[aria-current='page'] { box-shadow: inset 2px 0 0 var(--accent); padding-left: 0.85rem; }
+.mobile-link:hover, .mobile-link[aria-current] { color: var(--text); }
+.mobile-link[aria-current] { box-shadow: inset 2px 0 0 var(--accent); padding-left: 0.85rem; }
 .mobile-menu-cta { width: 100%; justify-content: center; margin: 1rem 0 1.5rem; }
 
 @media (max-width: 920px) {
@@ -1107,7 +1125,7 @@ section {
   display: block;
   margin-bottom: 0.5rem;
 }
-.timeline-step h4 { margin: 0.2rem 0 0.65rem; }
+.timeline-step h3, .timeline-step h4 { margin: 0.2rem 0 0.65rem; font-size: 1.05rem; font-weight: 500; letter-spacing: -0.01em; }
 .timeline-step p { font-size: 0.94rem; margin: 0; }
 
 /* ---------------------------------------------------------------
@@ -1588,9 +1606,16 @@ section {
    --------------------------------------------------------------- */
 @media print {
   .mesh-bg, .grid-bg, .hero-orb, .site-header, .site-footer,
-  #constellation-canvas, .theme-toggle, .shell-collapse { display: none !important; }
+  #constellation-canvas, .theme-toggle, .shell-collapse, .mobile-menu { display: none !important; }
+  :root, :root[data-theme] {
+    --bg: #fff; --bg-deep: #fff; --surface: #fff; --surface-2: #fff; --surface-3: #fff;
+    --border: #ccc; --border-strong: #999; --border-input: #999;
+    --text: #000; --text-muted: #333; --text-dim: #444; --accent: #000; --accent-2: #333;
+  }
   body { background: white; color: black; }
   a { color: black; text-decoration: underline; }
+  [data-reveal], .js [data-reveal] { opacity: 1 !important; transform: none !important; }
+  .panel, .answer-block { box-shadow: none !important; break-inside: avoid; }
 }
 
 .benchmark-cta {
@@ -1600,3 +1625,26 @@ section {
 .benchmark-cta > div { flex: 1 1 380px; }
 a.pill { color: var(--text-muted); text-decoration: none; }
 a.pill:hover { color: var(--text); }
+
+/* Links inside running text must not rely on colour alone (WCAG 1.4.1). */
+.legal a, .footer-bottom a, .form-consent a, .answer-block a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Logo must never shrink away when the full nav returns (921–980px). */
+.logo-link, .logo-mark { flex-shrink: 0; }
+@media (max-width: 1040px) { .nav-links { gap: 1.2rem; } }
+
+/* Comparison / data tables scroll inside their panel on small screens. */
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.compare-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+.compare-table th, .compare-table td { padding: 0.65rem 0.75rem 0.65rem 0; }
+.compare-table th:last-child, .compare-table td:last-child { padding-right: 0; }
+@media (max-width: 480px) { .compare-table { font-size: 0.85rem; } }
+
+/* Hero / CTA buttons stack cleanly on very narrow phones. */
+@media (max-width: 400px) {
+  .hero-cta .btn { flex: 1 1 100%; }
+}
+h2.eyebrow { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.14em; line-height: 1.6; }

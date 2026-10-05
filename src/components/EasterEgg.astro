@@ -38,8 +38,9 @@
         i = 0;
       }
       if (k === 'Escape' && document.documentElement.dataset.theme === 'rootkit') {
-        const stored = localStorage.getItem('fortium-theme') || 'dark';
-        document.documentElement.dataset.theme = stored;
+        let stored = null;
+        try { stored = localStorage.getItem('fortium-theme'); } catch (_) {}
+        document.documentElement.dataset.theme = stored === 'light' ? 'light' : 'dark';
       }
     });
   })();

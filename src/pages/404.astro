@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const links = [
+  { href: `${base}/`, label: 'Home' },
+  { href: `${base}/employers/`, label: 'For Employers' },
+  { href: `${base}/candidates/`, label: 'For Candidates' },
+  { href: `${base}/roles/`, label: 'Hiring guides' },
+  { href: `${base}/insights/`, label: 'Insights' },
+  { href: `${base}/contact/`, label: 'Contact' },
+];
+---
+<BaseLayout
+  title="Page not found"
+  description="The page you were looking for doesn't exist or has moved."
+  path="/404"
+  noindex
+>
+  <section class="hero hero-compact">
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="container hero-inner">
+      <p class="eyebrow">Error 404</p>
+      <h1>This page <span class="accent">isn't here.</span></h1>
+      <p class="hero-sub">
+        The link may be out of date, or the page has moved. Try one of these instead:
+      </p>
+      <div class="pill-cloud" style="margin-top:1.5rem">
+        {links.map((l) => <a class="pill" href={l.href}><span class="dot"></span>{l.label}</a>)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

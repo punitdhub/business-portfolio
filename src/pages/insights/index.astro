@@ -10,11 +10,11 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Blog',
   name: `${site.name} Insights`,
-  url: `${site.url}/insights`,
+  url: `${site.url}/insights/`,
   blogPost: posts.map((p) => ({
     '@type': 'BlogPosting',
     headline: p.data.title,
-    url: `${site.url}/insights/${p.id}`,
+    url: `${site.url}/insights/${p.id}/`,
     datePublished: p.data.pubDate.toISOString(),
     author: { '@type': 'Person', name: p.data.author },
   })),
@@ -22,7 +22,7 @@ const jsonLd = {
 ---
 <BaseLayout
   title="Insights — Cyber & AI Security Hiring"
-  description="Practitioner-written guides on hiring Cyber and AI Security talent: salary data, hiring playbooks, interview frameworks, and market analysis."
+  description="Practitioner-written guides on hiring Cyber and AI Security talent: salary data, hiring playbooks, and interview frameworks."
   path="/insights"
   keywords={['cyber security hiring guide', 'AI security salary', 'how to hire a CISO', 'AI red team hiring', 'security recruiting insights']}
   breadcrumbs={[{ name: 'Home', path: '/' }, { name: 'Insights', path: '/insights' }]}
@@ -42,9 +42,12 @@ const jsonLd = {
 
   <section style="padding-top:1rem">
     <div class="container">
+      {posts.length === 0 && (
+        <p class="lead">New articles are on the way. <a href={`${base}/rss.xml`}>Subscribe via RSS</a> to hear when they're published.</p>
+      )}
       <div class="grid grid-3">
         {posts.map((p, i) => (
-          <a class="panel role-card" href={`${base}/insights/${p.id}`} data-reveal data-delay={(i % 3) + 1}>
+          <a class="panel role-card" href={`${base}/insights/${p.id}/`} data-reveal data-delay={(i % 3) + 1}>
             <span class="text-mono dim caption">{formatDate(p.data.pubDate)} · {readingTime(p)}</span>
             <h2 class="role-h" style="margin:0.25rem 0 0">{p.data.title}</h2>
             <p class="muted">{p.data.description}</p>

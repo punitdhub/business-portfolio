@@ -1,7 +1,7 @@
 ---
 /**
  * TerminalHero — an interactive shell prompt. Commands supported:
- *   help, whoami, mission, vetting, mandates, book, clear, sudo
+ *   help, whoami, mission, vetting, book, clear, sudo
  * Boots with an auto-typed sequence, then accepts user input.
  */
 ---
@@ -63,7 +63,6 @@
         line('  whoami     →  identify the visitor');
         line('  mission    →  read the Fortium mission statement');
         line('  vetting    →  show the 5-stage vetting protocol');
-        line('  mandates   →  list current open mandates');
         line('  book       →  navigate to the booking page');
         line('  sudo       →  attempt privilege escalation');
         line('  clear      →  clear the screen');
@@ -73,7 +72,7 @@
         const platform = navigator.platform || 'unknown';
         const lang = navigator.language;
         line('Detected session:', 'ok');
-        line('  browser  : ' + ua.match(/(Chrome|Firefox|Safari|Edge)\/[\d.]+/)?.[0] || 'unknown');
+        line('  browser  : ' + (ua.match(/(Chrome|Firefox|Safari|Edge)\/[\d.]+/)?.[0] || 'unknown'));
         line('  platform : ' + platform);
         line('  locale   : ' + lang);
         line('  threat   : low (cleared to proceed)');
@@ -90,22 +89,15 @@
         line('[03] Expert technical screen  — validated by active CISO/principal', 'ok');
         line('[04] Cultural & comp calibration', 'ok');
         line('[05] Reference verification   — backchannel via security peers', 'ok');
-        line('Result: 3–5 Most Placeable Candidates in 7 business days.', 'acc');
-      },
-      mandates: () => {
-        line('Currently active mandates:', 'acc');
-        line('  FG-2026-014  Principal AI Red Teamer       — Pre-IPO FinTech    $280–340k', 'ok');
-        line('  FG-2026-013  Director of Cloud Detection   — Series-C SaaS       $260k base', 'ok');
-        line('  FG-2026-012  CISO (First Hire)             — Series-B Health     $300k + equity', 'ok');
-        line('Type: book   to start a conversation.');
+        line('Target: 3–5 Most Placeable Candidates within 7 business days.', 'acc');
       },
       book: () => {
         line('Routing to discovery scheduler...', 'ok');
-        setTimeout(() => { window.location.href = base + '/contact'; }, 800);
+        setTimeout(() => { window.location.href = base + '/contact/'; }, 800);
       },
       sudo: () => {
         line('[sudo] password for visitor: ', 'err');
-        line('       ↳ access denied. Try the Konami code instead. ↑↑↓↓←→←→BA', 'err');
+        line('       ↳ access denied. Nice try.', 'err');
       },
       clear: () => { body.innerHTML = ''; },
     };
@@ -136,7 +128,7 @@
           io.disconnect();
           await typeLine('initializing secure shell...', 'ok', 20);
           await typeLine('cryptographic handshake [TLS 1.3] OK', 'ok', 12);
-          await typeLine('loading practitioner network... 1,247 nodes', 'ok', 14);
+          await typeLine('loading practitioner network... OK', 'ok', 14);
           await typeLine('vetting engine: online', 'acc', 14);
           line('');
           line('Welcome. Type \"help\" to explore — or \"book\" to talk to a human.', 'acc');

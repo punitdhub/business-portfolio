@@ -24,9 +24,11 @@ const jsonLd = {
   description,
   datePublished: pubDate.toISOString(),
   dateModified: (updatedDate ?? pubDate).toISOString(),
-  author: { '@type': 'Person', name: author, url: `${site.url}/about` },
-  publisher: { '@type': 'Organization', name: site.name, logo: { '@type': 'ImageObject', url: `${site.url}/favicon.svg` } },
-  mainEntityOfPage: `${site.url}${path}`,
+  author: { '@type': 'Person', name: author, url: `${site.url}/about/` },
+  publisher: { '@type': 'Organization', '@id': `${site.url}/#org`, name: site.name, logo: { '@type': 'ImageObject', url: `${site.url}/logo.png` } },
+  image: `${site.url}/og.png`,
+  url: `${site.url}${path}/`,
+  mainEntityOfPage: `${site.url}${path}/`,
   keywords: tags.join(', '),
 };
 ---
@@ -37,15 +39,16 @@ const jsonLd = {
   keywords={tags}
   breadcrumbs={[{ name: 'Home', path: '/' }, { name: 'Insights', path: '/insights' }, { name: title, path }]}
   jsonLd={jsonLd}
+  article={{ publishedTime: pubDate, modifiedTime: updatedDate, tags }}
 >
   <section class="hero hero-compact">
     <div class="grid-bg" aria-hidden="true"></div>
     <div class="container hero-inner" style="max-width:820px">
-      <p class="eyebrow" data-reveal><a href={`${base}/insights`}>Insights</a></p>
+      <p class="eyebrow" data-reveal><a href={`${base}/insights/`}>Insights</a></p>
       <h1 data-reveal data-delay="1" style="font-size:clamp(2rem, 3.4vw + 0.6rem, 3.1rem)">{title}</h1>
       <p class="hero-sub" data-reveal data-delay="2">{description}</p>
       <p class="dim text-mono caption" data-reveal data-delay="3">
-        By <a href={`${base}/about`}>{author}</a> · {formatDate(pubDate)}{updatedDate && ` · Updated ${formatDate(updatedDate)}`} · {readingTime(post)}
+        By <a href={`${base}/about/`}>{author}</a> · {formatDate(pubDate)}{updatedDate && ` · Updated ${formatDate(updatedDate)}`} · {readingTime(post)}
       </p>
     </div>
   </section>
@@ -63,8 +66,8 @@ const jsonLd = {
           Founder of {site.name}, with 15+ years in the Cyber Security industry. Fortium places Cyber and AI Security talent vetted by active practitioners.
         </p>
         <div class="hero-cta" style="margin:0">
-          <a class="btn btn-primary" href={`${base}/employers#brief`}>Brief us on a role <span class="btn-arrow">→</span></a>
-          <a class="btn btn-ghost" href={`${base}/salary-benchmark`}>Free salary benchmark</a>
+          <a class="btn btn-primary" href={`${base}/employers/#brief`}>Brief us on a role <span class="btn-arrow">→</span></a>
+          <a class="btn btn-ghost" href={`${base}/salary-benchmark/`}>Free salary benchmark</a>
         </div>
       </aside>
     </div>
@@ -76,7 +79,7 @@ const jsonLd = {
         <p class="eyebrow">Keep reading</p>
         <div class="grid grid-2" style="margin-top:1rem">
           {more.map((p) => (
-            <a class="panel role-card" href={`${base}/insights/${p.id}`}>
+            <a class="panel role-card" href={`${base}/insights/${p.id}/`}>
               <h3>{p.data.title}</h3>
               <span class="text-accent">Read article →</span>
             </a>

@@ -15,27 +15,27 @@ import { clients, sectors } from '../data/clients';
 import { allRoles } from '../data/roles';
 import { roleLink } from '../data/rolePages';
 import { glossary } from '../data/faqs';
-import { features } from '../config';
+import { features, site } from '../config';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const orgLd = {
   '@context': 'https://schema.org',
-  '@type': ['Organization', 'ProfessionalService'],
-  name: 'Fortium Group',
-  url: 'https://punitdhub.github.io/business-portfolio/',
-  logo: 'https://punitdhub.github.io/business-portfolio/favicon.svg',
-  image: 'https://punitdhub.github.io/business-portfolio/og.svg',
+  '@type': 'Organization',
+  '@id': `${site.url}/#org`,
+  name: site.name,
+  url: `${site.url}/`,
+  email: site.email,
+  logo: `${site.url}/logo.png`,
+  image: `${site.url}/og.png`,
   description:
-    'Direct-hire recruiting agency specializing in Cyber Security and AI Security talent placement. Founded by industry veterans with 15+ years of domain experience.',
+    'Direct-hire recruiting agency specializing in Cyber Security and AI Security talent placement. Founded by Punit Dwivedi, a Cyber Security veteran with 15+ years of domain experience.',
   founder: { '@type': 'Person', name: 'Punit Dwivedi' },
   knowsAbout: [
     'Cyber Security recruiting', 'AI Security recruiting', 'CISO placement',
     'LLM security engineering', 'Zero Trust architecture', 'Cloud detection engineering',
     'AppSec engineering', 'AI Red Team recruiting', 'Adversarial ML', 'Security Operations',
   ],
-  areaServed: { '@type': 'Place', name: 'Worldwide' },
-  serviceType: 'Direct-Hire Recruiting',
   sameAs: ['https://www.linkedin.com/company/fortium-group/'],
 };
 
@@ -45,7 +45,6 @@ const howToLd = {
   name: 'How Fortium Group Vets Cyber Security Candidates',
   description:
     'A five-stage protocol for sourcing, vetting, and placing Most Placeable Candidates (MPCs) in Cyber and AI Security roles.',
-  totalTime: 'P7D',
   step: [
     { '@type': 'HowToStep', position: 1, name: 'Intake calibration', text: 'Working session with the hiring manager to map technical depth, leadership signal, threat model, comp band, and dealbreakers.' },
     { '@type': 'HowToStep', position: 2, name: 'Practitioner sourcing', text: 'Surface candidates through our network of active security operators — many are not on the open market.' },
@@ -58,14 +57,14 @@ const howToLd = {
 const definedTermLd = glossary.map((g, i) => ({
   '@context': 'https://schema.org',
   '@type': 'DefinedTerm',
-  '@id': `#term-${i}`,
+  '@id': `${site.url}/#term-${i}`,
   name: g.term,
   description: g.definition,
-  inDefinedTermSet: 'Fortium Cyber & AI Security Glossary',
+  inDefinedTermSet: { '@type': 'DefinedTermSet', name: 'Fortium Cyber & AI Security Glossary', url: `${site.url}/` },
 }));
 
 const bento = [
-  { wide: true,  title: '15+ Years In The Trenches',     body: 'Built by practitioners who shipped SOCs, ran red teams, and architected Zero Trust — not generalist recruiters.', icon: 'shield' as const },
+  { wide: true,  title: '15+ Years In The Trenches',     body: 'Founded by a practitioner with 15+ years inside Cyber Security — not a generalist recruiter.', icon: 'shield' as const },
   { wide: false, title: 'Expert-Validated Talent',       body: 'Every shortlist is screened by an active CISO or principal security engineer before it touches your inbox.',     icon: 'shield-check' as const },
   { wide: false, title: 'Tactical Speed',                body: 'Target: a vetted shortlist within 7 business days of intake. Vetting happens upstream — before you ever see a resume.',           icon: 'bolt' as const },
   { wide: true,  title: 'Built For Modern Threats',     body: 'We recruit LLM Security Engineers, AI Red Teamers, Cloud Detection Engineers, AppSec Architects, and Zero Trust leads.', icon: 'layers' as const },
@@ -81,7 +80,7 @@ const process = [
 ---
 <BaseLayout
   title="Fortium Group — Cyber & AI Security Recruiting"
-  description="Direct-hire recruiting for Cyber Security and AI Security talent. Founded by industry veterans with 15+ years of domain experience. Gems, not just resumes."
+  description="Direct-hire recruiting for Cyber Security and AI Security talent. Founded by a Cyber Security veteran with 15+ years of domain experience. Gems, not just resumes."
   path="/"
   keywords={['cyber security recruiting','AI security recruiting','CISO recruiter','LLM security hiring','AI red team recruiter','direct hire cyber','Zero Trust hiring']}
   breadcrumbs={[{ name: 'Home', path: '/' }]}
@@ -96,14 +95,14 @@ const process = [
       <div class="hero-badges" data-reveal>
         <StatusBadge label="DIRECT-HIRE" tone="green" />
         <StatusBadge label="CYBER + AI SECURITY" tone="accent" />
-        <StatusBadge label="ACCEPTING 2026 MANDATES" tone="amber" />
+        <StatusBadge label="ACCEPTING NEW MANDATES" tone="amber" />
       </div>
       <p class="eyebrow" data-reveal>Cyber & AI Security Recruiting</p>
       <h1 data-reveal data-delay="1">
         Securing your infrastructure begins with <GlitchText as="span" text="securing your talent." auto className="accent" />
       </h1>
       <p class="hero-sub" data-reveal data-delay="2">
-        Fortium Group delivers deeply vetted Cyber & AI Security leaders — placed faster, validated by practitioners, ready on day one. <span class="gradient-text" style="font-weight:600">Gems, not just resumes.</span>
+        Fortium Group delivers deeply vetted Cyber & AI Security talent — screened by practitioners, ready on day one. <span class="gradient-text" style="font-weight:600">Gems, not just resumes.</span>
       </p>
       <div class="hero-cta" data-reveal data-delay="3">
         <ScheduleButton label="Start Hiring" />
@@ -118,7 +117,7 @@ const process = [
       <p class="eyebrow" data-reveal>The vetting network</p>
       <h2 data-reveal data-delay="1">Practitioners vetting practitioners.</h2>
       <p class="lead" data-reveal data-delay="2">
-        Every Fortium placement passes through a network of active CISOs, red team leads, and principal engineers. No generalist recruiters in the loop. No résumé theater. Real signal, validated by people who ship in production.
+        Every Fortium shortlist is screened by active security practitioners — CISOs, red team leads, and principal engineers. No generalist recruiters in the loop. No resume theater. Real signal, validated by people who ship in production.
       </p>
       <div class="pill-cloud" style="margin-top:1.75rem" data-reveal data-delay="3">
         <span class="pill"><span class="dot"></span>Active practitioners only</span>
@@ -195,13 +194,13 @@ const process = [
         {allRoles.map((r) => {
           const slug = roleLink(r);
           return slug
-            ? <a class="pill" href={`${base}/roles/${slug}`}><span class="dot"></span>{r}</a>
+            ? <a class="pill" href={`${base}/roles/${slug}/`}><span class="dot"></span>{r}</a>
             : <span class="pill"><span class="dot"></span>{r}</span>;
         })}
       </div>
       <p data-reveal style="margin-top:1.25rem">
-        <a href={`${base}/roles`}>Browse role hiring guides — skills, salaries, interview questions →</a>
-      </div>
+        <a href={`${base}/roles/`}>Browse role hiring guides — skills, salaries, interview questions →</a>
+      </p>
     </div>
   </section>
 
@@ -209,12 +208,12 @@ const process = [
   <section>
     <div class="container">
       <p class="eyebrow" data-reveal>The vetting protocol</p>
-      <h2 data-reveal data-delay="1">From brief to shortlist in 7 days.</h2>
+      <h2 data-reveal data-delay="1">From brief to shortlist — target: 7 business days.</h2>
       <div class="timeline" style="margin-top:2.5rem">
         {process.map((p, i) => (
           <div class="timeline-step" data-reveal data-delay={(i % 4) + 1}>
             <span class="step-num">STEP {p.n}</span>
-            <h4>{p.t}</h4>
+            <h3>{p.t}</h3>
             <p>{p.d}</p>
           </div>
         ))}
@@ -277,7 +276,7 @@ const process = [
   </section>
 
   <!-- Hidden glossary — semantic gold for GEO, no aesthetic impact -->
-  <section class="sr-only" aria-hidden="true">
+  <section class="sr-only">
     <h2>Glossary</h2>
     <dl>
       {glossary.map((g) => (

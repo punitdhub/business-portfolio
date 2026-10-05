@@ -33,7 +33,9 @@ export interface Props {
 }
 
 const { name, size = 24, strokeWidth = 1.6, class: className, ariaLabel } = Astro.props;
-const aria = ariaLabel ? { 'aria-label': ariaLabel } : { 'aria-hidden': 'true' };
+const aria: Record<string, string> = ariaLabel
+  ? { 'aria-label': ariaLabel, role: 'img' }
+  : { 'aria-hidden': 'true' };
 ---
 <svg
   xmlns="http://www.w3.org/2000/svg"

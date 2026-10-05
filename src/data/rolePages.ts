@@ -33,6 +33,8 @@ export interface RolePage {
 }
 
 export const salaryAsOf = 'October 2026';
+/** First publication date of the role guides (ISO). */
+export const guidesPublished = '2026-10-03';
 
 const SRC = {
   bls: { label: 'U.S. Bureau of Labor Statistics — Information Security Analysts', url: 'https://www.bls.gov/ooh/computer-and-information-technology/information-security-analysts.htm' },
