@@ -9,26 +9,24 @@ import Icon from '../components/Icon.astro';
 import { mandates } from '../data/mandates';
 import { features } from '../config';
 
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-
 const promises = [
-  { icon: 'lock' as const,    t: 'Confidential by default',  d: 'Your details never leave our vault without your written consent. We do not blast resumes to job boards.' },
+  { icon: 'lock' as const,    t: 'Confidential by default',  d: 'We never share your details with a hiring company without your explicit consent. We do not blast resumes to job boards.' },
   { icon: 'gem' as const,     t: 'Curated, not blasted',     d: 'We pitch you to 1–2 mandates that fit your trajectory. Never a mass submission. Never a numbers game.' },
   { icon: 'compass' as const, t: 'Career-first conversations', d: 'We ask where you want to be in 3 years before we mention compensation. Your career is not a transaction.' },
 ];
 
 const journey = [
-  { n: '01', t: 'You submit', d: 'Drop your resume or LinkedIn through our encrypted intake. Five minutes, no account required.' },
+  { n: '01', t: 'You submit', d: 'Share your LinkedIn or portfolio link through our encrypted intake. Five minutes, no account required.' },
   { n: '02', t: 'We listen', d: 'A 30-minute discovery call. We learn your trajectory, comp expectations, dealbreakers, and dream team profile.' },
   { n: '03', t: 'We curate', d: "When a mandate fits, we'll pitch you with full context — company, comp, team, why we think it's right. You decide if we proceed." },
-  { n: '04', t: 'We advocate', d: "Through interviews and offer negotiations, we're in your corner. Not the company's. Our reputation is built on your career outcomes." },
+  { n: '04', t: 'We advocate', d: "Through interviews and offer negotiations, we advocate for a fit that works for you. Our reputation is built on your career outcomes." },
 ];
 
 const sevTone: Record<string, 'green' | 'amber' | 'accent'> = { OPEN: 'green', INTERVIEWING: 'amber', CLOSING: 'accent' };
 ---
 <BaseLayout
   title="For Candidates — Confidential Cyber & AI Security Recruiting"
-  description="Confidential introductions to elite Cyber and AI Security mandates. Fortium Group represents practitioners — not the company. Curated, never blasted."
+  description="Confidential introductions to elite Cyber and AI Security mandates. We put practitioners' careers first. Curated, never blasted."
   path="/candidates"
   keywords={['cyber security jobs','AI security jobs','LLM security engineer roles','AI red team careers','CISO opportunities','confidential security recruiter']}
   breadcrumbs={[{ name: 'Home', path: '/' }, { name: 'For Candidates', path: '/candidates' }]}
@@ -108,7 +106,7 @@ const sevTone: Record<string, 'green' | 'amber' | 'accent'> = { OPEN: 'green', I
           </p>
           <ul class="ticked-list" style="margin-top:1.5rem">
             <li>Confidential by default</li>
-            <li>Never shared without written consent</li>
+            <li>Never shared without your explicit consent</li>
             <li>First reply within 1 business day</li>
           </ul>
         </div>
@@ -131,7 +129,7 @@ const sevTone: Record<string, 'green' | 'amber' | 'accent'> = { OPEN: 'green', I
         {journey.map((j, i) => (
           <div class="timeline-step" data-reveal data-delay={(i % 4) + 1}>
             <span class="step-num">STEP {j.n}</span>
-            <h4>{j.t}</h4>
+            <h3>{j.t}</h3>
             <p>{j.d}</p>
           </div>
         ))}

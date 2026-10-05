@@ -1,4 +1,8 @@
 ---
+// Self-hosted fonts: no third-party requests, so no visitor IPs go to Google.
+import '@fontsource-variable/inter/opsz.css';
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/jetbrains-mono/500.css';
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -17,8 +21,10 @@ export interface Props {
   keywords?: string[];
   breadcrumbs?: { name: string; path: string }[];
   showTicker?: boolean;
+  article?: { publishedTime: Date; modifiedTime?: Date; tags?: string[] };
+  noindex?: boolean;
 }
-const { title, description, path, jsonLd, keywords, breadcrumbs, showTicker = true } = Astro.props;
+const { title, description, path, jsonLd, keywords, breadcrumbs, showTicker = true, article, noindex = false } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 <!doctype html>
@@ -33,24 +39,23 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <meta name="theme-color" content="#F8F9FB" media="(prefers-color-scheme: light)" />
 
     <!-- Security — CSP + Referrer Policy. GitHub Pages can't set HTTP headers,
-         so we use meta-equivalents for the policies that browsers honour via meta. -->
+         so only directives browsers honour in a <meta> CSP are listed here
+         (frame-ancestors is header-only; clickjacking is handled below). -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; frame-ancestors 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests"
+      content="default-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; script-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests"
     />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
-    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <!-- Anti-clickjacking: hide the page if another site frames it, then break out. -->
+    <style>html.framed { visibility: hidden; }</style>
+    <script is:inline>
+      if (window.top !== window.self) {
+        document.documentElement.classList.add('framed');
+        try { window.top.location = window.self.location.href; } catch (_) {}
+      }
+    </script>
     <meta name="format-detection" content="telephone=no" />
-    <meta name="robots" content="index, follow, max-image-preview:large" />
-
-    <!-- Type — Inter (variable, optical-sizing capable) + JetBrains Mono for mono contexts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&family=JetBrains+Mono:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
+    <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large'} />
 
     <SEO
       title={title}
@@ -59,15 +64,18 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       jsonLd={jsonLd}
       keywords={keywords}
       breadcrumbs={breadcrumbs}
+      article={article}
     />
 
     <!-- Theme bootstrap: prevent flash by setting attribute before paint -->
     <script is:inline>
       (function () {
+        // Lets CSS hide reveal-on-scroll content only when JS can reveal it.
+        document.documentElement.classList.add('js');
         try {
           const k = 'fortium-theme';
           const t = localStorage.getItem(k) || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
-          if (t === 'dark' || t === 'light' || t === 'rootkit') document.documentElement.dataset.theme = t;
+          if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t;
         } catch (_) {}
       })();
     </script>

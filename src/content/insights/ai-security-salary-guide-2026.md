@@ -56,4 +56,4 @@ Bay Area, New York, and Seattle bands sit at the top. Remote-first employers inc
 
 ## Get a benchmark for your exact role
 
-Published ranges are a starting point. For a specific role, level, and location, [request a free salary benchmark](/business-portfolio/salary-benchmark) — we'll send a tailored snapshot, typically within 2 business days. For role-by-role detail, see our hiring guides for the [AI Red Teamer](/business-portfolio/roles/ai-red-teamer) and the [LLM Security Engineer](/business-portfolio/roles/llm-security-engineer).
+Published ranges are a starting point. For a specific role, level, and location, [request a free salary benchmark](/business-portfolio/salary-benchmark/) — we'll send a tailored snapshot, typically within 2 business days. For role-by-role detail, see our hiring guides for the [AI Red Teamer](/business-portfolio/roles/ai-red-teamer/) and the [LLM Security Engineer](/business-portfolio/roles/llm-security-engineer/).

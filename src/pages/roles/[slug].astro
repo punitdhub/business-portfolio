@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import InquiryForm from '../../components/InquiryForm.astro';
-import { rolePages, rolePageBySlug, salaryAsOf, article, type RolePage } from '../../data/rolePages';
+import { rolePages, rolePageBySlug, salaryAsOf, guidesPublished, article, type RolePage } from '../../data/rolePages';
 import { site } from '../../config';
 
 export function getStaticPaths() {
@@ -13,17 +13,22 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const path = `/roles/${role.slug}`;
 const related = role.related.map((s) => rolePageBySlug[s]).filter(Boolean);
 const a = article(role.title);
-const benchmarkHref = `${base}/salary-benchmark?role=${encodeURIComponent(role.title)}`;
+const benchmarkHref = `${base}/salary-benchmark/?role=${encodeURIComponent(role.title)}#request`;
+const published = new Date(guidesPublished);
 
 const jsonLd = [
   {
     '@context': 'https://schema.org',
     '@type': 'Article',
-    headline: `How to hire ${a} ${role.title}`,
+    headline: `How to Hire ${a} ${role.title} (2026 Guide)`,
     description: role.summary,
-    author: { '@type': 'Person', name: site.founder.name },
-    publisher: { '@type': 'Organization', name: site.name },
-    mainEntityOfPage: `${site.url}${path}`,
+    datePublished: published.toISOString(),
+    dateModified: published.toISOString(),
+    image: `${site.url}/og.png`,
+    url: `${site.url}${path}/`,
+    author: { '@type': 'Person', name: site.founder.name, url: `${site.url}/about/` },
+    publisher: { '@type': 'Organization', '@id': `${site.url}/#org`, name: site.name, logo: { '@type': 'ImageObject', url: `${site.url}/logo.png` } },
+    mainEntityOfPage: `${site.url}${path}/`,
     about: { '@type': 'Occupation', name: role.title, skills: role.skills.join(', ') },
   },
   {
@@ -44,6 +49,7 @@ const jsonLd = [
   keywords={[`hire ${role.title.toLowerCase()}`, `${role.title.toLowerCase()} salary`, `${role.title.toLowerCase()} recruiter`, `${role.title.toLowerCase()} interview questions`]}
   breadcrumbs={[{ name: 'Home', path: '/' }, { name: 'Roles', path: '/roles' }, { name: role.title, path }]}
   jsonLd={jsonLd}
+  article={{ publishedTime: published, tags: [role.title, role.practice] }}
 >
   <section class="hero hero-compact">
     <div class="grid-bg" aria-hidden="true"></div>
@@ -162,7 +168,7 @@ const jsonLd = [
         <p class="eyebrow" data-reveal>Related hiring guides</p>
         <div class="grid grid-3" style="margin-top:1rem">
           {related.map((r) => (
-            <a class="panel role-card" href={`${base}/roles/${r.slug}`} data-reveal>
+            <a class="panel role-card" href={`${base}/roles/${r.slug}/`} data-reveal>
               <span class="text-mono dim caption">{r.practice}</span>
               <h3>{r.title}</h3>
               <span class="text-accent">Read guide →</span>

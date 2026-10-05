@@ -29,7 +29,6 @@ src/
 │   ├── InquiryForm.astro     # Formspree-ready static form
 │   ├── StatCounter.astro     # Matrix-glyph animated counter
 │   ├── ScrollReveal.astro    # Global IO-based reveal observer
-│   ├── TerminalType.astro    # Terminal-typing effect (optional)
 │   └── SEO.astro             # Per-page meta + JSON-LD
 ├── layouts/
 │   └── BaseLayout.astro
@@ -100,19 +99,18 @@ If you rename the repo, update `base` to match.
 
 ---
 
-## 🔧 Things to Replace Before Launch
+## 🔧 Remaining Items to Personalise
 
-These are clearly-marked placeholders. Use find-and-replace to update once you have real assets.
-
-| Placeholder | Where | What to do |
+| Item | Where | What to do |
 |---|---|---|
-| `PLACEHOLDER_FORMSPREE_ID` | `src/components/InquiryForm.astro` | Sign up at [formspree.io](https://formspree.io), get a form ID, paste it in. Free tier covers 50 submissions/month. |
-| `hello@fortiumgroup.com` | Footer, Contact page | Replace with real inbox. |
-| LinkedIn `#` links | Footer, About, Contact | Replace with real LinkedIn URLs. |
-| `CLIENT.01` … `CLIENT.05` | `src/pages/index.astro` logo rail | Replace with real client logos (SVGs in `/public/clients/`). |
-| Stat band figures (1200+, 21d, 94%, 98%) | Homepage, About, Employers | Replace with audited internal metrics. |
-| Mandates on Candidates page | `src/pages/candidates.astro` | Refresh with real anonymized open mandates. |
-| Founder bio | `src/pages/about.astro` | Expand Punit's bio with specific experience, prior companies, certifications. |
+| Client logos | `src/data/clients.ts` | Add clients once you have written permission to name them. |
+| Testimonials | `src/data/testimonials.ts` | Add real quotes (section stays hidden while empty). |
+| Open roles | `src/data/mandates.ts` + `features.showMandates` | Add real anonymized roles, then switch the flag on. |
+| Outcome metrics | `src/data/stats.ts` | Add placement metrics only once you can substantiate them. |
+| Founder bio | `src/pages/about.astro` | Expand with specific experience, prior companies, certifications. |
+| `security.txt` expiry | `public/.well-known/security.txt` | Renew the `Expires` date before it lapses (at least yearly). |
+
+Contact email (`hello@fortiumgroup.com`) and the Formspree form ID are already live in `src/config.ts`.
 
 ---
 

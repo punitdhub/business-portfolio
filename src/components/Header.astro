@@ -7,21 +7,22 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const path = Astro.url.pathname.replace(/\/$/, '');
 
 const links = [
-  { href: `${base}/about`, label: 'About' },
-  { href: `${base}/employers`, label: 'Employers' },
-  { href: `${base}/candidates`, label: 'Candidates' },
-  { href: `${base}/roles`, label: 'Roles' },
-  { href: `${base}/insights`, label: 'Insights' },
-  { href: `${base}/contact`, label: 'Contact' },
+  { href: `${base}/about/`, label: 'About' },
+  { href: `${base}/employers/`, label: 'Employers' },
+  { href: `${base}/candidates/`, label: 'Candidates' },
+  { href: `${base}/roles/`, label: 'Roles' },
+  { href: `${base}/insights/`, label: 'Insights' },
+  { href: `${base}/contact/`, label: 'Contact' },
 ];
-const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`);
+// 'page' for the exact page; 'true' when inside that section (e.g. an article under Insights).
+const current = (href: string) => (path === href ? 'page' : path.startsWith(`${href}/`) ? 'true' : undefined);
 ---
 <header class="site-header">
   <div class="container site-header-inner">
     <Logo height={30} />
     <nav class="nav-links" aria-label="Primary">
       {links.map((l) => (
-        <a class="nav-link" href={l.href} aria-current={isCurrent(l.href) ? 'page' : undefined}>{l.label}</a>
+        <a class="nav-link" href={l.href} aria-current={current(l.href)}>{l.label}</a>
       ))}
     </nav>
     <div class="header-actions">
@@ -43,7 +44,7 @@ const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`)
     <div class="container">
       <ul>
         {links.map((l) => (
-          <li><a class="mobile-link" href={l.href} aria-current={isCurrent(l.href) ? 'page' : undefined}>{l.label}</a></li>
+          <li><a class="mobile-link" href={l.href} aria-current={current(l.href)}>{l.label}</a></li>
         ))}
       </ul>
       <ScheduleButton label="Book Discovery" className="mobile-menu-cta" />
@@ -85,6 +86,12 @@ const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`)
     mq.addEventListener('change', function (e) {
       if (!e.matches) setOpen(false, false);
     });
+    // Close when keyboard focus moves past the menu so it can't cover the
+    // focused element (WCAG 2.4.11).
+    menu.addEventListener('focusout', function (e) {
+      const to = e.relatedTarget;
+      if (to && !menu.contains(to) && to !== btn) setOpen(false, false);
+    });
   })();
 </script>
 
@@ -114,21 +121,19 @@ const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`)
       const e = lastE;
       if (!e) return;
 
-      // Spotlight on panels in viewport
-      const panels = document.querySelectorAll('.panel, .mandate, .timeline-step');
-      for (const p of panels) {
+      // Spotlight: only the panel under the cursor needs updating.
+      const p = e.target && e.target.closest ? e.target.closest('.panel, .mandate, .timeline-step') : null;
+      if (p) {
         const r = p.getBoundingClientRect();
-        if (r.bottom < 0 || r.top > window.innerHeight) continue;
-        const px = e.clientX - r.left;
-        const py = e.clientY - r.top;
-        p.style.setProperty('--px', px + 'px');
-        p.style.setProperty('--py', py + 'px');
+        p.style.setProperty('--px', (e.clientX - r.left) + 'px');
+        p.style.setProperty('--py', (e.clientY - r.top) + 'px');
       }
 
       // Magnetic effect on primary buttons within hover radius
-      const buttons = document.querySelectorAll('.btn-primary, .btn-warm');
-      for (const b of buttons) {
-        const r = b.getBoundingClientRect();
+      const buttons = Array.from(document.querySelectorAll('.btn-primary, .btn-warm'));
+      const rects = buttons.map(function (b) { return b.getBoundingClientRect(); });
+      buttons.forEach(function (b, i) {
+        const r = rects[i];
         const cx = r.left + r.width / 2;
         const cy = r.top + r.height / 2;
         const dx = e.clientX - cx;
@@ -143,7 +148,7 @@ const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`)
           b.style.setProperty('--mag-x', '0px');
           b.style.setProperty('--mag-y', '0px');
         }
-      }
+      });
     }
 
     document.addEventListener('pointermove', onMove, { passive: true });

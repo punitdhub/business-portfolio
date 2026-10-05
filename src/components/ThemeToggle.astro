@@ -1,7 +1,7 @@
 ---
 // Dark/Light toggle. Persisted to localStorage; respects prefers-color-scheme.
 ---
-<button class="theme-toggle" type="button" aria-label="Toggle color theme" data-theme-toggle>
+<button class="theme-toggle" type="button" aria-label="Switch color theme" data-theme-toggle>
   <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
   </svg>
@@ -12,20 +12,25 @@
 </button>
 
 <script is:inline>
+  // The theme itself is applied before paint by BaseLayout; this only wires
+  // the button. Storage access is guarded: it throws when site data is blocked.
   (function () {
     const KEY = 'fortium-theme';
     const root = document.documentElement;
-    const stored = localStorage.getItem(KEY);
-    const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-    const initial = stored || (prefersLight ? 'light' : 'dark');
-    root.dataset.theme = initial;
-
-    document.addEventListener('click', (e) => {
+    const label = function () {
+      const next = root.dataset.theme === 'light' ? 'dark' : 'light';
+      document.querySelectorAll('[data-theme-toggle]').forEach(function (b) {
+        b.setAttribute('aria-label', 'Switch to ' + next + ' theme');
+      });
+    };
+    label();
+    document.addEventListener('click', function (e) {
       const btn = e.target.closest('[data-theme-toggle]');
       if (!btn) return;
       const next = root.dataset.theme === 'light' ? 'dark' : 'light';
       root.dataset.theme = next;
-      localStorage.setItem(KEY, next);
+      try { localStorage.setItem(KEY, next); } catch (_) {}
+      label();
     });
   })();
 </script>

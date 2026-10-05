@@ -21,7 +21,7 @@ const vetting = [
 ];
 
 const models = [
-  { name: 'Direct-Hire (Contingency)', best: 'Single role, moderate urgency', fee: 'Pay only on placement', bullets: ['No upfront cost', '90-day replacement guarantee', 'Typical engagement: 1–6 weeks'], badge: 'Most popular' },
+  { name: 'Direct-Hire (Contingency)', best: 'Single role, moderate urgency', fee: 'Pay only on placement', bullets: ['No upfront cost', '90-day replacement guarantee', 'Typical engagement: 1–6 weeks'], badge: 'Pay on placement' },
   { name: 'Retained Search', best: 'Senior leadership (CISO / VP)', fee: 'Engaged fee, exclusive partnership', bullets: ['Confidential incumbent replacement', 'Board-level reporting', 'Dedicated practitioner panel'], badge: 'Executive' },
   { name: 'Embedded Recruiter', best: 'Multi-hire team builds', fee: 'Monthly retainer + per-hire', bullets: ['Sits inside your TA function', 'Builds full security pipeline', 'Best for 5+ hires in 6 months'], badge: 'Scale-up' },
 ];
@@ -55,7 +55,7 @@ const jsonLd = [
 ---
 <BaseLayout
   title="For Employers — Cyber & AI Security Recruiting"
-  description="How Fortium Group vets Cyber and AI Security candidates: 5-stage protocol, 7-day shortlists, 90-day replacement guarantee. Direct-hire, retained, and embedded models."
+  description="How Fortium Group vets Cyber and AI Security candidates: 5-stage protocol, 7-business-day shortlist target, 90-day replacement guarantee. Direct-hire, retained, and embedded models."
   path="/employers"
   keywords={['CISO recruiter','cyber security recruiting firm','AI security recruiter','vetting protocol','direct hire security','retained search CISO']}
   breadcrumbs={[{ name: 'Home', path: '/' }, { name: 'For Employers', path: '/employers' }]}
@@ -69,7 +69,7 @@ const jsonLd = [
         Stop reviewing resumes. <GlitchText as="span" text="Start hiring gems." auto className="accent" />
       </h1>
       <p class="hero-sub" data-reveal data-delay="2">
-        Direct-hire Cyber & AI Security recruiting, engineered for hiring managers who refuse to settle. 5-stage vetting. 7-day shortlists. 90-day replacement guarantee.
+        Direct-hire Cyber & AI Security recruiting, engineered for hiring managers who refuse to settle. 5-stage vetting. 7-business-day shortlist target. 90-day replacement guarantee.
       </p>
       <div class="hero-cta" data-reveal data-delay="3">
         <ScheduleButton label="Brief Us On Your Role" />
@@ -136,24 +136,26 @@ const jsonLd = [
           </p>
         </div>
         <div class="panel" data-reveal data-delay="1" style="padding:2rem">
-          <table style="width:100%; border-collapse:collapse; font-size:0.95rem; font-family: var(--font-mono)">
-            <thead>
-              <tr style="border-bottom:1px solid var(--border)">
-                <th style="text-align:left; padding:0.5rem 0; font-weight:500"></th>
-                <th class="text-accent" style="text-align:right; padding:0.5rem 0; font-size:0.78rem; letter-spacing:0.15em">FORTIUM</th>
-                <th class="dim" style="text-align:right; padding:0.5rem 0; font-size:0.78rem; letter-spacing:0.15em">TYPICAL AGENCY</th>
-              </tr>
-            </thead>
-            <tbody>
-              {comparisonRows.map((r) => (
+          <div class="table-scroll">
+            <table class="compare-table">
+              <thead>
                 <tr style="border-bottom:1px solid var(--border)">
-                  <td style="padding:0.65rem 0">{r.metric}</td>
-                  <td style="text-align:right" class="text-accent">{r.fortium}</td>
-                  <td class="dim" style="text-align:right">{r.industry}</td>
+                  <th style="text-align:left"><span class="sr-only">Commitment</span></th>
+                  <th class="text-accent text-mono" style="text-align:right; font-size:0.74rem; letter-spacing:0.15em">FORTIUM</th>
+                  <th class="dim text-mono" style="text-align:right; font-size:0.74rem; letter-spacing:0.15em">TYPICAL AGENCY</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {comparisonRows.map((r) => (
+                  <tr style="border-bottom:1px solid var(--border)">
+                    <th scope="row" style="text-align:left; font-weight:400">{r.metric}</th>
+                    <td style="text-align:right" class="text-accent">{r.fortium}</td>
+                    <td class="dim" style="text-align:right">{r.industry}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
           <p class="dim text-mono caption" style="margin-top:1rem; margin-bottom:0">
             Fortium figures are service commitments, not historical averages. Final terms are set in each engagement agreement.
           </p>
@@ -181,7 +183,7 @@ const jsonLd = [
           <h2 style="font-size:1.45rem; margin:0">Not sure what to offer? Get a salary benchmark.</h2>
           <p class="muted" style="margin:0.5rem 0 0">Base range, bonus and equity norms, and market tightness for your exact role and location — typically within 2 business days.</p>
         </div>
-        <a class="btn btn-primary" href={`${base}/salary-benchmark`}>Request benchmark <span class="btn-arrow">→</span></a>
+        <a class="btn btn-primary" href={`${base}/salary-benchmark/`}>Request benchmark <span class="btn-arrow">→</span></a>
       </div>
     </div>
   </section>
@@ -194,13 +196,13 @@ const jsonLd = [
         <article class="panel" data-reveal>
           <h3>Cyber Security</h3>
           <ul style="padding-left:1.1rem; color:var(--text-muted); margin:0; columns:2; column-gap:1.5rem; font-size:0.92rem">
-            {cyberRoles.map((r) => { const s = roleLink(r); return <li style="margin-bottom:0.2rem">{s ? <a href={`${base}/roles/${s}`}>{r}</a> : r}</li>; })}
+            {cyberRoles.map((r) => { const s = roleLink(r); return <li style="margin-bottom:0.2rem">{s ? <a href={`${base}/roles/${s}/`}>{r}</a> : r}</li>; })}
           </ul>
         </article>
         <article class="panel" data-reveal data-delay="1">
           <h3>AI Security</h3>
           <ul style="padding-left:1.1rem; color:var(--text-muted); margin:0; columns:2; column-gap:1.5rem; font-size:0.92rem">
-            {aiSecurityRoles.map((r) => { const s = roleLink(r); return <li style="margin-bottom:0.2rem">{s ? <a href={`${base}/roles/${s}`}>{r}</a> : r}</li>; })}
+            {aiSecurityRoles.map((r) => { const s = roleLink(r); return <li style="margin-bottom:0.2rem">{s ? <a href={`${base}/roles/${s}/`}>{r}</a> : r}</li>; })}
           </ul>
         </article>
       </div>

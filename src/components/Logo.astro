@@ -8,6 +8,8 @@ export interface Props {
 }
 const { variant = 'lockup', height = 32, withLink = true } = Astro.props;
 const base = import.meta.env.BASE_URL;
+// Unique gradient id per instance (the logo renders in header and footer).
+const gid = `fortium-grad-${Math.random().toString(36).slice(2, 8)}`;
 ---
 
 {withLink ? (
@@ -15,7 +17,7 @@ const base = import.meta.env.BASE_URL;
     <span class="logo" style={`--logo-h:${height}px`} data-variant={variant}>
       <svg viewBox="0 0 48 48" aria-hidden="true" class="logo-mark">
         <defs>
-          <linearGradient id="fortium-grad" x1="0" x2="1" y1="0" y2="1">
+          <linearGradient id={gid} x1="0" x2="1" y1="0" y2="1">
             <stop offset="0%" stop-color="var(--accent)" />
             <stop offset="100%" stop-color="var(--accent-2)" />
           </linearGradient>
@@ -24,7 +26,7 @@ const base = import.meta.env.BASE_URL;
         <path
           d="M24 3 L42 10 V24 C42 34 34 41.5 24 45 C14 41.5 6 34 6 24 V10 Z"
           fill="none"
-          stroke="url(#fortium-grad)"
+          stroke={`url(#${gid})`}
           stroke-width="2"
           stroke-linejoin="round"
         />
@@ -33,7 +35,7 @@ const base = import.meta.env.BASE_URL;
               stroke="var(--accent)" stroke-width="1" stroke-linecap="round" opacity="0.55" />
         <!-- Gem (octahedron) -->
         <g transform="translate(24 24)">
-          <path d="M0 -10 L8 0 L0 14 L-8 0 Z" fill="url(#fortium-grad)" opacity="0.95" />
+          <path d="M0 -10 L8 0 L0 14 L-8 0 Z" fill={`url(#${gid})`} opacity="0.95" />
           <path d="M0 -10 L8 0 L-8 0 Z" fill="var(--accent)" opacity="0.45" />
           <path d="M0 -10 L0 14" stroke="var(--bg)" stroke-width="0.6" opacity="0.5" />
           <path d="M-8 0 L8 0" stroke="var(--bg)" stroke-width="0.6" opacity="0.5" />
@@ -50,7 +52,7 @@ const base = import.meta.env.BASE_URL;
   <span class="logo" style={`--logo-h:${height}px`} data-variant={variant}>
     <svg viewBox="0 0 48 48" aria-hidden="true" class="logo-mark">
       <defs>
-        <linearGradient id="fortium-grad-2" x1="0" x2="1" y1="0" y2="1">
+        <linearGradient id={gid} x1="0" x2="1" y1="0" y2="1">
           <stop offset="0%" stop-color="var(--accent)" />
           <stop offset="100%" stop-color="var(--accent-2)" />
         </linearGradient>
@@ -58,14 +60,14 @@ const base = import.meta.env.BASE_URL;
       <path
         d="M24 3 L42 10 V24 C42 34 34 41.5 24 45 C14 41.5 6 34 6 24 V10 Z"
         fill="none"
-        stroke="url(#fortium-grad-2)"
+        stroke={`url(#${gid})`}
         stroke-width="2"
         stroke-linejoin="round"
       />
       <path d="M10 14 H14 M34 14 H38 M10 24 H13 M35 24 H38 M12 34 H15 M33 34 H36"
             stroke="var(--accent)" stroke-width="1" stroke-linecap="round" opacity="0.55" />
       <g transform="translate(24 24)">
-        <path d="M0 -10 L8 0 L0 14 L-8 0 Z" fill="url(#fortium-grad-2)" opacity="0.95" />
+        <path d="M0 -10 L8 0 L0 14 L-8 0 Z" fill={`url(#${gid})`} opacity="0.95" />
         <path d="M0 -10 L8 0 L-8 0 Z" fill="var(--accent)" opacity="0.45" />
       </g>
     </svg>

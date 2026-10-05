@@ -24,23 +24,23 @@ const aboutLd = {
   name: 'About Fortium Group',
   description:
     'Fortium Group is a direct-hire Cyber and AI Security recruiting firm founded by Punit Dwivedi, with 15+ years of pure cyber security domain experience.',
-  url: 'https://punitdhub.github.io/business-portfolio/about',
+  url: 'https://punitdhub.github.io/business-portfolio/about/',
   mainEntity: personLd,
 };
 
 const principles = [
   { n: '01', t: 'Verified, not asserted', d: 'Anyone can write "expert in Kubernetes security" on a resume. We require evidence. A practitioner on our network actually probes the depth before a candidate moves forward.' },
-  { n: '02', t: 'Few, not many', d: 'A volume-recruiting agency hands you 25 names and hopes one sticks. We hand you 3–5 names and stand behind each one. Fewer interviews. Higher conversion.' },
+  { n: '02', t: 'Few, not many', d: 'A volume-recruiting agency hands you 25 names and hopes one sticks. We hand you 3–5 names and stand behind each one. Fewer, better-qualified interviews.' },
   { n: '03', t: 'Permanent, not transactional', d: 'Direct-hire placements only. We are not interested in churning contractors. We are interested in seeing our placements promoted in 18 months.' },
 ];
 ---
 <BaseLayout
-  title="About Fortium Group — Founded by Cyber Security Veterans"
+  title="About Fortium Group — Founded by a Cyber Security Veteran"
   description="Fortium Group was founded by Punit Dwivedi, an industry veteran with 15+ years of pure Cyber Security domain experience. We built the recruiting firm we wished existed."
   path="/about"
   keywords={['Fortium Group founder','Punit Dwivedi','cyber security recruiter founder','elite security recruiting']}
   breadcrumbs={[{ name: 'Home', path: '/' }, { name: 'About', path: '/about' }]}
-  jsonLd={[aboutLd, personLd]}
+  jsonLd={aboutLd}
 >
   <section class="hero hero-compact">
     <div class="grid-bg" aria-hidden="true"></div>
@@ -68,7 +68,7 @@ const principles = [
             Fortium Group exists to close that gap. We translate fluently in both directions: we know what a CISO is actually asking for when they say "I need someone who gets Zero Trust," and we know what a brilliant detection engineer is actually worth on the open market today.
           </p>
           <p>
-            We are a small, deliberate firm by design. Our throughput is not measured in placements per quarter — it is measured in how many of our placements are still thriving in their roles three years later.
+            We are a small, deliberate firm by design. Our throughput is not measured in placements per quarter — it will be measured by how many of our placements are still thriving in their roles years later.
           </p>
         </div>
         <aside class="panel" data-reveal data-delay="1" style="padding:2rem">
@@ -136,7 +136,7 @@ const principles = [
         </p>
         <div class="hero-cta" style="justify-content:center; margin-top:1.5rem">
           <ScheduleButton label="Book a Discovery Call" />
-          <a class="btn btn-ghost" href={`${base}/employers`}>How we vet →</a>
+          <a class="btn btn-ghost" href={`${base}/employers/`}>How we vet →</a>
         </div>
       </div>
     </div>

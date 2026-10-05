@@ -22,19 +22,19 @@ const year = new Date().getFullYear();
         <h4>Sitemap</h4>
         <ul>
           <li><a href={`${base}/`}>Home</a></li>
-          <li><a href={`${base}/about`}>About</a></li>
-          <li><a href={`${base}/employers`}>For Employers</a></li>
-          <li><a href={`${base}/candidates`}>For Candidates</a></li>
-          <li><a href={`${base}/insights`}>Insights</a></li>
-          <li><a href={`${base}/salary-benchmark`}>Salary Benchmark</a></li>
-          <li><a href={`${base}/contact`}>Contact</a></li>
+          <li><a href={`${base}/about/`}>About</a></li>
+          <li><a href={`${base}/employers/`}>For Employers</a></li>
+          <li><a href={`${base}/candidates/`}>For Candidates</a></li>
+          <li><a href={`${base}/insights/`}>Insights</a></li>
+          <li><a href={`${base}/salary-benchmark/`}>Salary Benchmark</a></li>
+          <li><a href={`${base}/contact/`}>Contact</a></li>
         </ul>
       </div>
       <div>
         <h4>Practice Areas</h4>
         <ul>
-          {rolePages.map((r) => <li><a href={`${base}/roles/${r.slug}`}>{r.short}</a></li>)}
-          <li><a href={`${base}/roles`}>All hiring guides →</a></li>
+          {rolePages.map((r) => <li><a href={`${base}/roles/${r.slug}/`}>{r.short}</a></li>)}
+          <li><a href={`${base}/roles/`}>All hiring guides →</a></li>
         </ul>
       </div>
       <div>
@@ -42,34 +42,17 @@ const year = new Date().getFullYear();
         <ul>
           <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
           <li><a href={site.linkedin} rel="noopener" target="_blank">LinkedIn</a></li>
-          <li><a href={`${base}/contact`}>Book Discovery →</a></li>
+          <li><a href={`${base}/contact/`}>Book Discovery →</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© {year} {site.name}. All rights reserved. · <a href={`${base}/privacy`}>Privacy</a> · <a href={`${base}/terms`}>Terms</a></span>
-      <span class="live-status" aria-live="polite">
+      <span>© {year} {site.name}. All rights reserved. · <a href={`${base}/privacy/`}>Privacy</a> · <a href={`${base}/terms/`}>Terms</a></span>
+      <span class="live-status">
         <span class="dot" aria-hidden="true"></span>
-        <span data-live-status>Accepting new mandates</span>
+        <span>Accepting new mandates · Reply within 1 business day</span>
       </span>
     </div>
   </div>
 </footer>
 
-<script is:inline>
-  // Rotating footer status — factual service commitments only.
-  (function () {
-    const el = document.querySelector('[data-live-status]');
-    if (!el) return;
-    const messages = [
-      'Accepting new mandates',
-      'Reply within 1 business day',
-      'Confidential by default',
-    ];
-    let i = 0;
-    setInterval(function () {
-      i = (i + 1) % messages.length;
-      el.textContent = messages[i];
-    }, 5200);
-  })();
-</script>
