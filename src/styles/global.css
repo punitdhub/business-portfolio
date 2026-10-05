@@ -62,8 +62,8 @@
   --glow:         0 0 24px rgba(var(--accent-rgb), 0.20);
 
   /* —— Type — Inter for everything, JetBrains Mono for code —— */
-  --font-display: 'Inter', system-ui, -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
-  --font-body:    'Inter', system-ui, -apple-system, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+  --font-display: 'Inter Variable', 'Inter', system-ui, -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+  --font-body:    'Inter Variable', 'Inter', system-ui, -apple-system, 'SF Pro Text', 'Helvetica Neue', sans-serif;
   --font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
 
   /* —— Spacing scale (8-pt rhythm) —— */
