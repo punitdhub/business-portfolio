@@ -2,10 +2,9 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-// https://astro.build/config
+// Deployed to foliumgroup.co via GitHub Pages (custom domain, see public/CNAME).
 export default defineConfig({
-  site: 'https://punitdhub.github.io',
-  base: '/business-portfolio',
+  site: 'https://www.foliumgroup.co',
   trailingSlash: 'ignore',
   integrations: [sitemap()],
   build: { inlineStylesheets: 'auto' },

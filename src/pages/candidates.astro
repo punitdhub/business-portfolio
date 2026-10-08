@@ -38,7 +38,7 @@ const sevTone: Record<string, 'green' | 'amber' | 'accent'> = { OPEN: 'green', I
     <div class="container hero-inner">
       <p class="eyebrow" data-reveal>For candidates</p>
       <h1 data-reveal data-delay="1">
-        Your next role should <GlitchText as="span" text="find you." auto className="accent" />
+        Your next role <span class="serif-accent">should find you.</span>
       </h1>
       <p class="hero-sub" data-reveal data-delay="2">
         Confidential introductions to Cyber & AI Security mandates that match your trajectory — not your job title. Built for practitioners who are not on the open market.
@@ -55,7 +55,7 @@ const sevTone: Record<string, 'green' | 'amber' | 'accent'> = { OPEN: 'green', I
   <section>
     <div class="container">
       <p class="eyebrow" data-reveal>Our promise</p>
-      <h2 data-reveal data-delay="1"><DecryptText as="span" text="Three things you can count on." /></h2>
+      <h2 data-reveal data-delay="1">Three things you can <span class="serif-accent">count on</span>.</h2>
       <div class="grid grid-3" style="margin-top:2.5rem">
         {promises.map((p, i) => (
           <article class="panel bento-tile" data-reveal data-delay={(i % 3) + 1}>

@@ -25,11 +25,11 @@
   --text-muted:   #9CA3AF;
   --text-dim:     #6B7280;
 
-  /* —— Single muted accent — calm slate-blue, professional —— */
-  --accent:       #A8BDD1;
-  --accent-2:     #C8D1DC;
-  --accent-rgb:   168, 189, 209;
-  --accent-2-rgb: 200, 209, 220;
+  /* —— Single accent — warm coral, confident but not loud —— */
+  --accent:       #FF5533;
+  --accent-2:     #FFB258;
+  --accent-rgb:   255, 85, 51;
+  --accent-2-rgb: 255, 178, 88;
 
   /* —— Subtle dot palette — quiet variety for pills & note dots —— */
   --dot-1:        #A8BDD1; /* slate-blue */
@@ -41,11 +41,11 @@
   /* —— Semantic-only (status contexts) —— */
   --plum:         #B4A7CF;
   --plum-rgb:     180, 167, 207;
-  --warm:         #D4A78E;
-  --warm-rgb:     212, 167, 142;
-  --amber:        #D9B779;
-  --amber-rgb:    217, 183, 121;
-  --warn:         #D78E84;
+  --warm:         #FFB258;
+  --warm-rgb:     255, 178, 88;
+  --amber:        #FFB258;
+  --amber-rgb:    255, 178, 88;
+  --warn:         #F87171;
 
   /* —— Quiet gradients (single accent, low contrast) —— */
   --gradient-primary: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
@@ -63,6 +63,7 @@
   /* —— Type — Inter for everything, JetBrains Mono for code —— */
   --font-display: 'Inter', system-ui, -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
   --font-body:    'Inter', system-ui, -apple-system, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+  --font-serif:   'Instrument Serif', Georgia, 'Times New Roman', serif;
   --font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
 
   /* —— Spacing scale (8-pt rhythm) —— */
@@ -104,31 +105,31 @@
 }
 
 :root[data-theme='light'] {
-  --bg:           #F8F9FB;
+  --bg:           #FBFBFD;
   --bg-deep:      #F1F3F7;
   --surface:      #FFFFFF;
   --surface-2:    #F5F6F9;
   --surface-3:    #EEF0F5;
-  --border:       #E4E7EE;
-  --border-strong:#C8CDD7;
-  --text:         #15171C;
-  --text-muted:   #5C6675;
-  --text-dim:     #8C95A3;
-  --accent:       #5C7B96;
-  --accent-2:     #87A2BA;
-  --accent-rgb:   92, 123, 150;
-  --accent-2-rgb: 135, 162, 186;
+  --border:       #E6E8EF;
+  --border-strong:#D1D5E0;
+  --text:         #0A0B10;
+  --text-muted:   #4A5366;
+  --text-dim:     #7A8296;
+  --accent:       #D63B1C;
+  --accent-2:     #FF7A4D;
+  --accent-rgb:   214, 59, 28;
+  --accent-2-rgb: 255, 122, 77;
   --plum:         #8978AF;
   --plum-rgb:     137, 120, 175;
-  --warm:         #B07A5C;
-  --warm-rgb:     176, 122, 92;
-  --amber:        #A87F40;
+  --warm:         #D4833B;
+  --warm-rgb:     212, 131, 59;
+  --amber:        #B97800;
   --warn:         #B5564A;
-  --glow:         0 8px 24px rgba(92, 123, 150, 0.12);
-  --grid-line:    rgba(0, 50, 120, 0.035);
+  --glow:         0 8px 24px rgba(214, 59, 28, 0.14);
+  --grid-line:    rgba(10, 11, 16, 0.045);
   --gradient-mesh:
-    radial-gradient(ellipse 70% 55% at 18% 12%, rgba(92, 123, 150, 0.05) 0%, transparent 65%),
-    radial-gradient(ellipse 55% 45% at 82% 88%, rgba(92, 123, 150, 0.03) 0%, transparent 70%);
+    radial-gradient(ellipse 70% 55% at 18% 12%, rgba(214, 59, 28, 0.06) 0%, transparent 65%),
+    radial-gradient(ellipse 55% 45% at 82% 88%, rgba(214, 59, 28, 0.04) 0%, transparent 70%);
   --shadow-1: 0 1px 2px rgba(20, 30, 60, 0.04), 0 4px 12px rgba(20, 30, 60, 0.05);
   --shadow-2: 0 4px 16px rgba(20, 30, 60, 0.07), 0 12px 40px rgba(20, 30, 60, 0.06);
   --shadow-3: 0 16px 48px rgba(20, 30, 60, 0.10), 0 24px 80px rgba(20, 30, 60, 0.08);
@@ -1600,3 +1601,245 @@ section {
 .benchmark-cta > div { flex: 1 1 380px; }
 a.pill { color: var(--text-muted); text-decoration: none; }
 a.pill:hover { color: var(--text); }
+
+/* ================================================================
+   SIGNATURE ADDITIONS (v5.1 "Folium" upgrade)
+   - Instrument Serif italic accent for display words
+   - DossierCard: candidate-dossier hero visual (no emoji, no stock)
+   - Warm-orange primary CTA treatment
+   ================================================================ */
+
+.serif-accent {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: -0.015em;
+  color: var(--accent);
+}
+.serif-accent-plain {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: -0.015em;
+}
+
+/* Signature DossierCard — the hero visual */
+.dossier {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 20px;
+  padding: 1.15rem 1.2rem 1rem;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.03) inset,
+    0 30px 60px -20px rgba(0, 0, 0, 0.55),
+    0 0 0 1px color-mix(in oklab, var(--accent) 10%, transparent);
+  font-family: var(--font-body);
+  isolation: isolate;
+  overflow: hidden;
+  max-width: 460px;
+  margin-inline: auto;
+}
+.dossier::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(at 100% 0%, rgba(var(--accent-rgb), 0.14), transparent 55%);
+  pointer-events: none;
+  z-index: -1;
+}
+.dossier-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+.dossier-head .d-title {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+}
+.dossier-head .d-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: #4ADE80;
+}
+.dossier-head .d-status::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 999px;
+  background: #4ADE80;
+  box-shadow: 0 0 8px #4ADE80;
+  animation: dossier-pulse 2s ease-in-out infinite;
+}
+@keyframes dossier-pulse { 50% { opacity: 0.5; transform: scale(0.9); } }
+
+.dossier-candidate {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-bottom: 1rem;
+}
+.dossier-avatar {
+  width: 44px; height: 44px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent), var(--warm));
+  color: #0A0B10;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 600;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+  font-family: var(--font-body);
+}
+.dossier-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
+  line-height: 1.2;
+}
+.dossier-role {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin: 0.1rem 0 0;
+  font-family: var(--font-mono);
+}
+.dossier-scores {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin: 0.75rem 0;
+}
+.d-score {
+  padding: 0.55rem 0.5rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.d-score .d-k {
+  font-size: 0.62rem;
+  font-family: var(--font-mono);
+  color: var(--text-dim);
+  letter-spacing: 0.05em;
+  display: block;
+}
+.d-score .d-v {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-top: 0.1rem;
+  display: block;
+}
+.d-score .d-bar {
+  height: 3px;
+  margin-top: 0.4rem;
+  background: var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.d-score .d-bar span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  border-radius: 999px;
+}
+.dossier-notes {
+  margin-top: 0.6rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--border);
+}
+.d-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+  padding: 0.35rem 0;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+.d-note::before {
+  content: '';
+  flex-shrink: 0;
+  width: 5px; height: 5px;
+  margin-top: 7px;
+  background: var(--accent);
+  border-radius: 999px;
+}
+.dossier-footer {
+  margin-top: 0.75rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.dossier-footer .d-match {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-dim);
+}
+.dossier-footer .d-match strong {
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-left: 0.25rem;
+  font-family: var(--font-body);
+}
+.dossier-footer .d-action {
+  padding: 0.4rem 0.9rem;
+  background: var(--accent);
+  color: #0A0B10;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 540;
+  border: 0;
+  font-family: var(--font-body);
+}
+
+/* Make the hero orb much more subtle — background atmosphere only */
+.hero-orb { opacity: 0.4 !important; mix-blend-mode: screen; }
+:root[data-theme='light'] .hero-orb { opacity: 0.25 !important; mix-blend-mode: multiply; }
+
+/* Promote accent on btn-primary (makes CTAs feel like the brand) */
+.btn-primary {
+  --btn-bg: var(--accent) !important;
+  --btn-color: #0A0B10 !important;
+  background: var(--accent) !important;
+  color: #0A0B10 !important;
+  border-color: var(--accent) !important;
+  box-shadow: 0 10px 30px -10px rgba(var(--accent-rgb), 0.5), 0 1px 0 rgba(255,255,255,0.14) inset !important;
+}
+:root[data-theme='light'] .btn-primary { color: #FFFFFF !important; }
+.btn-primary:hover {
+  filter: brightness(1.06);
+  box-shadow: 0 14px 36px -12px rgba(var(--accent-rgb), 0.65), 0 1px 0 rgba(255,255,255,0.2) inset !important;
+}
+
+/* Light-mode text-accent — avoid washed-out pink */
+:root[data-theme='light'] .text-accent { color: var(--accent); }
+
+/* Hero split layout: text + DossierCard side-by-side on desktop */
+.hero-split-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(2rem, 4vw, 4rem);
+  align-items: center;
+}
+.hero-visual { min-width: 0; }
+@media (max-width: 960px) {
+  .hero-split-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .hero-visual { display: flex; justify-content: center; }
+}
+
+/* Hero h1 — balance tight tracking with serif-accent cleanly */
+.hero h1 { text-wrap: balance; }
+.hero h1 .serif-accent {
+  font-size: 1em;
+  line-height: inherit;
+}

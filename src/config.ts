@@ -7,12 +7,12 @@
 
 export const site = {
   name: 'Fortium Group',
-  tagline: 'Gems, not just resumes.',
-  url: 'https://punitdhub.github.io/business-portfolio',
-  base: '/business-portfolio',
+  tagline: 'Gems, not just résumés.',
+  url: 'https://www.foliumgroup.co',
+  base: '',
   description:
     'Direct-hire recruiting for elite Cyber Security and AI Security talent. Founded by industry veterans with 15+ years of pure cyber security domain experience.',
-  email: 'hello@fortiumgroup.com',
+  email: 'punit.ankur@gmail.com',
   linkedin: 'https://www.linkedin.com/company/fortium-group/',
   founder: { name: 'Punit Dwivedi', role: 'Founder' },
   founded: 2024,
