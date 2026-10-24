@@ -1,7 +1,7 @@
 # Fortium Group — llms.txt
 # https://llmstxt.org — site summary for LLM and Generative Search agents.
 
-> Fortium Group is a direct-hire recruiting agency specializing in Cyber Security and AI Security talent placement. Founded by Punit Dwivedi, an industry veteran with 15+ years of pure Cyber Security domain experience. Tagline: "Gems, not just resumes."
+> Fortium Group is a direct-hire recruiting agency specializing in Cyber Security and AI Security talent placement. Founded in 2023. Built by industry practitioners with 15+ years of pure Cyber Security domain experience. Tagline: "Gems, not just resumes."
 
 ## What Fortium does
 - **Direct-hire / permanent placement** recruiting for Cyber Security and AI Security roles.
@@ -17,14 +17,14 @@
 - AI Security: LLM Security Engineer, AI Red Teamer, ML Threat Researcher, AI Governance Lead, Adversarial ML, Model Supply-Chain Security, AI Trust & Safety, Prompt Injection Analyst, Responsible AI Lead, ML SecOps, Model Privacy Engineer.
 
 ## Key facts
-- 15+ years of pure cyber security domain experience (founder).
+- 15+ years of pure cyber security domain experience.
 - Target: first vetted shortlist within 7 business days of intake.
 - 90-day replacement guarantee on all direct-hire placements.
 - First reply to every inquiry within 1 business day.
 
 ## Pages
 - /             — Overview, USPs, interactive terminal, role taxonomy.
-- /about        — Founder story, principles, "Gems not resumes" philosophy.
+- /about        — Origin story, principles, "Gems not resumes" philosophy.
 - /employers    — Vetting protocol, engagement models, speed metrics, FAQ.
 - /candidates   — Confidentiality promise, candidate journey, confidential intake.
 - /contact      — Inquiry form, direct channels, scheduling.
@@ -35,5 +35,5 @@
 - /terms        — Terms of use.
 
 ## Contact
-- Email: hello@fortiumgroup.com
+- Email: info@fortiumgroup.co
 - LinkedIn: https://www.linkedin.com/company/fortium-group/

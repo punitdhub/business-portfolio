@@ -1,7 +1,7 @@
 # RFC 9116 — Security Contact for Fortium Group
 # Particularly appropriate for a cyber security firm.
 
-Contact: mailto:security@fortiumgroup.com
+Contact: mailto:info@fortiumgroup.co
 Contact: https://www.linkedin.com/company/fortium-group/
 Expires: 2027-01-01T00:00:00.000Z
 Preferred-Languages: en
