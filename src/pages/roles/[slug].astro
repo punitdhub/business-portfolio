@@ -21,7 +21,7 @@ const jsonLd = [
     '@type': 'Article',
     headline: `How to hire ${a} ${role.title}`,
     description: role.summary,
-    author: { '@type': 'Person', name: site.founder.name },
+    author: { '@type': 'Organization', name: site.name },
     publisher: { '@type': 'Organization', name: site.name },
     mainEntityOfPage: `${site.url}${path}`,
     about: { '@type': 'Occupation', name: role.title, skills: role.skills.join(', ') },

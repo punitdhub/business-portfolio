@@ -13,9 +13,8 @@ const personLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: 'Punit Dwivedi',
-  jobTitle: 'Founder',
   worksFor: { '@type': 'Organization', name: 'Fortium Group' },
-  description: 'Founder of Fortium Group with 15+ years of pure Cyber Security domain experience.',
+  description: 'Security practitioner with 15+ years of pure Cyber Security domain experience, behind Fortium Group.',
 };
 
 const aboutLd = {
@@ -23,7 +22,7 @@ const aboutLd = {
   '@type': 'AboutPage',
   name: 'About Fortium Group',
   description:
-    'Fortium Group is a direct-hire Cyber and AI Security recruiting firm founded by Punit Dwivedi, with 15+ years of pure cyber security domain experience.',
+    'Fortium Group is a direct-hire Cyber and AI Security recruiting firm, built by practitioners with 15+ years of pure cyber security domain experience.',
   url: 'https://punitdhub.github.io/business-portfolio/about',
   mainEntity: personLd,
 };
@@ -35,10 +34,10 @@ const principles = [
 ];
 ---
 <BaseLayout
-  title="About Fortium Group — Founded by Cyber Security Veterans"
-  description="Fortium Group was founded by Punit Dwivedi, an industry veteran with 15+ years of pure Cyber Security domain experience. We built the recruiting firm we wished existed."
+  title="About Fortium Group — Built by Cyber Security Veterans"
+  description="Fortium Group is built on 15+ years of pure Cyber Security domain experience. We built the recruiting firm we wished existed."
   path="/about"
-  keywords={['Fortium Group founder','Punit Dwivedi','cyber security recruiter founder','elite security recruiting']}
+  keywords={['Fortium Group','Punit Dwivedi','cyber security recruiter','elite security recruiting']}
   breadcrumbs={[{ name: 'Home', path: '/' }, { name: 'About', path: '/about' }]}
   jsonLd={[aboutLd, personLd]}
 >
@@ -62,7 +61,7 @@ const principles = [
           <p class="eyebrow">Origin story</p>
           <h2>From the SOC floor <span class="serif-accent">to the search firm</span>.</h2>
           <p class="lead">
-            For 15+ years, our founder operated inside the Cyber Security industry — building detection programs, briefing boards on risk, and watching gifted security engineers slip through the cracks of recruiters who couldn't tell SAST from DAST.
+            For 15+ years, our team has operated inside the Cyber Security industry — building detection programs, briefing boards on risk, and watching gifted security engineers slip through the cracks of recruiters who couldn't tell SAST from DAST.
           </p>
           <p>
             Fortium Group exists to close that gap. We translate fluently in both directions: we know what a CISO is actually asking for when they say "I need someone who gets Zero Trust," and we know what a brilliant detection engineer is actually worth on the open market today.
@@ -76,7 +75,7 @@ const principles = [
           <blockquote style="font-family: var(--font-display); font-size:1.4rem; line-height:1.3; color:var(--text); margin:0.5rem 0 1rem; font-weight:500">
             "A resume is a story someone tells about themselves. A gem is a story we can <span class="text-accent">verify</span>."
           </blockquote>
-          <p class="muted text-mono" style="margin:0; font-size:0.85rem">— Punit Dwivedi, Founder</p>
+          <p class="muted text-mono" style="margin:0; font-size:0.85rem">— Punit Dwivedi</p>
         </aside>
       </div>
     </div>
@@ -94,16 +93,16 @@ const principles = [
   <section>
     <div class="container">
       <p class="eyebrow" data-reveal>Leadership</p>
-      <h2 data-reveal data-delay="1">Founder</h2>
+      <h2 data-reveal data-delay="1">Who we are</h2>
       <article class="panel" data-reveal data-delay="2" style="display:grid; grid-template-columns: 120px 1fr; gap:1.5rem; align-items:start; padding:2rem;">
         <div aria-hidden="true" style="width:120px; height:120px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px); display:flex; align-items:center; justify-content:center; font-family: var(--font-display); font-weight:700; font-size:2.5rem; color:#001016; flex-shrink:0">
           PD
         </div>
         <div>
           <h3 style="margin-bottom:0.25rem">Punit Dwivedi</h3>
-          <p class="muted text-mono" style="font-size:0.78rem; margin-bottom:0.75rem; text-transform:uppercase; letter-spacing:0.18em">Founder · Fortium Group</p>
+          <p class="muted text-mono" style="font-size:0.78rem; margin-bottom:0.75rem; text-transform:uppercase; letter-spacing:0.18em">Security practitioner · Fortium Group</p>
           <p>
-            Punit founded Fortium Group after 15+ years inside the Cyber Security industry. He has watched the AI Security discipline emerge from research papers into board-level risk, and built Fortium to be the recruiting partner that speaks both languages fluently.
+            Punit has spent 15+ years inside the Cyber Security industry, and built Fortium Group on that base. He has watched the AI Security discipline emerge from research papers into board-level risk, and built Fortium to be the recruiting partner that speaks both languages fluently.
           </p>
           <p class="text-mono" style="font-size:0.85rem"><a href={site.linkedin} rel="noopener" target="_blank">LinkedIn &rarr;</a></p>
         </div>
