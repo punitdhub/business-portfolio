@@ -1,7 +1,7 @@
 export const faqs = [
   {
     q: 'How fast can Fortium Group fill a CISO role?',
-    a: 'Our target for a CISO mandate is a shortlist of 3–5 vetted candidates within 7–10 business days of intake. Overall time-to-offer depends mostly on your interview process. Confidential incumbent replacements move slower by design to protect discretion.',
+    a: 'Our target for a CISO mandate is a shortlist of 3–5 vetted candidates within 7 business days of intake. Overall time-to-offer depends mostly on your interview process. Confidential incumbent replacements can take longer by design, to protect discretion.',
   },
   {
     q: 'Do you recruit for AI Security and LLM Security engineers?',
@@ -9,7 +9,7 @@ export const faqs = [
   },
   {
     q: "What's your replacement guarantee?",
-    a: 'Direct-hire placements include a 90-day replacement guarantee. If the candidate leaves or is terminated for cause within 90 days, we re-run the search at no additional fee.',
+    a: 'Direct-hire placements include a 90-day replacement guarantee. If the candidate leaves or is terminated for cause within 90 days of start, we re-run the search at no additional fee.',
   },
   {
     q: 'How is Fortium different from generalist agencies?',

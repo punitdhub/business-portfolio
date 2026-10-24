@@ -3,6 +3,11 @@
 ---
 <script is:inline>
   (function () {
+    const els = document.querySelectorAll('[data-reveal]');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function (el) { el.classList.add('is-visible'); });
+      return;
+    }
     const io = new IntersectionObserver((entries) => {
       entries.forEach((e) => {
         if (e.isIntersecting) {
@@ -12,6 +17,6 @@
       });
     }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
 
-    document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
+    els.forEach((el) => io.observe(el));
   })();
 </script>

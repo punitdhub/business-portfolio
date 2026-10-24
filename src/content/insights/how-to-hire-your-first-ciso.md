@@ -51,7 +51,7 @@ Growth-stage companies hiring a first security leader usually pay below those en
 1. Benchmark against the profile you need — a builder Head of Security — not against Fortune 500 CISOs.
 2. Budget for the team. A first security leader with no headcount and no tooling budget will struggle, however well paid.
 
-Need a number for your stage and location? [Request a free salary benchmark](/business-portfolio/salary-benchmark).
+Need a number for your stage and location? [Request a free salary benchmark](/business-portfolio/salary-benchmark/).
 
 ## Step 5: Run an interview loop that tests the real job
 
@@ -89,4 +89,4 @@ Before the offer, agree on what success looks like. A typical first-90-day plan:
 
 ## Where Fortium helps
 
-First-security-leader searches are confidential by nature, and the best candidates are rarely applying to job posts. Fortium screens every candidate through an active security practitioner before you see them, with a target of a vetted shortlist within 7 business days of intake. [Brief us on your search](/business-portfolio/employers#brief).
+First-security-leader searches are confidential by nature, and the best candidates are rarely applying to job posts. Fortium screens every candidate through an active security practitioner before you see them, with a target of a vetted shortlist within 7 business days of intake. [Brief us on your search](/business-portfolio/employers/#brief).

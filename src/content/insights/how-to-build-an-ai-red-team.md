@@ -26,7 +26,7 @@ Good AI red teams map their work to shared frameworks, such as the [OWASP Top 10
 Most organizations should not start with a large team. A typical progression:
 
 ### Hire 1: Senior AI Red Teamer (the founding member)
-Someone with real offensive security experience who has moved into LLM and AI systems. Their first job is to build **methodology and tooling**: a threat model for your AI products, a reusable attack library, and an evaluation harness that turns one-off findings into regression tests. See our [AI Red Teamer hiring guide](/business-portfolio/roles/ai-red-teamer).
+Someone with real offensive security experience who has moved into LLM and AI systems. Their first job is to build **methodology and tooling**: a threat model for your AI products, a reusable attack library, and an evaluation harness that turns one-off findings into regression tests. See our [AI Red Teamer hiring guide](/business-portfolio/roles/ai-red-teamer/).
 
 ### Hire 2: ML-focused researcher or engineer
 Someone who understands how models are trained, fine-tuned, and evaluated. They extend testing from the application layer down to the model itself, and design better automated evaluations.
@@ -36,7 +36,7 @@ Someone who understands how models are trained, fine-tuned, and evaluated. They 
 - **Domain or safety specialists** for harmful-content testing in regulated or sensitive areas.
 - **Tooling engineers** to scale automated red-teaming across many models and releases.
 
-Pair the red team with at least one [LLM Security Engineer](/business-portfolio/roles/llm-security-engineer) who builds defenses. A red team without someone to fix findings quickly becomes a report factory.
+Pair the red team with at least one [LLM Security Engineer](/business-portfolio/roles/llm-security-engineer/) who builds defenses. A red team without someone to fix findings quickly becomes a report factory.
 
 ## Skills that matter most
 
@@ -72,8 +72,8 @@ If you already have a strong offensive security team, the fastest path is often 
 
 ## Compensation
 
-AI red-team compensation is moving quickly. See our [AI Security Salary Guide 2026](/business-portfolio/insights/ai-security-salary-guide-2026) for indicative ranges by level, or [request a free benchmark](/business-portfolio/salary-benchmark) for your exact role and location.
+AI red-team compensation is moving quickly. See our [AI Security Salary Guide 2026](/business-portfolio/insights/ai-security-salary-guide-2026/) for indicative ranges by level, or [request a free benchmark](/business-portfolio/salary-benchmark/) for your exact role and location.
 
 ## Where Fortium helps
 
-AI red teamers are among the hardest security profiles to find and assess — most interviewers have never done the job themselves. Every candidate Fortium presents has been screened by an active security practitioner. [Brief us on your AI red team build](/business-portfolio/employers#brief).
+AI red teamers are among the hardest security profiles to find and assess — most interviewers have never done the job themselves. Every candidate Fortium presents has been screened by an active security practitioner. [Brief us on your AI red team build](/business-portfolio/employers/#brief).

@@ -86,7 +86,7 @@ const jsonLd = [
       <p class="lead" data-reveal data-delay="2">Each hiring guide includes indicative 2026 US salary ranges with sources.</p>
       <div class="pill-cloud" style="margin-top:1.25rem" data-reveal data-delay="3">
         {rolePages.map((r) => (
-          <a class="pill" href={`${base}/roles/${r.slug}#salary`}><span class="dot"></span>{r.title}</a>
+          <a class="pill" href={`${base}/roles/${r.slug}/#salary`}><span class="dot"></span>{r.title}</a>
         ))}
       </div>
     </div>
@@ -94,7 +94,7 @@ const jsonLd = [
 
   <section class="section-tight">
     <div class="container">
-      <p class="eyebrow" data-reveal>FAQ</p>
+      <h2 class="eyebrow" data-reveal>FAQ</h2>
       <div style="margin-top:1rem; max-width:75ch">
         {faqs.map((f) => (
           <details class="faq-item" data-reveal>

@@ -11,6 +11,4 @@ export const threats = [
   { code: 'INTEL-SUP', tag: 'SUPPLY', label: 'Compromised package observed in ML pipeline ecosystem', severity: 'CRITICAL' },
   { code: 'CVE-2025-XXXXX', tag: 'KEV', label: 'Authentication bypass in identity provider', severity: 'HIGH' },
   { code: 'INTEL-OT', tag: 'OT/ICS', label: 'Ransomware affiliate targeting manufacturing OT', severity: 'HIGH' },
-  { code: 'TREND', tag: 'HIRE', label: 'AI Red Team comp ↑ 18% QoQ across FAANG-adjacent', severity: 'INFO' },
-  { code: 'TREND', tag: 'HIRE', label: 'First-CISO mandates at Series-B startups ↑ 34% YoY', severity: 'INFO' },
 ] as const;

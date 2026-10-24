@@ -15,7 +15,7 @@ const jsonLd = {
     '@type': 'ListItem',
     position: i + 1,
     name: `How to hire ${article(r.title)} ${r.title}`,
-    url: `${site.url}/roles/${r.slug}`,
+    url: `${site.url}/roles/${r.slug}/`,
   })),
 };
 ---
@@ -43,10 +43,10 @@ const jsonLd = {
     return list.length > 0 && (
       <section class="section-tight">
         <div class="container">
-          <p class="eyebrow" data-reveal>{p}</p>
+          <h2 class="eyebrow" data-reveal>{p}</h2>
           <div class="grid grid-3" style="margin-top:1rem">
             {list.map((r, i) => (
-              <a class="panel role-card" href={`${base}/roles/${r.slug}`} data-reveal data-delay={(i % 3) + 1}>
+              <a class="panel role-card" href={`${base}/roles/${r.slug}/`} data-reveal data-delay={(i % 3) + 1}>
                 <h3>{r.title}</h3>
                 <p class="muted">{r.summary}</p>
                 <span class="text-accent">Read guide →</span>
@@ -66,8 +66,8 @@ const jsonLd = {
         {allRoles.map((r) => <span class="pill"><span class="dot"></span>{r}</span>)}
       </div>
       <div class="hero-cta" style="margin-top:2rem">
-        <a class="btn btn-primary" href={`${base}/employers#brief`}>Brief us on a role <span class="btn-arrow">→</span></a>
-        <a class="btn btn-ghost" href={`${base}/salary-benchmark`}>Get a salary benchmark</a>
+        <a class="btn btn-primary" href={`${base}/employers/#brief`}>Brief us on a role <span class="btn-arrow">→</span></a>
+        <a class="btn btn-ghost" href={`${base}/salary-benchmark/`}>Get a salary benchmark</a>
       </div>
     </div>
   </section>

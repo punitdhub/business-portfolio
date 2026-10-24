@@ -10,7 +10,7 @@ export const GET: APIRoute = async () => {
   const posts = await getInsights();
   const items = posts
     .map((p) => {
-      const url = `${site.url}/insights/${p.id}`;
+      const url = `${site.url}/insights/${p.id}/`;
       return `    <item>
       <title>${esc(p.data.title)}</title>
       <link>${url}</link>
@@ -26,7 +26,7 @@ export const GET: APIRoute = async () => {
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>${esc(site.name)} Insights</title>
-    <link>${site.url}/insights</link>
+    <link>${site.url}/insights/</link>
     <atom:link href="${site.url}/rss.xml" rel="self" type="application/rss+xml" />
     <description>Practitioner-written guides on hiring Cyber and AI Security talent.</description>
     <language>en-us</language>

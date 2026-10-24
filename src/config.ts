@@ -52,17 +52,13 @@ export const forms = {
 /**
  * Feature flags — toggle high-impact modules.
  *
- * Tip: keep features that show *competence* (terminal, network graph)
- *      and disable ones that read as noise (threat ticker, matrix rain).
+ * Tip: keep features that show *competence* (terminal) and disable ones
+ *      that read as noise (threat ticker).
  */
 export const features = {
   threatTicker: false,
-  matrixStream: false,
-  scanLine: false,
   constellationCursor: false,
   konamiEasterEgg: false,
-  ambientGlitch: false,
-  networkGraph: true,
   terminalSection: true,
   /** Open-role cards on /candidates. Turn on once src/data/mandates.ts holds real roles. */
   showMandates: false,
@@ -73,7 +69,7 @@ export const features = {
  * Discovery calls happen via the contact form; we reply to schedule.
  */
 export const scheduling = {
-  provider: 'form' as 'form',
+  provider: 'form' as 'form' | 'mailto' | 'calendly' | 'cal' | 'savvycal' | 'tidycal',
   url: '',
   buttonLabel: 'Book Discovery',
 } as const;
