@@ -13,7 +13,7 @@ export const faqs = [
   },
   {
     q: 'How is Fortium different from generalist agencies?',
-    a: 'Generalist agencies optimize for resume volume. Fortium optimizes for fit. Our shortlists are validated by active CISOs and principal security engineers — not keyword-matched by a generalist HR sourcer.',
+    a: 'Generalist agencies optimize for resume volume. Fortium optimizes for fit. Our shortlists are screened by a senior security practitioner with 15+ years in the field — not keyword-matched by a generalist HR sourcer.',
   },
   {
     q: 'Do you work with startups or only enterprises?',

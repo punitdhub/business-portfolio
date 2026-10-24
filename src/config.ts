@@ -22,11 +22,11 @@ export const site = {
  * themselves — with a lawyer in your jurisdiction before relying on them.
  */
 export const legal = {
-  lastUpdated: 'October 3, 2026',
+  lastUpdated: 'October 24, 2026',
   /** How long candidate profiles are kept after last contact. */
   candidateRetentionMonths: 24,
   /** e.g. 'the State of Delaware, USA' — leave empty to use generic wording. */
-  governingLaw: '',
+  governingLaw: 'the Province of Ontario and the federal laws of Canada applicable in Ontario',
 } as const;
 
 /**

@@ -6,7 +6,7 @@
 ## What Fortium does
 - **Direct-hire / permanent placement** recruiting for Cyber Security and AI Security roles.
 - **Three engagement models**: Direct-Hire (contingency), Retained Search, Embedded Recruiter.
-- **Vetting** is performed by active CISOs and principal security engineers, not generalist HR sourcers.
+- **Vetting** is performed by a senior security practitioner with 15+ years of hands-on experience, not generalist HR sourcers.
 
 ## Definitions
 - **Most Placeable Candidate (MPC)** — A pre-vetted Cyber or AI Security professional whose technical depth, leadership signal, comp expectations, and culture fit have been independently validated by an active industry practitioner.

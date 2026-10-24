@@ -86,7 +86,7 @@
       vetting: () => {
         line('[01] Intake calibration       — map technical depth & threat surface', 'ok');
         line('[02] Practitioner sourcing    — surface candidates not on the market', 'ok');
-        line('[03] Expert technical screen  — validated by active CISO/principal', 'ok');
+        line('[03] Expert technical screen  — validated by a senior security practitioner', 'ok');
         line('[04] Cultural & comp calibration', 'ok');
         line('[05] Reference verification   — backchannel via security peers', 'ok');
         line('Target: 3–5 Most Placeable Candidates within 7 business days.', 'acc');
@@ -128,7 +128,7 @@
           io.disconnect();
           await typeLine('initializing secure shell...', 'ok', 20);
           await typeLine('cryptographic handshake [TLS 1.3] OK', 'ok', 12);
-          await typeLine('loading practitioner network... OK', 'ok', 14);
+          await typeLine('loading vetting protocol... OK', 'ok', 14);
           await typeLine('vetting engine: online', 'acc', 14);
           line('');
           line('Welcome. Type \"help\" to explore — or \"book\" to talk to a human.', 'acc');
