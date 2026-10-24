@@ -7,15 +7,14 @@
 
 export const site = {
   name: 'Fortium Group',
-  tagline: 'Gems, not just resumes.',
-  url: 'https://punitdhub.github.io/business-portfolio',
+  tagline: 'Gems, not just résumés.',
+  url: 'https://punitdhub.github.io',
   base: '/business-portfolio',
   description:
-    'Direct-hire recruiting for elite Cyber Security and AI Security talent. Founded by Punit Dwivedi, a Cyber Security veteran with 15+ years of domain experience.',
-  email: 'hello@fortiumgroup.com',
+    'Direct-hire recruiting for elite Cyber Security and AI Security talent. Built by industry veterans with 15+ years of pure cyber security domain experience.',
+  email: 'info@fortiumgroup.co',
   linkedin: 'https://www.linkedin.com/company/fortium-group/',
-  founder: { name: 'Punit Dwivedi', role: 'Founder' },
-  founded: 2024,
+  founded: 2023,
 } as const;
 
 /**
@@ -34,13 +33,13 @@ export const legal = {
  * Form backend — Formspree.
  *
  * SETUP (one-time, ~2 minutes):
- *   1. Log in at https://formspree.io.
+ *   1. Log in at https://formspree.io (your Formspree account).
  *   2. Click "+ New Form". Name it "Fortium Inquiries". Save.
  *   3. Formspree shows your endpoint, e.g.  https://formspree.io/f/xpzgkbra
  *      Copy the ID — the part after  /f/  (e.g.  xpzgkbra).
  *   4. Paste it below as `id`, and change `provider` to 'formspree'.
- *   5. Commit and push — submissions are emailed to the address on your
- *      Formspree account.
+ *   5. Commit and push — emails will arrive at info@fortiumgroup.co
+ *      every time someone submits any form on the site.
  *
  * Until you add the ID, the form stays in safe "demo" mode that captures
  * the submission visually but doesn't email anyone.

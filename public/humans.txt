@@ -1,5 +1,5 @@
 /* TEAM */
-Founder: Punit Dwivedi
+Team: Punit Dwivedi
 Site: https://www.linkedin.com/company/fortium-group/
 Location: Worldwide (Remote-first)
 

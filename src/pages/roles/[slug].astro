@@ -26,7 +26,7 @@ const jsonLd = [
     dateModified: published.toISOString(),
     image: `${site.url}/og.png`,
     url: `${site.url}${path}/`,
-    author: { '@type': 'Person', name: site.founder.name, url: `${site.url}/about/` },
+    author: { '@type': 'Organization', '@id': `${site.url}/#org`, name: site.name },
     publisher: { '@type': 'Organization', '@id': `${site.url}/#org`, name: site.name, logo: { '@type': 'ImageObject', url: `${site.url}/logo.png` } },
     mainEntityOfPage: `${site.url}${path}/`,
     about: { '@type': 'Occupation', name: role.title, skills: role.skills.join(', ') },

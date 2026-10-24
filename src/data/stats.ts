@@ -7,7 +7,7 @@
  * belong here only once you have real placement data — add them then.
  */
 export const stats = [
-  { value: '15+', label: 'Years founder domain experience' },
+  { value: '15+', label: 'Years of cyber security domain experience' },
   { value: '7d', label: 'Target to first shortlist' },
   { value: '90d', label: 'Replacement guarantee' },
   { value: '1d', label: 'First reply (business days)' },

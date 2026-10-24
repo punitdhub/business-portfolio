@@ -58,7 +58,7 @@ const ldArr = [
 ---
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
-<meta name="author" content={`${site.founder.name}, ${site.founder.role} of ${site.name}`} />
+<meta name="author" content={site.name} />
 {keywords && <meta name="keywords" content={keywords.join(', ')} />}
 <link rel="canonical" href={canonical} />
 <link rel="alternate" hreflang="en" href={canonical} />
@@ -70,7 +70,7 @@ const ldArr = [
 <meta property="og:type" content={article ? 'article' : 'website'} />
 {article && <meta property="article:published_time" content={article.publishedTime.toISOString()} />}
 {article && <meta property="article:modified_time" content={(article.modifiedTime ?? article.publishedTime).toISOString()} />}
-{article && <meta property="article:author" content={site.founder.name} />}
+{article && <meta property="article:author" content={site.name} />}
 {article?.tags?.map((t) => <meta property="article:tag" content={t} />)}
 <meta property="og:url" content={canonical} />
 <meta property="og:site_name" content={site.name} />
