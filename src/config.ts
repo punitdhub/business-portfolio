@@ -8,8 +8,8 @@
 export const site = {
   name: 'Fortium Group',
   tagline: 'Gems, not just résumés.',
-  url: 'https://punitdhub.github.io',
-  base: '/business-portfolio',
+  url: 'https://www.fortiumgroup.co',
+  base: '',
   description:
     'Direct-hire recruiting for elite Cyber Security and AI Security talent. Built by industry veterans with 15+ years of pure cyber security domain experience.',
   email: 'info@fortiumgroup.co',

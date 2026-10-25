@@ -23,16 +23,16 @@
 - First reply to every inquiry within 1 business day.
 
 ## Pages
-- https://punitdhub.github.io/business-portfolio/ — Overview, USPs, interactive terminal, role taxonomy.
-- https://punitdhub.github.io/business-portfolio/about/ — Origin story, principles, "Gems not resumes" philosophy.
-- https://punitdhub.github.io/business-portfolio/employers/ — Vetting protocol, engagement models, service commitments, FAQ.
-- https://punitdhub.github.io/business-portfolio/candidates/ — Confidentiality promise, candidate journey, confidential intake.
-- https://punitdhub.github.io/business-portfolio/contact/ — Inquiry form, direct channels, scheduling.
-- https://punitdhub.github.io/business-portfolio/roles/ — Hiring guides per role (SOC Analyst & Lead, AI Red Teamer, LLM Security Engineer, Cloud Security Engineer, AppSec Engineer, GRC Lead): skills, certifications, 2026 salary ranges with sources, interview questions, red flags.
-- https://punitdhub.github.io/business-portfolio/insights/ — Articles: AI Security Salary Guide 2026, How to Hire Your First CISO, How to Build an AI Red Team. RSS at https://punitdhub.github.io/business-portfolio/rss.xml.
-- https://punitdhub.github.io/business-portfolio/salary-benchmark/ — Free, role-specific compensation snapshot for employers (typically within 2 business days).
-- https://punitdhub.github.io/business-portfolio/privacy/ — Privacy policy (candidate and client data handling).
-- https://punitdhub.github.io/business-portfolio/terms/ — Terms of use.
+- https://www.fortiumgroup.co/ — Overview, USPs, interactive terminal, role taxonomy.
+- https://www.fortiumgroup.co/about/ — Origin story, principles, "Gems not resumes" philosophy.
+- https://www.fortiumgroup.co/employers/ — Vetting protocol, engagement models, service commitments, FAQ.
+- https://www.fortiumgroup.co/candidates/ — Confidentiality promise, candidate journey, confidential intake.
+- https://www.fortiumgroup.co/contact/ — Inquiry form, direct channels, scheduling.
+- https://www.fortiumgroup.co/roles/ — Hiring guides per role (SOC Analyst & Lead, AI Red Teamer, LLM Security Engineer, Cloud Security Engineer, AppSec Engineer, GRC Lead): skills, certifications, 2026 salary ranges with sources, interview questions, red flags.
+- https://www.fortiumgroup.co/insights/ — Articles: AI Security Salary Guide 2026, How to Hire Your First CISO, How to Build an AI Red Team. RSS at https://www.fortiumgroup.co/rss.xml.
+- https://www.fortiumgroup.co/salary-benchmark/ — Free, role-specific compensation snapshot for employers (typically within 2 business days).
+- https://www.fortiumgroup.co/privacy/ — Privacy policy (candidate and client data handling).
+- https://www.fortiumgroup.co/terms/ — Terms of use.
 
 ## Contact
 - Email: info@fortiumgroup.co

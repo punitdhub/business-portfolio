@@ -61,7 +61,7 @@ src/
 | Open roles on /candidates | `src/data/mandates.ts`, then set `features.showMandates = true` in `src/config.ts` |
 | Legal page settings | `legal` in `src/config.ts` |
 
-Links inside articles use the full `/business-portfolio/...` path; update them if the site moves to a custom domain.
+Links inside articles use root-relative paths (`/salary-benchmark/`, `/roles/...`); they resolve correctly on the live custom domain.
 
 ---
 
@@ -69,7 +69,7 @@ Links inside articles use the full `/business-portfolio/...` path; update them i
 
 ```bash
 npm install
-npm run dev      # http://localhost:4321/business-portfolio
+npm run dev      # http://localhost:4321
 npm run build    # production build → ./dist
 npm run preview  # preview production build
 ```
@@ -80,22 +80,21 @@ npm run preview  # preview production build
 
 A GitHub Actions workflow (`.github/workflows/deploy.yml`) auto-deploys on every push to `main`.
 
-### One-time setup
+### Setup (already done — recorded for the next person)
 
-1. Push this repo to `https://github.com/punitdhub/business-portfolio`.
-2. In the repo, go to **Settings → Pages**.
-3. Under **Build and deployment → Source**, select **GitHub Actions**.
-4. Push to `main` (or merge the feature branch). The workflow builds and publishes.
-5. Site goes live at **https://punitdhub.github.io/business-portfolio/**.
+1. Repo pushed to `https://github.com/punitdhub/business-portfolio`.
+2. In the repo: **Settings → Pages → Build and deployment → Source** = **GitHub Actions**.
+3. Push to `main`; the workflow builds and publishes.
+4. Site serves at **https://www.fortiumgroup.co**.
 
-The `astro.config.mjs` is pre-configured with:
+`astro.config.mjs` is configured for the custom domain:
 
 ```js
-site: 'https://punitdhub.github.io',
-base: '/business-portfolio',
+site: 'https://www.fortiumgroup.co',
+// no `base` — site is served at the root of the domain
 ```
 
-If you rename the repo, update `base` to match.
+The repo's **Settings → Pages → Custom domain** stores `www.fortiumgroup.co` and GitHub enforces HTTPS automatically. Because deploys use the `upload-pages-artifact` + `deploy-pages` Actions pair, GitHub remembers the custom domain in Pages settings; **no `public/CNAME` file is needed**. Do not add one — it will cause the deploy to fight with the Pages-settings value.
 
 ---
 
@@ -110,16 +109,15 @@ If you rename the repo, update `base` to match.
 | Founder bio | `src/pages/about.astro` | Expand with specific experience, prior companies, certifications. |
 | `security.txt` expiry | `public/.well-known/security.txt` | Renew the `Expires` date before it lapses (at least yearly). |
 
-Contact email (`hello@fortiumgroup.com`) and the Formspree form ID are already live in `src/config.ts`.
+Contact email (`info@fortiumgroup.co`) and the Formspree form ID are already live in `src/config.ts`.
 
 ---
 
-## 🌍 Connecting a Custom Domain (Future)
+## 🌍 Custom Domain — www.fortiumgroup.co
 
-When you're ready to put the site behind a domain like `fortiumgroup.com`:
+The site is live at **https://www.fortiumgroup.co**. For reference, the DNS and repo settings behind that:
 
-1. **Buy the domain** (Namecheap, Cloudflare Registrar, Google Domains, etc.).
-2. **In your DNS provider**, create these records pointing to GitHub Pages:
+1. **DNS at the registrar** — four A records on the apex pointing at GitHub Pages, plus a CNAME on `www` pointing at `punitdhub.github.io`:
    ```
    Type    Host    Value
    A       @       185.199.108.153
@@ -128,19 +126,14 @@ When you're ready to put the site behind a domain like `fortiumgroup.com`:
    A       @       185.199.111.153
    CNAME   www     punitdhub.github.io
    ```
-3. **Add a `CNAME` file** to `/public/` containing just your domain:
-   ```bash
-   echo "fortiumgroup.com" > public/CNAME
-   git commit -am "add CNAME for custom domain"
-   git push
-   ```
-4. **In GitHub repo → Settings → Pages**, enter `fortiumgroup.com` as Custom Domain, and check **Enforce HTTPS** once the certificate is issued (5–10 minutes).
-5. **Update `astro.config.mjs`**:
-   ```js
-   site: 'https://fortiumgroup.com',
-   base: '/',
-   ```
-6. Re-deploy. Done.
+2. **GitHub repo** — **Settings → Pages → Custom domain** is set to `www.fortiumgroup.co`; **Enforce HTTPS** is on.
+3. **Repo code** — `astro.config.mjs` has `site: 'https://www.fortiumgroup.co'` with **no** `base`; `src/config.ts` matches (`site.url = 'https://www.fortiumgroup.co'`, `site.base = ''`); there is no `public/CNAME` file (the Pages setting holds the domain, and committing a CNAME file would conflict with the Actions deploy).
+
+### Moving to a different domain later
+
+1. Update DNS at the new registrar to the same A + CNAME shape above.
+2. In **Settings → Pages**, change the Custom domain to the new host.
+3. In the repo, change `site` in `astro.config.mjs` and `site.url` in `src/config.ts` to the new origin, then push to `main`.
 
 ---
 
