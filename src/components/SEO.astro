@@ -17,9 +17,10 @@ export interface Props {
 }
 const { title, description, path = '/', jsonLd, keywords, breadcrumbs, article } = Astro.props;
 const fullTitle = title.includes(site.name) ? title : `${title} | ${site.name}`;
-// site.url already includes the base path (/business-portfolio). Pages are
-// served as directories, so canonical URLs end with '/' (matching the sitemap
-// and avoiding GitHub Pages' /x → /x/ redirect).
+// site.url is the full origin (no base path); the site deploys to the root
+// of https://www.fortiumgroup.co. Pages are served as directories, so
+// canonical URLs end with '/' (matching the sitemap and avoiding the
+// GitHub Pages /x → /x/ redirect).
 const abs = (p: string) => `${site.url}${p === '/' ? '' : p.replace(/\/$/, '')}/`;
 const canonical = abs(path);
 const ogImage = `${site.url}/og.png`;
