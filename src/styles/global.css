@@ -1891,3 +1891,31 @@ h2.eyebrow { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 500
   font-size: 1em;
   line-height: inherit;
 }
+
+/* ---------------------------------------------------------------
+   INSIGHTS — threat brief / insight notice and Sources list
+   --------------------------------------------------------------- */
+.role-card .badge { align-self: flex-start; }
+.article-notice {
+  margin: 0 0 2rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border-strong);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--r-md, 10px);
+  background: var(--surface-2);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.article-notice p { margin: 0; }
+.article-notice p + p { margin-top: 0.6rem; }
+.article-notice.notice-warn { border-left-color: var(--amber); }
+.hero-inner .article-notice { margin: 1rem 0 0; }
+.article-sources {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+.article-sources h2 { font-size: 1.3rem; margin: 0 0 0.75rem; }
+.article-sources ol { padding-left: 1.3rem; margin: 0 0 0.75rem; }
+.article-sources li + li { margin-top: 0.4rem; }
+.article-sources a { text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
