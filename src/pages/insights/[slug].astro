@@ -1,11 +1,11 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { render } from 'astro:content';
-import { getInsights, readingTime, formatDate, type Insight } from '../../data/insights';
+import { getAllInsights, readingTime, formatDate, kindSection, type Insight } from '../../data/insights';
 import { site } from '../../config';
 
 export async function getStaticPaths() {
-  const posts = await getInsights();
+  const posts = await getAllInsights();
   return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
 }
 
@@ -13,9 +13,15 @@ const { post } = Astro.props as { post: Insight };
 const { Content } = await render(post);
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const path = `/insights/${post.id}`;
-const { title, description, pubDate, updatedDate, author, tags } = post.data;
+const { title, description, pubDate, updatedDate, author, tags, kind, confirmed, sources, draft } = post.data;
+const isBrief = kind === 'threat-brief';
+const isNews = kind !== 'guide';
+const asOf = formatDate(updatedDate ?? pubDate);
+const section = kindSection[kind];
 
-const more = (await getInsights()).filter((p) => p.id !== post.id).slice(0, 2);
+// "Keep reading": same kind first, then anything else.
+const others = (await getAllInsights()).filter((p) => p.id !== post.id);
+const more = [...others.filter((p) => p.data.kind === kind), ...others.filter((p) => p.data.kind !== kind)].slice(0, 2);
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -37,14 +43,17 @@ const jsonLd = {
   description={description}
   path={path}
   keywords={tags}
-  breadcrumbs={[{ name: 'Home', path: '/' }, { name: 'Insights', path: '/insights' }, { name: title, path }]}
+  breadcrumbs={[{ name: 'Home', path: '/' }, { name: 'Insights', path: '/insights' }, ...(isNews ? [section] : []), { name: title, path }]}
   jsonLd={jsonLd}
   article={{ publishedTime: pubDate, modifiedTime: updatedDate, tags }}
 >
   <section class="hero hero-compact">
     <div class="grid-bg" aria-hidden="true"></div>
     <div class="container hero-inner" style="max-width:820px">
-      <p class="eyebrow" data-reveal><a href={`${base}/insights/`}>Insights</a></p>
+      <p class="eyebrow" data-reveal>
+        <a href={`${base}/insights/`}>Insights</a>{isNews && <> / <a href={`${base}${section.path}/`}>{section.name}</a></>}
+      </p>
+      {draft && <p class="article-notice notice-warn" role="note"><strong>Draft preview.</strong> This article has <code>draft: true</code> and is not included in the live site build.</p>}
       <h1 data-reveal data-delay="1" style="font-size:clamp(2rem, 3.4vw + 0.6rem, 3.1rem)">{title}</h1>
       <p class="hero-sub" data-reveal data-delay="2">{description}</p>
       <p class="dim text-mono caption" data-reveal data-delay="3">
@@ -55,9 +64,33 @@ const jsonLd = {
 
   <section style="padding-top:1rem">
     <div class="container" style="max-width:820px">
+      {isNews && (
+        <aside class:list={['article-notice', !confirmed && 'notice-warn']} role="note" aria-label={isBrief ? 'Threat brief notice' : 'Security news notice'}>
+          {!confirmed && (
+            <p><span class="badge badge-amber">Unconfirmed</span> <strong>Not yet confirmed.</strong> The main claim in this {isBrief ? 'brief' : 'article'} has not been confirmed by the affected organization, the vendor or an authority. Treat it as reported, not established.</p>
+          )}
+          <p>
+            <strong>{isBrief ? 'Threat brief.' : 'Security news and analysis.'}</strong> Based on public sources as of {asOf}. Details may change as more information is published; check the sources below for the latest.
+            {isBrief && ' This is general information for defenders, not advice for your environment.'}
+          </p>
+        </aside>
+      )}
+
       <article class="prose">
         <Content />
       </article>
+
+      {sources.length > 0 && (
+        <section class="article-sources" aria-labelledby="sources-h">
+          <h2 id="sources-h">Sources</h2>
+          <ol>
+            {sources.map((src) => (
+              <li><a href={src.url} rel="noopener noreferrer" target="_blank">{src.title}</a></li>
+            ))}
+          </ol>
+          <p class="dim caption">Based on public sources as of {asOf}.</p>
+        </section>
+      )}
 
       <aside class="panel panel-accent" style="margin-top:3rem; padding:2rem">
         <p class="eyebrow">About the author</p>

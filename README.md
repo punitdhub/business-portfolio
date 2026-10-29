@@ -161,3 +161,19 @@ Type scale uses `clamp()` for fluid responsiveness. All motion respects `prefers
 ## 📝 License
 
 © Fortium Group. All rights reserved.
+
+## Insights: guides, threat briefs and industry insights
+
+All articles live in `src/content/insights/` and are typed by `kind` in the front matter:
+
+| kind | Listed at | Extra rendering |
+| --- | --- | --- |
+| `guide` (default) | `/insights/` | none |
+| `insight` (shown as "Security news") | `/insights/security-news/` (latest 3 also on `/insights/`) | "based on public sources as of" notice, Sources list |
+| `threat-brief` | `/insights/threat-briefs/` (latest 3 also on `/insights/`) | Threat brief notice, Sources list |
+
+- `sources` (title + url) is required for `insight` and `threat-brief`; the site renders it, so the body must not repeat it.
+- `confirmed: false` adds an "Unconfirmed" notice on the article and a label in lists.
+- `draft: true` keeps an article out of the production build; `npm run dev` still shows it with a draft banner.
+- `threat-briefs`, `security-news` and `guides` are reserved slugs.
+- `threat-brief-cccs-help-desk-vishing-al26-028.md` is a placeholder format sample and stays `draft: true`.

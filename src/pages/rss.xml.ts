@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { getInsights } from '../data/insights';
+import { getAllInsights } from '../data/insights';
 import { site } from '../config';
 
 const esc = (s: string) =>
@@ -7,7 +7,7 @@ const esc = (s: string) =>
 
 /** RSS 2.0 feed of Insights articles, built at compile time. */
 export const GET: APIRoute = async () => {
-  const posts = await getInsights();
+  const posts = await getAllInsights();
   const items = posts
     .map((p) => {
       const url = `${site.url}/insights/${p.id}/`;
@@ -28,7 +28,7 @@ export const GET: APIRoute = async () => {
     <title>${esc(site.name)} Insights</title>
     <link>${site.url}/insights/</link>
     <atom:link href="${site.url}/rss.xml" rel="self" type="application/rss+xml" />
-    <description>Practitioner-written guides on hiring Cyber and AI Security talent.</description>
+    <description>Practitioner-written guides, industry insights and threat briefs for Cyber and AI Security leaders.</description>
     <language>en-us</language>
 ${items}
   </channel>

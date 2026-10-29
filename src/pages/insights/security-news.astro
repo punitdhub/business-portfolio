@@ -1,0 +1,17 @@
+---
+import InsightSectionPage from '../../components/InsightSectionPage.astro';
+import { getSecurityNews } from '../../data/insights';
+
+const posts = await getSecurityNews();
+---
+<InsightSectionPage
+  posts={posts}
+  name="Security news"
+  path="/insights/security-news"
+  title="Security News — Insights"
+  description="Sourced analysis of security news for security leaders and hiring managers: regulation, leadership, the talent market, funding and AI policy."
+  keywords={['cyber security news', 'security leadership', 'security talent market', 'cyber regulation', 'AI policy']}
+  intro="What happened in regulation, security leadership, the talent market, funding and AI policy, and what it means for security teams. Every article lists its public sources."
+  cta="Read article →"
+  empty="The first security news articles are on the way."
+/>

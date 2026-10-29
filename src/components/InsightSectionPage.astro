@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import InsightCards from './InsightCards.astro';
+import InsightNav from './InsightNav.astro';
+import type { Insight } from '../data/insights';
+import { site } from '../config';
+
+export interface Props {
+  posts: Insight[];
+  name: string;
+  path: string;
+  title: string;
+  description: string;
+  keywords: string[];
+  intro: string;
+  cta: string;
+  empty: string;
+}
+const { posts, name, path, title, description, keywords, intro, cta, empty } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const [first, ...rest] = name.split(' ');
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  name: `${site.name} ${name}`,
+  url: `${site.url}${path}/`,
+  blogPost: posts.map((p) => ({
+    '@type': 'BlogPosting',
+    headline: p.data.title,
+    url: `${site.url}/insights/${p.id}/`,
+    datePublished: p.data.pubDate.toISOString(),
+    author: { '@type': 'Person', name: p.data.author },
+  })),
+};
+---
+<BaseLayout
+  title={title}
+  description={description}
+  path={path}
+  keywords={keywords}
+  breadcrumbs={[{ name: 'Home', path: '/' }, { name: 'Insights', path: '/insights' }, { name, path }]}
+  jsonLd={jsonLd}
+>
+  <section class="hero hero-compact">
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="container hero-inner">
+      <p class="eyebrow" data-reveal><a href={`${base}/insights/`}>Insights</a> / {name}</p>
+      <h1 data-reveal data-delay="1">{first} <span class="accent">{rest.join(' ')}.</span></h1>
+      <p class="hero-sub" data-reveal data-delay="2">{intro}</p>
+      <p class="dim text-mono caption" data-reveal data-delay="3"><a href={site.linkedin} target="_blank" rel="noopener noreferrer">Follow Fortium on LinkedIn for new articles →</a></p>
+    </div>
+  </section>
+
+  <section style="padding-top:1rem">
+    <div class="container">
+      <InsightNav current={path} />
+      {posts.length === 0 && (
+        <p class="lead">{empty} <a href={site.linkedin} target="_blank" rel="noopener noreferrer">Follow Fortium on LinkedIn</a> to hear when they're published.</p>
+      )}
+      <InsightCards posts={posts} cta={cta} />
+    </div>
+  </section>
+</BaseLayout>

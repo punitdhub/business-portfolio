@@ -1,0 +1,17 @@
+---
+import InsightSectionPage from '../../components/InsightSectionPage.astro';
+import { getThreatBriefs } from '../../data/insights';
+
+const posts = await getThreatBriefs();
+---
+<InsightSectionPage
+  posts={posts}
+  name="Threat briefs"
+  path="/insights/threat-briefs"
+  title="Threat Briefs — Insights"
+  description="Short, sourced threat briefs for security teams: what is confirmed, what is not known yet, and what to check this week."
+  keywords={['threat brief', 'cyber threat intelligence', 'CISA KEV', 'vulnerability management', 'security operations']}
+  intro="What is confirmed, what is not known yet, and what to check this week. Every brief lists its public sources."
+  cta="Read brief →"
+  empty="The first threat briefs are on the way."
+/>
