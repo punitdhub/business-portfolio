@@ -41,7 +41,7 @@ const jsonLd = {
       <p class="hero-sub" data-reveal data-delay="2">
         Salary data, hiring playbooks, and interview frameworks for Cyber and AI Security — written by practitioners, not marketers.
       </p>
-      <p class="dim text-mono caption" data-reveal data-delay="3"><a href={`${base}/rss.xml`}>Subscribe via RSS →</a></p>
+      <p class="dim text-mono caption" data-reveal data-delay="3"><a href={site.linkedin} target="_blank" rel="noopener noreferrer">Follow Fortium on LinkedIn for new articles →</a></p>
     </div>
   </section>
 
@@ -50,7 +50,7 @@ const jsonLd = {
       <InsightNav current="/insights" />
       <p class="eyebrow">Hiring guides</p>
       {guides.length === 0 && (
-        <p class="lead">New articles are on the way. <a href={`${base}/rss.xml`}>Subscribe via RSS</a> to hear when they're published.</p>
+        <p class="lead">New articles are on the way. <a href={site.linkedin} target="_blank" rel="noopener noreferrer">Follow Fortium on LinkedIn</a> to hear when they're published.</p>
       )}
       <div class="grid grid-3" style="margin-top:1rem">
         {guides.map((p, i) => (
