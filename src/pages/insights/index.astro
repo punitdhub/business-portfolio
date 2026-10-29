@@ -65,10 +65,10 @@ const jsonLd = {
       <p class="eyebrow">Threat briefs</p>
       <h2 style="margin:0.25rem 0 0.5rem">Short, sourced briefs on threats security teams should check this week.</h2>
       {briefs.length > 0 ? (
-        <div class="grid grid-3" style="margin-top:1rem">
+        <div class="grid grid-3 grid-fill" style="margin-top:1rem">
           {briefs.map((p) => (
             <a class="panel role-card" href={`${base}/insights/${p.id}/`}>
-              <span class="text-mono dim caption">{formatDate(p.data.pubDate)}</span>
+              <span class="text-mono dim caption card-meta">{formatDate(p.data.pubDate)}</span>
               {!p.data.confirmed && <span class="badge badge-amber">Unconfirmed</span>}
               <h3 class="role-h" style="margin:0.25rem 0 0">{p.data.title}</h3>
               <span class="text-accent">Read brief →</span>

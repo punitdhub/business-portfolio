@@ -1919,3 +1919,5 @@ h2.eyebrow { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 500
 .article-sources ol { padding-left: 1.3rem; margin: 0 0 0.75rem; }
 .article-sources li + li { margin-top: 0.4rem; }
 .article-sources a { text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
+.grid-fill { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+.role-card .card-meta { align-self: flex-start; text-align: left; }

@@ -45,10 +45,10 @@ const jsonLd = {
       {briefs.length === 0 && (
         <p class="lead">The first threat briefs are on the way. <a href={`${base}/rss.xml`}>Subscribe via RSS</a> to hear when they're published.</p>
       )}
-      <div class="grid grid-3">
+      <div class="grid grid-3 grid-fill">
         {briefs.map((p, i) => (
           <a class="panel role-card" href={`${base}/insights/${p.id}/`} data-reveal data-delay={(i % 3) + 1}>
-            <span class="text-mono dim caption">{formatDate(p.data.pubDate)} · {readingTime(p)}</span>
+            <span class="text-mono dim caption card-meta">{formatDate(p.data.pubDate)} · {readingTime(p)}</span>
             {!p.data.confirmed && <span class="badge badge-amber">Unconfirmed</span>}
             <h2 class="role-h" style="margin:0.25rem 0 0">{p.data.title}</h2>
             <p class="muted">{p.data.description}</p>
