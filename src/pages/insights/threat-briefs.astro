@@ -1,61 +1,17 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getThreatBriefs, readingTime, formatDate } from '../../data/insights';
-import { site } from '../../config';
+import InsightSectionPage from '../../components/InsightSectionPage.astro';
+import { getThreatBriefs } from '../../data/insights';
 
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const briefs = await getThreatBriefs();
-
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Blog',
-  name: `${site.name} Threat Briefs`,
-  url: `${site.url}/insights/threat-briefs/`,
-  blogPost: briefs.map((p) => ({
-    '@type': 'BlogPosting',
-    headline: p.data.title,
-    url: `${site.url}/insights/${p.id}/`,
-    datePublished: p.data.pubDate.toISOString(),
-    author: { '@type': 'Person', name: p.data.author },
-  })),
-};
+const posts = await getThreatBriefs();
 ---
-<BaseLayout
+<InsightSectionPage
+  posts={posts}
+  name="Threat briefs"
+  path="/insights/threat-briefs"
   title="Threat Briefs — Insights"
   description="Short, sourced threat briefs for security teams: what is confirmed, what is not known yet, and what to check this week."
-  path="/insights/threat-briefs"
   keywords={['threat brief', 'cyber threat intelligence', 'CISA KEV', 'vulnerability management', 'security operations']}
-  breadcrumbs={[{ name: 'Home', path: '/' }, { name: 'Insights', path: '/insights' }, { name: 'Threat briefs', path: '/insights/threat-briefs' }]}
-  jsonLd={jsonLd}
->
-  <section class="hero hero-compact">
-    <div class="grid-bg" aria-hidden="true"></div>
-    <div class="container hero-inner">
-      <p class="eyebrow" data-reveal><a href={`${base}/insights/`}>Insights</a> / Threat briefs</p>
-      <h1 data-reveal data-delay="1">Threat <span class="accent">briefs.</span></h1>
-      <p class="hero-sub" data-reveal data-delay="2">
-        What is confirmed, what is not known yet, and what to check this week. Every brief lists its public sources.
-      </p>
-      <p class="dim text-mono caption" data-reveal data-delay="3"><a href={`${base}/rss.xml`}>Subscribe via RSS →</a></p>
-    </div>
-  </section>
-
-  <section style="padding-top:1rem">
-    <div class="container">
-      {briefs.length === 0 && (
-        <p class="lead">The first threat briefs are on the way. <a href={`${base}/rss.xml`}>Subscribe via RSS</a> to hear when they're published.</p>
-      )}
-      <div class="grid grid-3 grid-fill">
-        {briefs.map((p, i) => (
-          <a class="panel role-card" href={`${base}/insights/${p.id}/`} data-reveal data-delay={(i % 3) + 1}>
-            <span class="text-mono dim caption card-meta">{formatDate(p.data.pubDate)} · {readingTime(p)}</span>
-            {!p.data.confirmed && <span class="badge badge-amber">Unconfirmed</span>}
-            <h2 class="role-h" style="margin:0.25rem 0 0">{p.data.title}</h2>
-            <p class="muted">{p.data.description}</p>
-            <span class="text-accent">Read brief →</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-</BaseLayout>
+  intro="What is confirmed, what is not known yet, and what to check this week. Every brief lists its public sources."
+  cta="Read brief →"
+  empty="The first threat briefs are on the way."
+/>

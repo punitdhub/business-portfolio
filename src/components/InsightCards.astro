@@ -1,0 +1,25 @@
+---
+import { formatDate, readingTime, type Insight } from '../data/insights';
+
+export interface Props {
+  posts: Insight[];
+  /** Heading level for card titles: h2 on listing pages, h3 inside a section. */
+  heading?: 'h2' | 'h3';
+  cta?: string;
+  showDescription?: boolean;
+}
+const { posts, heading = 'h2', cta = 'Read article →', showDescription = true } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const H = heading;
+---
+<div class="grid grid-3 grid-fill">
+  {posts.map((p, i) => (
+    <a class="panel role-card" href={`${base}/insights/${p.id}/`} data-reveal data-delay={(i % 3) + 1}>
+      <span class="text-mono dim caption card-meta">{formatDate(p.data.pubDate)} · {readingTime(p)}</span>
+      {!p.data.confirmed && <span class="badge badge-amber">Unconfirmed</span>}
+      <H class="role-h" style="margin:0.25rem 0 0">{p.data.title}</H>
+      {showDescription && <p class="muted">{p.data.description}</p>}
+      <span class="text-accent">{cta}</span>
+    </a>
+  ))}
+</div>

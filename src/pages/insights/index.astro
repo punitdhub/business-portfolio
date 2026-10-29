@@ -1,10 +1,14 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getInsights, getThreatBriefs, readingTime, formatDate, kindLabel } from '../../data/insights';
+import InsightCards from '../../components/InsightCards.astro';
+import InsightNav from '../../components/InsightNav.astro';
+import { getAllInsights, getGuides, getSecurityNews, getThreatBriefs, readingTime, formatDate } from '../../data/insights';
 import { site } from '../../config';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const posts = await getInsights();
+const posts = await getAllInsights();
+const guides = await getGuides();
+const news = (await getSecurityNews()).slice(0, 3);
 const briefs = (await getThreatBriefs()).slice(0, 3);
 
 const jsonLd = {
@@ -23,7 +27,7 @@ const jsonLd = {
 ---
 <BaseLayout
   title="Insights — Cyber & AI Security Hiring"
-  description="Practitioner-written guides on hiring Cyber and AI Security talent: salary data, hiring playbooks, and interview frameworks."
+  description="Practitioner-written hiring guides, security news analysis and threat briefs for Cyber and AI Security leaders."
   path="/insights"
   keywords={['cyber security hiring guide', 'AI security salary', 'how to hire a CISO', 'AI red team hiring', 'security recruiting insights']}
   breadcrumbs={[{ name: 'Home', path: '/' }, { name: 'Insights', path: '/insights' }]}
@@ -43,14 +47,15 @@ const jsonLd = {
 
   <section style="padding-top:1rem">
     <div class="container">
-      {posts.length === 0 && (
+      <InsightNav current="/insights" />
+      <p class="eyebrow">Hiring guides</p>
+      {guides.length === 0 && (
         <p class="lead">New articles are on the way. <a href={`${base}/rss.xml`}>Subscribe via RSS</a> to hear when they're published.</p>
       )}
-      <div class="grid grid-3">
-        {posts.map((p, i) => (
+      <div class="grid grid-3" style="margin-top:1rem">
+        {guides.map((p, i) => (
           <a class="panel role-card" href={`${base}/insights/${p.id}/`} data-reveal data-delay={(i % 3) + 1}>
-            <span class="text-mono dim caption">{kindLabel[p.data.kind]} · {formatDate(p.data.pubDate)} · {readingTime(p)}</span>
-            {!p.data.confirmed && <span class="badge badge-amber">Unconfirmed</span>}
+            <span class="text-mono dim caption">{formatDate(p.data.pubDate)} · {readingTime(p)}</span>
             <h2 class="role-h" style="margin:0.25rem 0 0">{p.data.title}</h2>
             <p class="muted">{p.data.description}</p>
             <span class="text-accent">Read article →</span>
@@ -62,19 +67,23 @@ const jsonLd = {
 
   <section class="section-tight">
     <div class="container">
+      <p class="eyebrow">Security news</p>
+      <h2 style="margin:0.25rem 0 0.5rem">What changed in regulation, leadership and the talent market, and what it means for security teams.</h2>
+      {news.length > 0 ? (
+        <div style="margin-top:1rem"><InsightCards posts={news} heading="h3" /></div>
+      ) : (
+        <p class="muted">The first security news articles are on the way.</p>
+      )}
+      <p style="margin-top:1rem"><a class="text-accent" href={`${base}/insights/security-news/`}>All security news →</a></p>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
       <p class="eyebrow">Threat briefs</p>
       <h2 style="margin:0.25rem 0 0.5rem">Short, sourced briefs on threats security teams should check this week.</h2>
       {briefs.length > 0 ? (
-        <div class="grid grid-3 grid-fill" style="margin-top:1rem">
-          {briefs.map((p) => (
-            <a class="panel role-card" href={`${base}/insights/${p.id}/`}>
-              <span class="text-mono dim caption card-meta">{formatDate(p.data.pubDate)}</span>
-              {!p.data.confirmed && <span class="badge badge-amber">Unconfirmed</span>}
-              <h3 class="role-h" style="margin:0.25rem 0 0">{p.data.title}</h3>
-              <span class="text-accent">Read brief →</span>
-            </a>
-          ))}
-        </div>
+        <div style="margin-top:1rem"><InsightCards posts={briefs} heading="h3" cta="Read brief →" showDescription={false} /></div>
       ) : (
         <p class="muted">The first threat briefs are on the way.</p>
       )}

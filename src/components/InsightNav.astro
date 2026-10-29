@@ -1,0 +1,17 @@
+---
+export interface Props {
+  current: string;
+}
+const { current } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const links = [
+  { label: 'All', path: '/insights' },
+  { label: 'Security news', path: '/insights/security-news' },
+  { label: 'Threat briefs', path: '/insights/threat-briefs' },
+];
+---
+<nav class="insight-nav" aria-label="Insights sections">
+  {links.map((l) => (
+    <a href={`${base}${l.path}/`} aria-current={l.path === current ? 'page' : undefined}>{l.label}</a>
+  ))}
+</nav>
