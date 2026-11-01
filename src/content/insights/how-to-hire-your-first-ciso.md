@@ -44,7 +44,7 @@ Whichever you choose, give the leader a direct line to the board for risk report
 
 ## Step 4: Set realistic compensation
 
-CISO pay varies more than almost any other security role. Published 2026 data puts the US median at roughly [$321,000 (Glassdoor) to $385,000 (Salary.com)](https://cybersecurityventures.com/2026-ciso-salary-and-compensation-data/), with CISOs at the largest enterprises closer to $500,000 and some well above that.
+CISO pay varies more than almost any other security role. Published 2026 data puts the US median at roughly $321,000 (Glassdoor) to $385,000 (Salary.com), as compiled in [Cybersecurity Ventures' 2026 CISO Report](https://cybersecurityventures.com/2026-ciso-compensation-data-salaries-bonuses-equity/), with CISOs at the largest enterprises closer to $500,000 and some well above that.
 
 Growth-stage companies hiring a first security leader usually pay below those enterprise figures in base salary and make up the difference with **meaningful equity** and scope. Two practical tips:
 
