@@ -13,11 +13,18 @@ const { post } = Astro.props as { post: Insight };
 const { Content } = await render(post);
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const path = `/insights/${post.id}`;
-const { title, description, pubDate, updatedDate, author, tags, kind, confirmed, sources, draft } = post.data;
+const { title, description, pubDate, updatedDate, author, tags, kind, confirmed, sources, draft, glance } = post.data;
 const isBrief = kind === 'threat-brief';
 const isNews = kind !== 'guide';
 const asOf = formatDate(updatedDate ?? pubDate);
 const section = kindSection[kind];
+
+// News-style Threat Brief layout: kicker + topic tags, dateline, larger lede, "At a glance" box.
+// The kicker already says "Threat brief", so a leading "Threat Brief:" is dropped from the on-page headline
+// (the page <title>, metadata and listings keep the full title).
+const briefHeadline = isBrief ? title.replace(/^threat brief:\s*/i, '') : title;
+const briefTopics = tags.filter((t) => !/^threat briefs?$/i.test(t)).slice(0, 3);
+const isoDate = pubDate.toISOString().slice(0, 10);
 
 // "Keep reading": same kind first, then anything else.
 const others = (await getAllInsights()).filter((p) => p.id !== post.id);
@@ -54,21 +61,39 @@ const jsonLd = {
         <a href={`${base}/insights/`}>Insights</a>{isNews && <> / <a href={`${base}${section.path}/`}>{section.name}</a></>}
       </p>
       {draft && <p class="article-notice notice-warn" role="note"><strong>Draft preview.</strong> This article has <code>draft: true</code> and is not included in the live site build.</p>}
-      <h1 data-reveal data-delay="1" style="font-size:clamp(2rem, 3.4vw + 0.6rem, 3.1rem)">{title}</h1>
-      <p class="hero-sub" data-reveal data-delay="2">{description}</p>
-      <p class="dim text-mono caption" data-reveal data-delay="3">
-        By <a href={`${base}/about/`}>{author}</a> · {formatDate(pubDate)}{updatedDate && ` · Updated ${formatDate(updatedDate)}`} · {readingTime(post)}
-      </p>
+      {isBrief ? (
+        <>
+          <p class="brief-kicker" data-reveal data-delay="1">
+            <span class="brief-kicker-tag">Threat brief</span>
+            {briefTopics.length > 0 && <span>{briefTopics.join(' · ')}</span>}
+          </p>
+          <h1 class="brief-title" data-reveal data-delay="1">{briefHeadline}</h1>
+          <p class="brief-dateline" data-reveal data-delay="2">
+            <strong>Toronto, <time datetime={pubDate.toISOString()}>{isoDate}</time></strong>
+            {' · '}{site.name} Insights · By <a href={`${base}/about/`}>{author}</a>{updatedDate && ` · Updated ${updatedDate.toISOString().slice(0, 10)}`} · {readingTime(post)}
+          </p>
+        </>
+      ) : (
+        <>
+          <h1 data-reveal data-delay="1" style="font-size:clamp(2rem, 3.4vw + 0.6rem, 3.1rem)">{title}</h1>
+          <p class="hero-sub" data-reveal data-delay="2">{description}</p>
+          <p class="dim text-mono caption" data-reveal data-delay="3">
+            By <a href={`${base}/about/`}>{author}</a> · {formatDate(pubDate)}{updatedDate && ` · Updated ${formatDate(updatedDate)}`} · {readingTime(post)}
+          </p>
+        </>
+      )}
     </div>
   </section>
 
   <section style="padding-top:1rem">
     <div class="container" style="max-width:820px">
-      {isNews && (
-        <aside class:list={['article-notice', !confirmed && 'notice-warn']} role="note" aria-label={isBrief ? 'Threat brief notice' : 'Security news notice'}>
-          {!confirmed && (
-            <p><span class="badge badge-amber">Unconfirmed</span> <strong>Not yet confirmed.</strong> The main claim in this {isBrief ? 'brief' : 'article'} has not been confirmed by the affected organization, the vendor or an authority. Treat it as reported, not established.</p>
-          )}
+      {isNews && !confirmed && (
+        <aside class="article-notice notice-warn" role="note" aria-label="Unconfirmed notice">
+          <p><span class="badge badge-amber">Unconfirmed</span> <strong>Not yet confirmed.</strong> The main claim in this {isBrief ? 'brief' : 'article'} has not been confirmed by the affected organization, the vendor or an authority. Treat it as reported, not established.</p>
+        </aside>
+      )}
+      {isNews && !isBrief && (
+        <aside class:list={['article-notice', isBrief && 'brief-notice']} role="note" aria-label={isBrief ? 'Threat brief notice' : 'Security news notice'}>
           <p>
             <strong>{isBrief ? 'Threat brief.' : 'Security news and analysis.'}</strong> Based on public sources as of {asOf}. Details may change as more information is published; check the sources below for the latest.
             {isBrief && ' This is general information for defenders, not advice for your environment.'}
@@ -76,9 +101,26 @@ const jsonLd = {
         </aside>
       )}
 
-      <article class="prose">
+      <article class:list={['prose', isBrief && 'brief-body']}>
+        {isBrief && glance.length > 0 && (
+          <aside class="brief-glance" aria-labelledby="glance-h">
+            <h2 id="glance-h">At a glance</h2>
+            <dl>
+              {glance.map((g) => (<><dt>{g.label}</dt><dd>{g.value}</dd></>))}
+            </dl>
+          </aside>
+        )}
         <Content />
       </article>
+
+      {isBrief && (
+        <aside class:list={['article-notice', isBrief && 'brief-notice']} role="note" aria-label={isBrief ? 'Threat brief notice' : 'Security news notice'}>
+          <p>
+            <strong>{isBrief ? 'Threat brief.' : 'Security news and analysis.'}</strong> Based on public sources as of {asOf}. Details may change as more information is published; check the sources below for the latest.
+            {isBrief && ' This is general information for defenders, not advice for your environment.'}
+          </p>
+        </aside>
+      )}
 
       {sources.length > 0 && (
         <section class="article-sources" aria-labelledby="sources-h">
