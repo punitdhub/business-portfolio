@@ -1932,3 +1932,46 @@ h2.eyebrow { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 500
 }
 .insight-nav a:hover { color: var(--text); border-color: var(--accent); }
 .insight-nav a[aria-current='page'] { color: var(--text); border-color: var(--accent); background: rgba(var(--accent-rgb), 0.08); }
+
+/* ---------------------------------------------------------------
+   THREAT BRIEF — news-style article layout (kind: threat-brief)
+   --------------------------------------------------------------- */
+.brief-kicker {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.75rem;
+  margin: 0.75rem 0 0;
+  font-family: var(--font-mono); font-size: 0.74rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent);
+}
+.brief-kicker-tag { border: 1px solid var(--accent); border-radius: 3px; padding: 0.25rem 0.5rem; }
+.hero h1.brief-title { font-size: clamp(1.8rem, 2.2vw + 1rem, 2.6rem); letter-spacing: -0.02em; line-height: 1.15; margin: 0.9rem 0 0.9rem; }
+.hero.hero-compact:has(.brief-title) { padding-bottom: 1rem; }
+.brief-dateline {
+  margin: 0; padding-bottom: 1rem; border-bottom: 1px solid var(--border);
+  font-size: 0.88rem; color: var(--text-muted);
+}
+.brief-dateline strong { text-transform: uppercase; letter-spacing: 0.04em; }
+
+/* Body: larger lede; "At a glance" sits visually right after it. */
+.brief-body { display: flex; flex-direction: column; }
+.brief-body > :first-child:is(p),
+.brief-body > .brief-glance + p { font-size: 1.22rem; line-height: 1.6; }
+.brief-body > .brief-glance + p { order: -1; margin-top: 0; }
+.brief-body h2 { font-size: clamp(1.15rem, 0.6vw + 1rem, 1.35rem); margin-top: 2.1rem; }
+.brief-body > h2 + * { margin-top: 0.6rem; }
+.brief-glance {
+  background: var(--surface-2); border: 1px solid var(--border); border-left: 4px solid var(--accent);
+  border-radius: 6px; padding: 1rem 1.2rem; font-size: 0.95rem; line-height: 1.5;
+}
+.brief-glance h2 {
+  margin: 0 0 0.6rem; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted);
+}
+.brief-glance dl { display: grid; grid-template-columns: max-content 1fr; gap: 0.4rem 1rem; margin: 0; }
+.brief-glance dt { font-weight: 600; color: var(--text); }
+.brief-glance dd { margin: 0; color: var(--text); }
+@media (max-width: 520px) {
+  .brief-glance dl { grid-template-columns: 1fr; gap: 0.1rem; }
+  .brief-glance dd + dt { margin-top: 0.5rem; }
+}
+.brief-notice { margin-top: 2.5rem; }
+.brief-body > .brief-glance { margin-top: 1.4rem; }

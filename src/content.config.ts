@@ -37,6 +37,19 @@ const insights = defineCollection({
           }),
         )
         .default([]),
+      /**
+       * Threat briefs only: optional "At a glance" box shown after the first paragraph.
+       * Each row is a short label and value, e.g. { label: 'Fix', value: 'PHP release of 2026-10-21' }.
+       * Leave it out and the box is hidden.
+       */
+      glance: z
+        .array(
+          z.object({
+            label: z.string().min(1),
+            value: z.string().min(1),
+          }),
+        )
+        .default([]),
     })
     .refine((d) => d.kind === 'guide' || d.sources.length > 0, {
       message: 'Threat briefs and insights must list at least one source in `sources`.',
